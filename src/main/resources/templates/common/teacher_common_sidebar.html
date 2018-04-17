@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="sidebar" class="sidebar-fixed" th:fragment="teacher_common_siderbar">
+       <div id="sidebar-content">
+           <!--=== Navigation ===-->
+           <ul id="nav">
+               <li>
+                   <a href="javascript:void(0);">
+                       <i class="icon-dashboard"></i>
+                       题目管理
+                       <span class="label label-info pull-right"></span>
+                   </a>
+                   <ul class="sub-menu">
+                       <li>
+                           <a href="question_add">
+                               <i class="icon-angle-right"></i>
+                               添加题目
+                           </a>
+                       </li>
+                       <li>
+                           <a href="own_questions">
+                               <i class="icon-angle-right"></i>
+                               我的题目
+                           </a>
+                       </li>
+                       <li>
+                           <a href="question_all">
+                               <i class="icon-angle-right"></i>
+                               题目列表
+                           </a>
+                       </li>
+                   </ul>
+               </li>
+               <li>
+                   <a href="javascript:void(0);">
+                       <i class="icon-edit"></i>
+                       试卷管理
+                       <span class="label label-info pull-right"></span>
+                   </a>
+                   <ul class="sub-menu">
+                       <li>
+                           <a href="paper_add">
+                               <i class="icon-angle-right"></i>
+                               添加试卷
+                           </a>
+                       </li>
+                       <li>
+                           <a href="own_paper">
+                               <i class="icon-angle-right"></i>
+                               我的试卷
+                           </a>
+                       </li>
+                       <li>
+                           <a href="paper_all">
+                               <i class="icon-angle-right"></i>
+                               试卷列表
+                           </a>
+                       </li>
+                   </ul>
+               <li>
+                   <a href="javascript:void(0);">
+                       <i class="icon-edit"></i>
+                       考试管理
+                       <span class="label label-info pull-right"></span>
+                   </a>
+                   <ul class="sub-menu">
+                       <li>
+                           <a href="exam_add">
+                               <i class="icon-angle-right"></i>
+                               添加考试
+                           </a>
+                       </li>
+                       <li>
+                           <a href="exam_published">
+                               <i class="icon-angle-right"></i>
+                               发布的考试
+                           </a>
+                       </li>
+                       <li>
+                           <a href="exam_solutionset">
+                               <i class="icon-angle-right"></i>
+                               学生答卷
+                           </a>
+                       </li>
+                   </ul>
+               <li>
+                   <a href="javascript:void(0);">
+                       <i class="icon-edit"></i>
+                       课程管理
+                       <span class="label label-info pull-right"></span>
+                   </a>
+                   <ul class="sub-menu">
+                       <li>
+                           <a href="teacher_Course.html">
+                               <i class="icon-angle-right"></i>
+                               添加课程
+                           </a>
+                       </li>
+                       <li>
+                           <a href="teacher_my_Course.html">
+                               <i class="icon-angle-right"></i>
+                               我的课程
+                           </a>
+                       </li>
+                       <li>
+                           <a href="teacher_all_Course.html">
+                               <i class="icon-angle-right"></i>
+                               课程列表
+                           </a>
+                       </li>
+                   </ul>
+               <li>
+           </ul><!-- /Navigation -->
+       </div> <!--/sidebar-content-->
+       <div id="divider" class="resizeable"></div>
+   </div>
+   <!-- /Sidebar -->
+</body>
+</html>

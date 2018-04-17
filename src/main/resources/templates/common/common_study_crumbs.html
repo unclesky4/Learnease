@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="crumbs" th:fragment="common_study_crumbs">
+		<ul id="breadcrumbs" class="breadcrumb">
+			<li>
+				<i class="icon-home"></i>
+				<a href="javascript:void(0);">学习中心</a>
+			</li>
+			<li class="current">
+				<a href="javascript:void(0);" title="">所有课程</a>
+			</li>
+		</ul>
+
+		<ul class="crumb-buttons">
+			<li><a href="/" title=""><i class="icon-tasks"></i><span>所有课程</span></a></li>
+			<li><a href="course_student" title=""><i class="icon-list"></i><span>我的课程</span></a></li>
+			<li><a href="solutionset_student" title=""><i class="icon-list"></i><span>我的答卷</span></a></li>
+			<li><a href="test_student" title=""><i class="icon-tasks"></i><span>我的考试</span></a></li>
+			<li><a href="problem_student" title=""><i class="icon-list"></i><span>已刷题目</span></a></li>
+			<li class="dropdown"><a href="javascript:void(0);" title="" data-toggle="dropdown"><i class="icon-tasks"></i>题目列表<i class="icon-angle-down left-padding"></i></a>
+				<ul class="dropdown-menu pull-right">
+				<li><a href="simple_list_student" title=""></i>单选题</a></li>
+				<li><a href="multiple_list_student" title=""></i>多选题</a></li>
+				<li><a href="judgement_list_student" title=""></i>判断题</a></li>
+				<li><a href="blank_list_student" title=""></i>填空题</a></li>
+				<li><a href="program_list_student" title=""></i>编程题</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<!-- /Breadcrumbs line -->
+</body>
+</html>

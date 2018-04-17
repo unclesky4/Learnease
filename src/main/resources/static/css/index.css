@@ -1,0 +1,63 @@
+.learnease_row_bg {
+	background-color: #FFF;
+	border-top: 1px solid #d9d9d9;
+	margin: 0 -20px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 25px;
+}
+.learnease_img_div {
+	width:75px; 
+	height: 70px;
+	text-align: center; 
+	margin-right: 5px; 
+	padding-bottom: 10px; 
+	float: left; 
+	overflow: hidden;
+	-webkit-box-sizing: content-box; 
+	-moz-box-sizing: content-box; 
+	box-sizing: content-box;
+}
+.learnease_coursename {
+	text-align: right;
+	width:178px; 
+	height: 45px;
+	font-size: 16px;
+	font-weight: 600; 
+	overflow: hidden;
+}
+.learnease_teachername {
+	color: #adadad;
+	display: block;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	padding-top:3px; 
+	text-align: right;
+}
+.learnease_view_course {
+	clear: both;
+	display: block;
+	padding: 5px 10px;
+	text-transform: uppercase;
+	font-weight: 300;
+	font-size: 11px;
+	opacity: 0.7;
+	margin: -10px;
+	margin-top: 10px;
+	border-top: 1px solid #d9d9d9;
+	text-align: center; 
+	background-color: #0099FF; 
+	color: #FFF;
+}
+.learnease_view_course:hover {
+	color: #330000;
+}
+.learnease_view_course:focus {
+	opacity: 1;
+	text-decoration: none;
+}
+.learnease_view_course:active {
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
+	border-top-color: #cccccc;
+}

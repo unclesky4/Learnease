@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Learnease</title>
+
+    <!--=== CSS ===-->
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery UI -->
+    <!--<link href="plugins/jquery-ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />-->
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+    <![endif]-->
+
+    <!-- Theme -->
+    <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="assets/css/fontawesome/font-awesome.min.css">
+    <!--[if IE 7]>
+        <link rel="stylesheet" href="assets/css/fontawesome/font-awesome-ie7.min.css">
+    <![endif]-->
+
+    <!--=== JavaScript ===-->
+
+    <!--<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script>-->
+    <script type="text/javascript" src="extensions/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/libs/lodash.compat.min.js"></script>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+        <script src="assets/js/libs/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Smartphone Touch Events -->
+    <script type="text/javascript" src="plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="plugins/event.swipe/jquery.event.move.js"></script>
+    <script type="text/javascript" src="plugins/event.swipe/jquery.event.swipe.js"></script>
+
+    <!-- General -->
+    <script type="text/javascript" src="assets/js/libs/breakpoints.js"></script>
+    <script type="text/javascript" src="plugins/respond/respond.min.js"></script> <!-- Polyfill for min/max-width CSS3 Media Queries (only for IE8) -->
+    <script type="text/javascript" src="plugins/cookie/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+
+    <!-- Page specific plugins -->
+    <!-- Charts -->
+    <script type="text/javascript" src="plugins/sparkline/jquery.sparkline.min.js"></script>
+
+    <script type="text/javascript" src="plugins/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="plugins/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="plugins/blockui/jquery.blockUI.min.js"></script>
+
+    <!-- Forms -->
+    <script type="text/javascript" src="plugins/typeahead/typeahead.min.js"></script> <!-- AutoComplete -->
+    <script type="text/javascript" src="plugins/autosize/jquery.autosize.min.js"></script>
+    <script type="text/javascript" src="plugins/inputlimiter/jquery.inputlimiter.min.js"></script>
+    <script type="text/javascript" src="plugins/uniform/jquery.uniform.min.js"></script> <!-- Styled radio and checkboxes -->
+    <script type="text/javascript" src="plugins/tagsinput/jquery.tagsinput.min.js"></script>
+    <script type="text/javascript" src="plugins/select2/select2.min.js"></script> <!-- Styled select boxes -->
+    <script type="text/javascript" src="plugins/fileinput/fileinput.js"></script>
+    <script type="text/javascript" src="plugins/duallistbox/jquery.duallistbox.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap-inputmask/jquery.inputmask.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap-wysihtml5/wysihtml5.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
+
+    <!-- Globalize -->
+    <script type="text/javascript" src="plugins/globalize/globalize.js"></script>
+    <script type="text/javascript" src="plugins/globalize/cultures/globalize.culture.de-DE.js"></script>
+    <script type="text/javascript" src="plugins/globalize/cultures/globalize.culture.ja-JP.js"></script>
+
+    <!-- App -->
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="assets/js/plugins.js"></script>
+    <script type="text/javascript" src="assets/js/plugins.form-components.js"></script>
+
+    <!--wangEditor-->
+    <link rel="stylesheet" href="extensions/wangEditor2.1/dist/css/wangEditor.min.css">
+    <script type="text/javascript" src="extensions/wangEditor2.1/dist/js/wangEditor.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+        "use strict";
+
+        App.init(); // Init layout and core plugins
+        Plugins.init(); // Init all plugins
+        FormComponents.init(); // Init all form-specific plugins
+    });
+    </script>
+
+    <!-- Demo JS -->
+    <script type="text/javascript" src="assets/js/custom.js">
+        var editor = new wangEditor('demo');
+        editor=create();
+    </script>
+    
+    <script type="text/javascript" src="js/base.js"></script>
+    
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header navbar navbar-fixed-top" role="banner">
+        <!-- Top Navigation Bar -->
+        <div class="container">
+
+            <!-- Only visible on smartphones, menu toggle -->
+            <ul class="nav navbar-nav">
+                <li class="nav-toggle"><a href="javascript:void(0);" title=""><i class="icon-reorder"></i></a></li>
+            </ul>
+
+            <!-- Logo -->
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/img/logo.png" alt="logo" />
+                <strong>Learnease</strong>
+            </a>
+            <!-- /logo -->
+
+            <!-- Sidebar Toggler -->
+            <a href="#" class="toggle-sidebar bs-tooltip" data-placement="bottom" data-original-title="Toggle navigation">
+                <i class="icon-reorder"></i>
+            </a>
+            <!-- /Sidebar Toggler -->
+
+            <!-- Top Left Menu -->
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a href="user_profile.html">
+                        用户主页
+                    </a>
+                </li>
+                <li>
+                    <a href="study_center.html">
+                        学习中心
+                    </a>
+                </li>
+                <li>
+                    <a href="teacher_center.html">
+                        教师中心
+                    </a>
+                </li>
+            </ul>
+            <!-- Top Right Menu -->
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Messages -->
+                <li class="dropdown hidden-xs hidden-sm">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-envelope"></i>
+                        <span class="badge">1</span>
+                    </a>
+                    <ul class="dropdown-menu extended notification">
+                        <li class="title">
+                            <p>You have 3 new messages</p>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="photo"><img src="assets/img/demo/avatar-1.jpg" alt=""/></span>
+    								<span class="subject">
+    									<span class="from">Bob Carter</span>
+    									<span class="time">Just Now</span>
+    								</span>
+    								<span class="text">
+    									Consetetur sadipscing elitr...
+    								</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="photo"><img src="assets/img/demo/avatar-2.jpg" alt=""/></span>
+    								<span class="subject">
+    									<span class="from">Jane Doe</span>
+    									<span class="time">45 mins</span>
+    								</span>
+    								<span class="text">
+    									Sed diam nonumy...
+    								</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="photo"><img src="assets/img/demo/avatar-3.jpg" alt=""/></span>
+    								<span class="subject">
+    									<span class="from">Patrick Nilson</span>
+    									<span class="time">6 hours</span>
+    								</span>
+    								<span class="text">
+    									No sea takimata sanctus...
+    								</span>
+                            </a>
+                        </li>
+                        <li class="footer">
+                            <a href="javascript:void(0);">View all messages</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- User Login Dropdown -->
+                <li class="dropdown user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <!--<img alt="" src="assets/img/avatar1_small.jpg" />-->
+                        <i class="icon-male"></i>
+                        <span class="username" id="show_username">John Doe</span>
+                        <i class="icon-caret-down small"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="login.html" onclick="logout();"><i class="icon-off"></i> Log Out</a></li>
+                    </ul>
+                </li>
+                <!-- /user login dropdown -->
+            </ul>
+            <!-- /Top Right Menu -->
+        </div>
+        <!-- /top navigation bar -->
+        
+    </header> <!-- /.header -->
+
+    <div id="container">
+        <div id="sidebar" class="sidebar-fixed">
+            <div id="sidebar-content">
+                <!--=== Navigation ===-->
+                <ul id="nav">
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="icon-dashboard"></i>
+                            题目管理
+                            <span class="label label-info pull-right"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="teacher_topic.html">
+                                    <i class="icon-angle-right"></i>
+                                    添加题目
+                                </a>
+                            </li>
+                            <li>
+                                <a href="teacher_my_topic.html">
+                                    <i class="icon-angle-right"></i>
+                                    我的题目
+                                </a>
+                            </li>
+                            <li>
+                                <a href="teacher_all_topic.html">
+                                    <i class="icon-angle-right"></i>
+                                    题目列表
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="icon-edit"></i>
+                            试卷管理
+                            <span class="label label-info pull-right"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="teacher_paper.html">
+                                    <i class="icon-angle-right"></i>
+                                    添加试卷
+                                </a>
+                            </li>
+                            <li>
+                                <a href="teacher_my_paper.html">
+                                    <i class="icon-angle-right"></i>
+                                    我的试卷
+                                </a>
+                            </li>
+                            <li>
+                                <a href="teacher_all_paper.html">
+                                    <i class="icon-angle-right"></i>
+                                    试卷列表
+                                </a>
+                            </li>
+                        </ul>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="icon-edit"></i>
+                            考试管理
+                            <span class="label label-info pull-right"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="teacher_exam.html">
+                                    <i class="icon-angle-right"></i>
+                                    添加考试
+                                </a>
+                            </li>
+                            <li>
+                                <a href="teacher_publish_exam.html">
+                                    <i class="icon-angle-right"></i>
+                                    发布的考试
+                                </a>
+                            </li>
+                            <li>
+                                <a href="teacher_respond_exam.html">
+                                    <i class="icon-angle-right"></i>
+                                    学生答卷
+                                </a>
+                            </li>
+                        </ul>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="icon-edit"></i>
+                            课程管理
+                            <span class="label label-info pull-right"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="teacher_Course.html">
+                                    <i class="icon-angle-right"></i>
+                                    添加课程
+                                </a>
+                            </li>
+                            <li>
+                                <a href="teacher_my_Course.html">
+                                    <i class="icon-angle-right"></i>
+                                    我的课程
+                                </a>
+                            </li>
+                            <li>
+                                <a href="teacher_all_Course.html">
+                                    <i class="icon-angle-right"></i>
+                                    课程列表
+                                </a>
+                            </li>
+                        </ul>
+                    <li>
+                </ul><!-- /Navigation -->
+            </div> <!--/sidebar-content-->
+            <div id="divider" class="resizeable"></div>
+        </div>
+        <!-- /Sidebar -->
+
+        <div id="content">
+            <div class="container">
+                <!--=== Page Content ===-->
+                <!--=== Inline Tabs ===-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Tabs-->
+                        <div class="tabbable tabbable-custom tabbable-full-width">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab_questionsimple" data-toggle="tab">单选题</a></li>
+                                <li><a href="#tab_questionmultiple" data-toggle="tab">多选题</a></li>
+                                <li><a href="#tab_questionjudgement" data-toggle="tab">判断题</a></li>
+                                <li><a href="#tab_questionblank" data-toggle="tab">填空题</a></li>
+                                <li><a href="#tab_questionprogram" data-toggle="tab">编程题</a></li>
+                            </ul>
+                            <div class="tab-content row">
+
+                                <!--=== tab_questionsimple ===-->
+                                <div class="tab-pane active" id="tab_questionsimple">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="widget box">
+                                                <div class="widget-header">
+                                                    <h4><i class="icon-reorder"></i> 添加单选题</h4>
+                                                </div>
+                                                <div class="widget-content">
+                                                    <form class="form-horizontal row-border" action="#">
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题号:</label>
+                                                            <div class="col-md-10"><input type="text" name="regular" class="form-control" id="questionsimple_questionNumber"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">主题:</label>
+                                                            <div class="col-md-10"><input class="form-control" name="regular" type="text" name="regular" id="questionsimple_topic"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题目:</label> 
+                                                            <div class="col-md-10"><div id="questionsimple_questionName" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题目描述:</label> 
+                                                            <div class="col-md-10"><div id="questionsimple_description" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">选项内容:</label>
+                                                            <div class="col-md-10"><input type="text" id="questionsimple_options" class="tags " value="答案A"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">难度:</label>
+                                                            <div class="col-md-10" style="margin-top: -10px;">
+                                                                <div class="row next-row">
+                                                                    <div class="col-md-12">
+                                                                        <select class="form-control" name="select" id="questionsimple_difficulty">
+                                                                            <option value="1">★</option>
+                                                                            <option value="2">★★</option>
+                                                                            <option value="3">★★★</option>
+                                                                            <option value="4">★★★★</option>
+                                                                            <option value="5">★★★★★</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div> <!--.row -->
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">参考答案:</label>
+                                                            <div class="col-md-10"><input class="form-control" name="regular" type="text" name="regular" id="questionsimple_answerContent"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">参考答案分析:</label> 
+                                                            <div class="col-md-10"><div id="questionsimple_analyse" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">标签:</label>
+                                                            <div class="col-md-10"><input type="text" id="questionsimple_labels" class="tags" value="编程"></div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+													<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveQuestionSimple();">保存</button>
+												</div>
+                                            </div>
+                                        </div>
+                                    </div><!--Forms -->
+                                </div>
+                                <!-- /tab_questionsimple -->
+
+                                <!--=== tab_questionmultiple ===-->
+                                <div class="tab-pane" id="tab_questionmultiple">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="widget box">
+                                                <div class="widget-header">
+                                                    <h4><i class="icon-reorder"></i> 添加多选题</h4>
+                                                </div>
+                                                <div class="widget-content">
+                                                    <form class="form-horizontal row-border" action="#">
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题号:</label>
+                                                            <div class="col-md-10"><input type="text" name="regular" class="form-control" id="questionmultiple_questionNumber"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">主题:</label>
+                                                            <div class="col-md-10"><input class="form-control" name="regular" type="text" name="regular" id="questionmultiple_topic"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题目:</label> 
+                                                            <div class="col-md-10"><div id="questionmultiple_questionName" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题目描述:</label> 
+                                                            <div class="col-md-10"><div id="questionmultiple_description" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">选项内容:</label>
+                                                            <div class="col-md-10"><input type="text" id="questionmultiple_options" class="tags " value="答案A"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">难度:</label>
+                                                            <div class="col-md-10" style="margin-top: -10px;">
+                                                                <div class="row next-row">
+                                                                    <div class="col-md-12">
+                                                                        <select class="form-control" name="select" id="questionmultiple_difficulty">
+                                                                            <option value="1">★</option>
+                                                                            <option value="2">★★</option>
+                                                                            <option value="3">★★★</option>
+                                                                            <option value="4">★★★★</option>
+                                                                            <option value="5">★★★★★</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div> <!--.row -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">参考答案:</label>
+                                                            <div class="col-md-10"><input type="text" id="questionmultiple_answerContent" class="tags" value="参考答案1"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">参考答案分析:</label> 
+                                                            <div class="col-md-10"><div id="questionmultiple_analyse" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <!-- <div class="form-group">
+                                                            <label class="col-md-2 control-label">标签:</label>
+                                                            <div class="col-md-10"><input type="text" id="questionmultiple_labels" class="tags" value="编程"></div>
+                                                        </div> -->
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">标签:</label>
+                                                            <div class="col-md-10"><input type="text" id="questionmultiple_labels" class="tags" value="sdf"></div>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+													<button type="button" class="btn btn-primary" onclick="saveQuestionMultiple();" data-dismiss="modal">保存</button>
+												</div>
+                                            </div>
+                                        </div>
+                                    </div><!--Forms -->
+                                </div>
+                                <!-- /tab_questionmultiple -->
+
+                                <!--=== tab_questionjudgement ===-->
+                                <div class="tab-pane" id="tab_questionjudgement">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="widget box">
+                                                <div class="widget-header">
+                                                    <h4><i class="icon-reorder"></i> 添加判断题</h4>
+                                                </div>
+                                                <div class="widget-content">
+                                                    <form class="form-horizontal row-border" action="#">
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题号:</label>
+                                                            <div class="col-md-10"><input type="text" name="regular" class="form-control" id="questionjudgement_questionNumber"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">主题:</label>
+                                                            <div class="col-md-10"><input class="form-control" name="regular" type="text" name="regular" id="questionjudgement_topic"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题目:</label> 
+                                                            <div class="col-md-10"><div id="questionjudgement_questionName" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题目描述:</label> 
+                                                            <div class="col-md-10"><div id="questionjudgement_description" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <!-- <div class="form-group">
+                                                            <label class="col-md-2 control-label">选项内容:</label>
+                                                            <div class="col-md-10"><input type="text" id="questionjudgement_options" class="tags " value="对 错"></div>
+                                                        </div> -->
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">难度:</label>
+                                                            <div class="col-md-10" style="margin-top: -10px;">
+                                                                <div class="row next-row">
+                                                                    <div class="col-md-12">
+                                                                        <select class="form-control" name="select" id="questionjudgement_difficulty">
+                                                                            <option value="1">★</option>
+                                                                            <option value="2">★★</option>
+                                                                            <option value="3">★★★</option>
+                                                                            <option value="4">★★★★</option>
+                                                                            <option value="5">★★★★★</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div> <!--.row -->
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">标准答案:</label>
+                                                            <div class="col-md-10" style="margin-top: -10px;">
+                                                                <div class="row next-row">
+                                                                    <div class="col-md-12">
+                                                                        <select class="form-control" name="select" id="questionjudgement_answerContent">
+                                                                            <option value="对">对</option>
+                                                                            <option value="错">错</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div><!--.row -->
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">参考答案分析:</label> 
+                                                            <div class="col-md-10"><div id="questionjudgement_analyse" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">标签:</label>
+                                                            <div class="col-md-10"><input type="text" id="questionjudgement_labels" class="tags" value="sdf"></div>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+													<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveQuestionJudgement();">保存</button>
+												</div>
+                                            </div>
+                                        </div>
+                                    </div><!--Forms -->
+                                </div>
+                                <!-- /tab_questionjudgement -->
+
+                                <!--=== tab_questionblank ===-->
+                                <div class="tab-pane" id="tab_questionblank">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="widget box">
+                                                <div class="widget-header">
+                                                    <h4><i class="icon-reorder"></i> 添加填空题</h4>
+                                                </div>
+                                                <div class="widget-content">
+                                                    <form class="form-horizontal row-border" action="#">
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题号:</label>
+                                                            <div class="col-md-10"><input type="text" name="regular" class="form-control" id="questionblank_questionNumber"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">主题:</label>
+                                                            <div class="col-md-10"><input class="form-control" name="regular" type="text" name="regular" id="questionmlank_topic"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题目:</label> 
+                                                            <div class="col-md-10"><div id="questionblank_questionName" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题目描述:</label> 
+                                                            <div class="col-md-10"><div id="questionblank_description" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">难度:</label>
+                                                            <div class="col-md-10" style="margin-top: -10px;">
+                                                                <div class="row next-row">
+                                                                    <div class="col-md-12">
+                                                                        <select class="form-control" name="select" id="questionmblank_difficulty">
+                                                                            <option value="1">★</option>
+                                                                            <option value="2">★★</option>
+                                                                            <option value="3">★★★</option>
+                                                                            <option value="4">★★★★</option>
+                                                                            <option value="5">★★★★★</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div> <!--.row -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">参考答案:</label>
+                                                            <div class="col-md-10"><input type="text" id="questionmblank_answerContent" class="tags" value="请按顺序输入答案"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">参考答案分析:</label> 
+                                                            <div class="col-md-10"><div id="questionblank_analyse" style="height:200px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">标签:</label>
+                                                            <div class="col-md-10"><input type="text" id="questionblank_labels" class="tags" value="sdf"></div>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+													<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveQuestionBlank();">保存</button>
+												</div>
+                                            </div>
+                                        </div>
+                                    </div><!--Forms -->
+                                </div>
+                                <!-- /tab_questionblank -->
+
+                                <!--=== tab_questionprogram ===-->
+                                <div class="tab-pane" id="tab_questionprogram">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="widget box">
+                                                <div class="widget-header">
+                                                    <h4><i class="icon-reorder"></i> 添加编程题</h4>
+                                                </div>
+                                                <div class="widget-content">
+                                                    <form class="form-horizontal row-border" action="#">
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题号:</label>
+                                                            <div class="col-md-10"><input type="text" name="regular" class="form-control" id="questionprogram_questionNumber"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">主题:</label>
+                                                            <div class="col-md-10"><input class="form-control" name="regular" type="text" name="regular" id="questionprogram_topic"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题目:</label> 
+                                                            <div class="col-md-10"><div id="questionprogram_questionName" style="height:150px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">题目描述:</label> 
+                                                            <div class="col-md-10"><div id="questionprogram_description" style="height:150px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">难度:</label>
+                                                            <div class="col-md-10" style="margin-top: -10px;">
+                                                                <div class="row next-row">
+                                                                    <div class="col-md-12">
+                                                                        <select class="form-control" name="select" id="questionprogram_difficulty">
+                                                                            <option value="1">★</option>
+                                                                            <option value="2">★★</option>
+                                                                            <option value="3">★★★</option>
+                                                                            <option value="4">★★★★</option>
+                                                                            <option value="5">★★★★★</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div> <!--.row -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">参考答案:</label>
+                                                            <div class="col-md-10"><div id="questionprogram_answerContent" style="height:250px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">参考答案分析:</label> 
+                                                            <div class="col-md-10"><div id="questionprogram_analyse" style="height:150px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">标签:</label>
+                                                            <div class="col-md-10"><input type="text" id="questionprogram_labels" class="tags" value="sdf"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">输入:</label>
+                                                            <div class="col-md-10"><div id="questionprogram_input" style="height:150px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">输出:</label>
+                                                            <div class="col-md-10"><div id="questionprogram_output" style="height:150px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">输入示例:</label>
+                                                            <div class="col-md-10"><div id="questionprogram_exampleInput" style="height:150px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">输出示例:</label>
+                                                            <div class="col-md-10"><div id="questionprogram_exampleOutput" style="height:150px;"></div></div> 
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">提示:</label>
+                                                            <div class="col-md-10"><div id="questionprogram_hint" style="height:150px;"></div></div> 
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+													<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveQuestionProgram();">保存</button>
+												</div>
+                                            </div>
+                                        </div>
+                                    </div><!--Forms -->
+                                </div>
+                                <!-- /tab_questionprogram -->
+
+                            </div> <!-- /.tab-content -->
+                        </div>
+                        <!--END TABS-->
+                    </div>
+                </div> <!-- /.row -->
+                <!-- /Page Content -->
+            <!-- /Page Content -->
+        </div>
+    <!-- /.container -->
+    </div>
+</div>
+<script type="text/javascript">
+    //单选题页面元素初始化
+    var questionName_editor = new wangEditor('questionsimple_questionName');
+    var description_editor = new wangEditor('questionsimple_description');
+    var analyse_editor = new wangEditor('questionsimple_analyse');
+    questionName_editor.config.menus = [
+        'bold',
+        'italic',
+        'eraser',
+        'forecolor',
+        'bgcolor',
+        'insertcode'
+     ];
+     description_editor.config.menus = [
+        'bold',
+        'italic',
+        'eraser',
+        'forecolor',
+        'bgcolor',
+        'insertcode'
+     ];
+     analyse_editor.config.menus = [
+        'bold',
+        'italic',
+        'eraser',
+        'forecolor',
+        'bgcolor',
+        'insertcode'
+     ];
+    questionName_editor.create();
+    description_editor.create();
+    analyse_editor.create();
+
+
+    //多选题页面元素初始化
+    var questionmultiple_questionName_editor = new wangEditor('questionmultiple_questionName');
+    var questionmultiple_description_editor = new wangEditor('questionmultiple_description');
+    var questionmultiple_analyse_editor = new wangEditor('questionmultiple_analyse');
+    questionmultiple_questionName_editor.config.menus = [
+        'bold',
+        'italic',
+        'eraser',
+        'forecolor',
+        'bgcolor',
+        'insertcode'
+     ];
+     questionmultiple_description_editor.config.menus = [
+        'bold',
+        'italic',
+        'eraser',
+        'forecolor',
+        'bgcolor',
+        'insertcode'
+     ];
+     questionmultiple_analyse_editor.config.menus = [
+        'bold',
+        'italic',
+        'eraser',
+        'forecolor',
+        'bgcolor',
+        'insertcode'
+     ];
+    questionmultiple_questionName_editor.create();
+    questionmultiple_description_editor.create();
+    questionmultiple_analyse_editor.create();
+
+    //判断题页面元素初始化
+    var questionjudgement_questionName_editor = new wangEditor('questionjudgement_questionName');
+    var questionjudgement_description_editor = new wangEditor('questionjudgement_description');
+    var questionjudgement_analyse_editor = new wangEditor('questionjudgement_analyse');
+    questionjudgement_questionName_editor.config.menus = [
+        'bold',
+        'italic',
+        'eraser',
+        'forecolor',
+        'bgcolor',
+        'insertcode'
+    ];
+    questionjudgement_description_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionjudgement_analyse_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionjudgement_questionName_editor.create();
+    questionjudgement_description_editor.create();
+    questionjudgement_analyse_editor.create();
+
+    //填空题页面元素初始化
+    var questionblank_questionName_editor = new wangEditor('questionblank_questionName');
+    var questionblank_description_editor = new wangEditor('questionblank_description');
+    var questionblank_analyse_editor = new wangEditor('questionblank_analyse');
+    questionblank_questionName_editor.config.menus = [
+        'bold',
+        'italic',
+        'eraser',
+        'forecolor',
+        'bgcolor',
+        'insertcode'
+    ];
+    questionblank_description_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionblank_analyse_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionblank_questionName_editor.create();
+    questionblank_description_editor.create();
+    questionblank_analyse_editor.create();
+ 	// 初始化编辑器的内容 --填空题
+    questionblank_questionName_editor.$txt.html('<p>填空的输入位置用"@\\d@"来标识</p>');
+
+    //编程题页面元素初始化
+    var questionprogram_questionName_editor = new wangEditor('questionprogram_questionName');
+    var questionprogram_description_editor = new wangEditor('questionprogram_description');
+    var questionprogram_answerContent_editor = new wangEditor('questionprogram_answerContent');
+    var questionprogram_analyse_editor = new wangEditor('questionprogram_analyse');
+    var questionprogram_input_editor = new wangEditor('questionprogram_input');
+    var questionprogram_output_editor = new wangEditor('questionprogram_output');
+    var questionprogram_exampleinput_editor = new wangEditor('questionprogram_exampleInput');
+    var questionprogram_exampleoutput_editor = new wangEditor('questionprogram_exampleOutput');
+    var questionprogram_hint_editor = new wangEditor('questionprogram_hint');
+    questionprogram_questionName_editor.config.menus = [
+        'bold',
+        'italic',
+        'eraser',
+        'forecolor',
+        'bgcolor',
+        'insertcode'
+    ];
+    questionprogram_description_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionprogram_analyse_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionprogram_answerContent_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionprogram_input_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionprogram_output_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionprogram_exampleinput_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionprogram_exampleoutput_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionprogram_hint_editor.config.menus = [
+    'bold',
+    'italic',
+    'eraser',
+    'forecolor',
+    'bgcolor',
+    'insertcode'
+    ];
+    questionprogram_questionName_editor.create();
+    questionprogram_description_editor.create();
+    questionprogram_answerContent_editor.create();
+    questionprogram_analyse_editor.create();
+    questionprogram_input_editor.create();
+    questionprogram_output_editor.create();
+    questionprogram_exampleinput_editor.create();
+    questionprogram_exampleoutput_editor.create();
+    questionprogram_hint_editor.create();
+</script>
+<script type="text/javascript" src="js/saveProblem.js"></script>
+</body>
+</html>

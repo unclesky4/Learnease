@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>LearnEase</title>
+
+	<!--=== CSS ===-->
+
+	<!-- Bootstrap -->
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- jQuery UI -->
+	<!--<link href="plugins/jquery-ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />-->
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+	<![endif]-->
+
+	<!-- Theme -->
+	<link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+
+	<link rel="stylesheet" href="assets/css/fontawesome/font-awesome.min.css">
+	<!--[if IE 7]>
+		<link rel="stylesheet" href="assets/css/fontawesome/font-awesome-ie7.min.css">
+	<![endif]-->
+
+	<!--[if IE 8]>
+		<link href="assets/css/ie8.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+
+	<!--=== JavaScript ===-->
+
+	<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/libs/lodash.compat.min.js"></script>
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="assets/js/libs/html5shiv.js"></script>
+	<![endif]-->
+
+	<!-- Smartphone Touch Events -->
+	<script type="text/javascript" src="plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript" src="plugins/event.swipe/jquery.event.move.js"></script>
+	<script type="text/javascript" src="plugins/event.swipe/jquery.event.swipe.js"></script>
+
+	<!-- General -->
+	<script type="text/javascript" src="assets/js/libs/breakpoints.js"></script>
+	<script type="text/javascript" src="plugins/respond/respond.min.js"></script> <!-- Polyfill for min/max-width CSS3 Media Queries (only for IE8) -->
+	<script type="text/javascript" src="plugins/cookie/jquery.cookie.min.js"></script>
+	<script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+
+	<!-- Page specific plugins -->
+	<!-- Charts -->
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="plugins/flot/excanvas.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="plugins/sparkline/jquery.sparkline.min.js"></script>
+	<script type="text/javascript" src="plugins/flot/jquery.flot.min.js"></script>
+	<script type="text/javascript" src="plugins/flot/jquery.flot.tooltip.min.js"></script>
+	<script type="text/javascript" src="plugins/flot/jquery.flot.resize.min.js"></script>
+	<script type="text/javascript" src="plugins/flot/jquery.flot.time.min.js"></script>
+	<script type="text/javascript" src="plugins/flot/jquery.flot.growraf.min.js"></script>
+
+	<script type="text/javascript" src="plugins/daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="plugins/daterangepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="plugins/blockui/jquery.blockUI.min.js"></script>
+
+	<!-- App -->
+	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script type="text/javascript" src="assets/js/plugins.js"></script>
+	<script type="text/javascript" src="assets/js/plugins.form-components.js"></script>
+
+	<script>
+	$(document).ready(function(){
+		"use strict";
+
+		App.init(); // Init layout and core plugins
+		Plugins.init(); // Init all plugins
+		FormComponents.init(); // Init all form-specific plugins
+	});
+	</script>
+
+	<!-- Demo JS -->
+	<script type="text/javascript" src="assets/js/custom.js"></script>
+	<script type="text/javascript" src="assets/js/demo/charts/chart_filled_blue.js"></script>
+	
+</head>
+
+<body>
+	<header class="header navbar navbar-fixed-top" role="banner" th:include="/common/common_navigation :: common-navidation">
+	</header> <!-- /.header -->
+
+	<div id="container" class="sidebar-closed">
+
+		<div id="content">
+			<div class="container">
+				<!-- Breadcrumbs line -->
+				<!-- <div class="crumbs">
+					<ul id="breadcrumbs" class="breadcrumb">
+						<li>
+							<i class="icon-home"></i>
+							<a href="index.html">用户主页</a>
+						</li>
+					</ul>
+				
+					<ul class="crumb-buttons">
+						<li><a href="javascript:void(0);" title=""><i class="icon-info-sign"></i><span>帐号信息</span></a></li>
+						<li><a href="javascript:void(0);" title=""><i class="icon-user"></i><span>学生角色</span></a></li>
+						<li><a href="javascript:void(0);" title=""><i class="icon-user"></i><span>教师角色</span></a></li>
+						<li><a href="javascript:void(0);" title=""><i class="icon-pencil"></i><span>修改密码</span></a></li>
+						
+					</ul>
+				</div> -->
+				<!-- /Breadcrumbs line -->
+
+				<!--=== Page Content ===-->
+				<!--=== Inline Tabs ===-->
+				<div class="row">
+					<div class="col-md-12">
+						<!-- Tabs-->
+						<div class="tabbable tabbable-custom tabbable-full-width">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#tab_overview" data-toggle="tab">帐号信息</a></li>
+								<li><a href="#tab_role" data-toggle="tab">角色信息</a></li>
+								<li><a href="#tab_resetPwd" data-toggle="tab">修改密码</a></li>
+							</ul>
+							<div class="tab-content row">
+
+								<!--=== user info ===-->
+								<div class="tab-pane active" id="tab_overview">
+									<form class="form-horizontal" action="#">
+										<div class="col-md-12">
+											<div class="widget">
+												<br/>
+												<div class="widget-header">
+													<h4>基本信息</h4>
+												</div>
+												<div class="widget-content">
+													<div class="row">
+														<span id="user_id" class="access_span"></span>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label class="col-md-4 control-label">邮箱:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control" disabled="disabled" id="user_email"/></div>
+															</div>
+															<br/>
+															<div class="form-group">
+																<label class="col-md-4 control-label">昵称:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control" id="user_name" /></div>
+															</div>
+														</div>
+
+
+														<div class="col-md-6">
+															<div class="form-group">
+																<label class="col-md-4 control-label">注册时间:</label>
+																<div class="col-md-8">
+																	<input type="text" name="regular" class="form-control" disabled="disabled" id="register_time" />
+																	<!-- <select class="form-control">
+																		<option value="male" selected="selected">Male</option>
+																		<option value="female">Female</option>
+																	</select> -->
+																</div>
+															</div>
+															<br/>
+															<div class="form-group">
+																<label class="col-md-4 control-label">验证状态:</label>
+																<div class="col-md-8">
+																	<!-- <input type="text" name="regular" class="form-control input-width-small" value="28"> -->
+																	<input type="text" name="regular" class="form-control" disabled="disabled" id="user_status">
+																</div>
+															</div>
+														</div>
+													</div> <!-- /.row -->
+												</div> <!-- /.widget-content -->
+											</div> <!-- /.widget -->
+										</div> <!-- /.col-md-12 -->
+
+										<div class="form-actions">
+											<input type="button" id="user_btn" value="修改信息" onclick="update_user();" class="btn btn-primary pull-right">
+										</div>
+									</form>
+								</div>
+								<!-- /user info -->
+
+								<!--=== role info ===-->
+								<div class="tab-pane" id="tab_role">
+									<form class="form-horizontal" action="#">
+										<div class="col-md-12">
+											<div class="widget">
+												<br/>
+												<div class="widget-header">
+													<h4>学生角色信息</h4>
+												</div>
+												<div class="widget-content">
+													<div class="row">
+														<span id="stu_id" style="display:none"></span>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label class="col-md-4 control-label">姓名:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control" id="stu_name"></div>
+															</div>
+
+															<div class="form-group">
+																<label class="col-md-4 control-label">学院:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control" id="stu_academy"></div>
+															</div>
+															
+															<div class="form-group">
+																<label class="col-md-4 control-label">入学年份:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control" id="register_year"></div>
+															</div>
+															
+															<div class="form-group">
+																<label class="col-md-4 control-label">学号:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control" id="stu_idcard"></div>
+															</div>
+														</div>
+
+
+														<div class="col-md-6">
+															<div class="form-group">
+																<label class="col-md-4 control-label">性别:</label>
+																<div class="col-md-8">
+																	<select class="form-control" id="stu_sex">
+																		<option value="男" selected="selected">男</option>
+																		<option value="女">女</option>
+																	</select>
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="col-md-4 control-label">班级:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control input-width-normal" id="stu_class"></div>
+															</div>
+															
+															<div class="form-group">
+																<label class="col-md-4 control-label">验证状态:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control input-width-normal" disabled="disabled" id="stu_status"></div>
+															</div>
+														</div>
+													</div> <!-- /.row -->
+												</div> <!-- /.widget-content -->
+											</div> <!-- /.widget -->
+										</div> <!-- /.col-md-12 -->
+										
+										<div class="form-actions">
+											<input type="button" value="申请学生角色" onclick="showModal('student');" class="btn btn-primary pull-right apply_student">
+											<input type="button" value="更新学生信息" onclick="updateStudent();" class="btn btn-primary pull-right update_student">
+										</div>
+									</form>
+
+									<form class="form-horizontal" action="#">
+										<div class="col-md-12">
+											<div class="widget">
+												<br/>
+												<div class="widget-header">
+													<h4>教师角色信息</h4>
+												</div>
+												<div class="widget-content">
+													<div class="row">
+														<span id="teacher_id" style="display:none"></span>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label class="col-md-4 control-label">姓名:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control" id="teacher_name"></div>
+															</div>
+
+															<div class="form-group">
+																<label class="col-md-4 control-label">职工号:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control" id="teacher_idCard"></div>
+															</div>
+															
+															<div class="form-group">
+																<label class="col-md-4 control-label">电话:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control" id="teacher_phone"></div>
+															</div>
+														</div>
+
+
+														<div class="col-md-6">
+															<div class="form-group">
+																<label class="col-md-4 control-label">性别:</label>
+																<div class="col-md-8">
+																	<select class="form-control" id="teacher_sex">
+																		<option value=""></option>
+																		<option value="男">男</option>
+																		<option value="女">女</option>
+																	</select>
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="col-md-4 control-label">学科:</label>
+																<div class="col-md-8"><input type="text" name="regular" class="form-control input-width-normal" id="teacher_subject"></div>
+															</div>
+															
+															<div class="form-group">
+																<label class="col-md-4 control-label">验证状态:</label>
+																<div class="col-md-8"><input type="text" name="regular" id="teacher_status" disabled="disabled" class="form-control input-width-normal"></div>
+															</div>
+														</div>
+													</div> <!-- /.row -->
+												</div> <!-- /.widget-content -->
+											</div> <!-- /.widget -->
+										</div> <!-- /.col-md-12 -->
+										
+										<div class="form-actions">
+											<input type="button" value="申请教师角色" onclick="showModal('teacher');" class="btn btn-primary pull-right apply_teacher">
+											<input type="button" value="更新教师信息" onclick="updateTeacher();" class="btn btn-primary pull-right update_teacher">
+										</div>
+									</form>
+								</div>
+								<!-- /role info -->
+
+								<!--=== update password ===-->
+								<div class="tab-pane" id="tab_resetPwd">
+									<form class="form-horizontal" action="#">
+										<div class="col-md-12">
+											<div class="widget">
+												<div class="widget-content">
+													<div class="row">
+														<div class="col-md-8 col-lg-10" style="margin-left: 10%;">
+															<br/>
+															<div class="form-group">
+																<label class="control-label">旧密码:</label>
+																<input type="password" name="old_password" id="old_pwd" class="form-control">
+															</div>
+
+															<div class="form-group">
+																<label class="control-label">新密码:</label>
+																<input type="password" name="new_password" id="new_pwd" class="form-control">
+															</div>
+
+															<div class="form-group">
+																<label class="control-label">确认新密码:</label>
+																<input type="password" name="new_password_repeat" id="new_pwd_repeat" class="form-control">
+															</div>
+														</div>
+													</div> <!-- /.row -->
+
+												</div>
+												</div> <!-- /.widget-content -->
+											</div> <!-- /.widget -->
+											<div class="form-actions">
+												<input type="button" onclick="changePwd();" value="修改密码" class="btn btn-primary pull-right">
+											</div>
+										</div> <!-- /.col-md-12 -->
+
+									</form>
+								</div><!--=== update password ===-->
+
+							</div> <!-- /.tab-content -->
+						</div>
+						<!--END TABS-->
+					</div>
+				</div> <!-- /.row -->
+				<!-- /Page Content -->
+			</div>
+			<!-- /.container -->
+
+		</div>
+	</div>
+	
+	<!-- 模态框 -->
+	<div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">学生姓名:(长度不能超过12)</label>
+	            <input type="text" id="_stuName" class="form-control">
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">性别:</label>
+	            <select class="form-control" id="_stuSex">
+					<option value="男" selected="selected">男</option>
+					<option value="女">女</option>
+				</select>
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">学生学号:(长度不能超过12)</label>
+	            <input type="text" id="_idCard" class="form-control">
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">学院:(长度不能超过20)</label>
+	            <input type="text" id="_stuAcademy" class="form-control">
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">班级:</label>
+	            <input type="text" id="_stuClass" class="form-control">
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">入学年份:</label>
+	            <input type="text" id="_stuEntranceTime" class="form-control">
+	          </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	      	<span id="addStudent_result" style="margin-right:200px; color: red;"></span>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	        <button type="button" class="btn btn-primary" onclick="addStudent();">申请</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">姓名:</label>
+	            <input type="text" class="form-control" id="_teacherName">
+	          </div>
+	          <div class="form-group">
+	          	<label for="recipient-name" class="control-label">性别:</label>
+	            <select class="form-control" id="_teacherSex">
+					<option value="男" selected="selected">男</option>
+					<option value="女">女</option>
+				</select>
+	          </div>
+	           <div class="form-group">
+	            <label for="message-text" class="control-label">教师职工号:</label>
+	            <input type="text" class="form-control" id="_teacherIdCard">
+	          </div>
+	           <div class="form-group">
+	            <label for="message-text" class="control-label">学科:</label>
+	            <input class="form-control" id="_teacherSubject"/>
+	          </div>
+	           <div class="form-group">
+	            <label for="message-text" class="control-label">电话:</label>
+	            <input class="form-control" id="_teacherPhone"/>
+	          </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	      	<span id="addTeacher_result" style="margin-right:200px; color: red;"></span>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	        <button type="button" class="btn btn-primary" onclick="addTeacher();">申请</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- /模态框 -->
+	<script type="text/javascript" src="js/authority/user_center.js"></script>
+</body>
+</html>

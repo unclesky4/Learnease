@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>LearnEase</title>
+
+    <!--=== CSS ===-->
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery UI -->
+    <!--<link href="plugins/jquery-ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />-->
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+    <![endif]-->
+
+    <!-- Theme -->
+    <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="assets/css/fontawesome/font-awesome.min.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="assets/css/fontawesome/font-awesome-ie7.min.css">
+    <![endif]-->
+
+    <!--[if IE 8]>
+    <link href="assets/css/ie8.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>  -->
+
+    <!--=== JavaScript ===-->
+
+    <script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/libs/lodash.compat.min.js"></script>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="assets/js/libs/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Smartphone Touch Events -->
+    <script type="text/javascript" src="plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="plugins/event.swipe/jquery.event.move.js"></script>
+    <script type="text/javascript" src="plugins/event.swipe/jquery.event.swipe.js"></script>
+
+    <!-- General -->
+    <script type="text/javascript" src="assets/js/libs/breakpoints.js"></script>
+    <script type="text/javascript" src="plugins/respond/respond.min.js"></script> <!-- Polyfill for min/max-width CSS3 Media Queries (only for IE8) -->
+    <script type="text/javascript" src="plugins/cookie/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+
+    <!-- Page specific plugins -->
+    <!-- Charts -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="plugins/flot/excanvas.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.resize.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.time.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.growraf.min.js"></script>
+    <script type="text/javascript" src="plugins/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+
+    <script type="text/javascript" src="plugins/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="plugins/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="plugins/blockui/jquery.blockUI.min.js"></script>
+
+    <script type="text/javascript" src="plugins/fullcalendar/fullcalendar.min.js"></script>
+
+    <!-- Noty -->
+    <script type="text/javascript" src="plugins/noty/jquery.noty.js"></script>
+    <script type="text/javascript" src="plugins/noty/layouts/top.js"></script>
+    <script type="text/javascript" src="plugins/noty/themes/default.js"></script>
+
+    <!-- Forms -->
+    <script type="text/javascript" src="plugins/uniform/jquery.uniform.min.js"></script>
+    <script type="text/javascript" src="plugins/select2/select2.min.js"></script>
+
+    <!-- App -->
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="assets/js/plugins.js"></script>
+    <script type="text/javascript" src="assets/js/plugins.form-components.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            "use strict";
+
+            App.init(); // Init layout and core plugins
+            Plugins.init(); // Init all plugins
+            FormComponents.init(); // Init all form-specific plugins
+        });
+    </script>
+
+    <!-- Demo JS -->
+    <script type="text/javascript" src="assets/js/custom.js"></script>
+    <script type="text/javascript" src="assets/js/demo/pages_calendar.js"></script>
+    <script type="text/javascript" src="assets/js/demo/charts/chart_filled_blue.js"></script>
+    <script type="text/javascript" src="assets/js/demo/charts/chart_simple.js"></script>
+</head>
+
+<body>
+	<header class="header navbar navbar-fixed-top" role="banner" th:include="/common/common_navigation :: teacher-common-navidation">
+	</header> <!-- /.header -->
+
+	<div id="container">
+		<div id="sidebar" class="sidebar-fixed">
+		    <div id="sidebar-content">
+		        <!--=== Navigation ===-->
+		        <ul id="nav">
+		            <li>
+		                <a href="javascript:void(0);">
+		                    <i class="icon-dashboard"></i>
+		                    题目管理
+		                    <span class="label label-info pull-right"></span>
+		                </a>
+		                <ul class="sub-menu">
+		                    <li>
+		                        <a href="teacher_topic.html">
+		                            <i class="icon-angle-right"></i>
+		                            添加题目
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="teacher_my_topic.html">
+		                            <i class="icon-angle-right"></i>
+		                            我的题目
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="teacher_all_topic.html">
+		                            <i class="icon-angle-right"></i>
+		                            题目列表
+		                        </a>
+		                    </li>
+		                </ul>
+		            </li>
+		            <li>
+		                <a href="javascript:void(0);">
+		                    <i class="icon-edit"></i>
+		                    试卷管理
+		                    <span class="label label-info pull-right"></span>
+		                </a>
+		                <ul class="sub-menu">
+		                    <li>
+		                        <a href="teacher_paper.html">
+		                            <i class="icon-angle-right"></i>
+		                            添加试卷
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="teacher_my_paper.html">
+		                            <i class="icon-angle-right"></i>
+		                            我的试卷
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="teacher_all_paper.html">
+		                            <i class="icon-angle-right"></i>
+		                            试卷列表
+		                        </a>
+		                    </li>
+		            	</ul>
+		            </li>
+		            <li>
+		                <a href="javascript:void(0);">
+		                    <i class="icon-edit"></i>
+		                    考试管理
+		                    <span class="label label-info pull-right"></span>
+		                </a>
+		                <ul class="sub-menu">
+		                    <li>
+		                        <a href="teacher_exam.html">
+		                            <i class="icon-angle-right"></i>
+		                            添加考试
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="teacher_publish_exam.html">
+		                            <i class="icon-angle-right"></i>
+		                            发布的考试
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="teacher_respond_exam.html">
+		                            <i class="icon-angle-right"></i>
+		                            学生答卷
+		                        </a>
+		                    </li>
+		                </ul>
+		            </li>
+		            <li>
+		                <a href="javascript:void(0);">
+		                    <i class="icon-edit"></i>
+		                    课程管理
+		                    <span class="label label-info pull-right"></span>
+		                </a>
+		                <ul class="sub-menu">
+		                    <li>
+		                        <a href="teacher_Course.html">
+		                            <i class="icon-angle-right"></i>
+		                            添加课程
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="teacher_my_Course.html">
+		                            <i class="icon-angle-right"></i>
+		                            我的课程
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="teacher_all_Course.html">
+		                            <i class="icon-angle-right"></i>
+		                            课程列表
+		                        </a>
+		                    </li>
+		              	</ul>
+		        	</li>
+		       	</ul>
+		    </div>
+		    <div id="divider" class="resizeable"></div>
+		</div><!-- /Sidebar -->
+	</div>
+	
+	<div id="content">
+		<div class="container">
+		</div>
+	</div>
+</body>
+</html>

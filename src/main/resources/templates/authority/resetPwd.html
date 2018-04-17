@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>LearnEase - 重置密码</title>
+	<link href="./Wopop_files/style_log.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./Wopop_files/style.css">
+	<link rel="stylesheet" type="text/css" href="./Wopop_files/userpanel.css">
+	<link rel="stylesheet" type="text/css" href="./Wopop_files/jquery.ui.all.css">
+
+  <script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script>
+
+  <script>
+  $(document).ready(function() {
+    var path = window.location.href;
+    var a = new Array();
+    a = path.split("code=");
+    $("#resetPwd").click(function() {
+      var pwd1 = $.trim($("#userpwd1").val());
+      var pwd2 = $.trim($("#userpwd2").val());
+      if(pwd1 == "" || pwd2 == ""){
+        alert("密码不能为空！");
+        return;
+      }
+      if(pwd1 != pwd2){
+        alert("密码不一致！");
+        return;
+      }
+      $.ajax({
+        url: '/user/resetPwd',
+        dataType: 'json',
+        type: 'post',
+        data: {
+          "code": a[1],
+          "pwd_1": pwd1,
+          "pwd_2": pwd2
+        },
+        success: function(result){
+        	$("#show_info").hide();
+          	$("#show_info").html(result.msg);
+          	$("#show_info").show(500);
+        },
+        error: function() {
+          alert("error");
+        }
+      });
+    });
+    
+  });
+</script>
+</head>
+<body class="login" mycollectionplug="bind">
+	<br/><br/><br/>
+	<div class="login_m">
+	<div class="login_logo"></div>
+	<div class="login_boder">
+	<div class="login_padding" id="login_model">
+
+  		<h2>密码</h2>
+  		<label>
+    		<input type="password" id="userpwd1" class="txt_input txt_input2" onfocus="if (value ==&#39;password&#39;){value =&#39;&#39;}" >
+  		</label>
+  		<h2>确认密码</h2>
+  		<label>
+    		<input type="password" id="userpwd2" class="txt_input txt_input2" onfocus="if (value ==&#39;password&#39;){value =&#39;&#39;}" >
+  		</label>
+ 		<br/>
+		<br/>
+  		<div class="rem_sub">
+  			<div class="rem_sub_l">
+   				<label id="show_info"></label>
+  			</div>
+    		<label>
+      			<input type="button" class="sub_button" name="button" id="resetPwd" value="重置密码" style="opacity: 0.7;">
+    		</label>
+  		</div>
+	</div>
+
+	<div id="forget_model" class="login_padding" style="display:none">
+		<br>
+		<div class="rem_sub">
+			<div class="rem_sub_l"></div>
+    		<label>
+     			<input type="submit" class="sub_buttons" name="button" id="Retrievenow" value="Retrieve now" style="opacity: 0.7;">
+     　　　
+     			<input type="submit" class="sub_button" name="button" id="denglou" value="Return" style="opacity: 0.7;">　　
+    
+    		</label>
+  		</div>
+	</div>
+</body>
+</html>
