@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>LearnEase</title>
+
+    <!--=== CSS ===-->
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery UI -->
+    <!--<link href="plugins/jquery-ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />-->
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+    <![endif]-->
+
+    <!-- Theme -->
+    <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="assets/css/fontawesome/font-awesome.min.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="assets/css/fontawesome/font-awesome-ie7.min.css">
+    <![endif]-->
+
+    <!--[if IE 8]>
+    <link href="assets/css/ie8.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+    <!--=== JavaScript ===-->
+
+    <script type="text/javascript" src="extensions/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/libs/lodash.compat.min.js"></script>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="assets/js/libs/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Smartphone Touch Events -->
+    <script type="text/javascript" src="plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="plugins/event.swipe/jquery.event.move.js"></script>
+    <script type="text/javascript" src="plugins/event.swipe/jquery.event.swipe.js"></script>
+
+    <!-- General -->
+    <script type="text/javascript" src="assets/js/libs/breakpoints.js"></script>
+    <script type="text/javascript" src="plugins/respond/respond.min.js"></script> <!-- Polyfill for min/max-width CSS3 Media Queries (only for IE8) -->
+    <script type="text/javascript" src="plugins/cookie/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+
+    <!-- Page specific plugins -->
+    <!-- Charts -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="plugins/flot/excanvas.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.resize.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.time.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.growraf.min.js"></script>
+    <script type="text/javascript" src="plugins/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+
+    <script type="text/javascript" src="plugins/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="plugins/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="plugins/blockui/jquery.blockUI.min.js"></script>
+
+    <script type="text/javascript" src="plugins/fullcalendar/fullcalendar.min.js"></script>
+
+    <!-- Noty -->
+    <script type="text/javascript" src="plugins/noty/jquery.noty.js"></script>
+    <script type="text/javascript" src="plugins/noty/layouts/top.js"></script>
+    <script type="text/javascript" src="plugins/noty/themes/default.js"></script>
+
+    <!-- Forms -->
+    <script type="text/javascript" src="plugins/uniform/jquery.uniform.min.js"></script>
+    <script type="text/javascript" src="plugins/select2/select2.min.js"></script>
+
+    <!-- App -->
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="assets/js/plugins.js"></script>
+    <script type="text/javascript" src="assets/js/plugins.form-components.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            "use strict";
+
+            App.init(); // Init layout and core plugins
+            Plugins.init(); // Init all plugins
+            FormComponents.init(); // Init all form-specific plugins
+        });
+    </script>
+
+    <!-- Demo JS -->
+    <script type="text/javascript" src="assets/js/custom.js"></script>
+    <script type="text/javascript" src="assets/js/demo/pages_calendar.js"></script>
+    <script type="text/javascript" src="assets/js/demo/charts/chart_filled_blue.js"></script>
+    <script type="text/javascript" src="assets/js/demo/charts/chart_simple.js"></script>
+    
+    <!-- bootstrap table-->
+    <link href='extensions/BootstrapTable/dist/bootstrap-table.min.css' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="extensions/BootstrapTable/dist/bootstrap-table.min.js"></script>
+    
+    <script type="text/javascript" src="js/base.js"></script>
+</head>
+
+<body>
+	<header class="header navbar navbar-fixed-top" role="banner" th:include="/common/common_navigation :: teacher-common-navidation">
+	</header> <!-- /.header -->
+
+	<div id="container">
+		<div id="sidebar" class="sidebar-fixed" th:include="/common/teacher_common_sidebar :: teacher_common_siderbar">
+		</div><!-- /Sidebar -->
+	
+		<div id="content">
+			<div class="container">
+				<!-- Breadcrumbs line -->
+		        <div class="crumbs">
+		            <ul id="breadcrumbs" class="breadcrumb">
+		                <li>
+		                    <i class="icon-home"></i>
+		                    <a href="javascript:void(0);">试卷管理</a>
+		                </li>
+		                <li class="current">
+		                    <a href="javascript:void(0);" title="">我的试卷</a>
+		                </li>
+		            </ul>
+		        </div>
+		        <!-- /Breadcrumbs line -->
+		        
+		        <div class="row">
+		        	<table id="my_questionset"></table>
+		        </div>
+			</div><!-- /.container -->
+			
+			<!-- 修改试卷状态模态框 -->
+			<div class="modal fade" id="questionSetModal" tabindex="-1" role="dialog">
+			 <div class="modal-dialog" role="document">
+			   <div class="modal-content">
+			     <div class="modal-header">
+			       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			       <h4 class="modal-title">修改试卷状态</h4>
+			     </div>
+			     <div class="modal-body">
+			       <div class="widget">
+						<div class="widget-content">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<div class="col-md-8">
+											<span id="change_questionsetId" style="display:none;"></span>
+											<select class="form-control" id="select_status">
+												<option value="PUBLIC" selected="selected">公开</option>
+												<option value="PRIVATE">私有</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div> <!-- /.row -->
+						</div> <!-- /.widget-content -->
+					</div> <!-- /.widget -->
+			     </div>
+			     <div class="modal-footer">
+			       <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			       <button type="button" class="btn btn-primary" onclick="changeStatus();">修改</button>
+			     </div>
+			   </div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+			<!-- /修改试卷状态模态框 -->
+		   </div>
+		</div>
+	</div>
+	<script>
+		var questionSetTable = $("#my_questionset");
+		questionSetTable.bootstrapTable({
+			url: "/learnease/questionset/getOwnQuestionSet.action",
+			method:'GET',
+			sortOrder: 'desc',
+		    dataType:'json',
+		    contentType: "application/json",
+		    striped: true,   //是否显示行间隔色
+		    singleSelect: false,
+		    cache: false,
+		    search: true,        //查找输入框
+		    showColumns: false,      //True to show the columns drop down list
+		    showRefresh: true,    //True to show the refresh button
+		    showPaginationSwitch: false,
+		    pagination:true,
+		    sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+		    pageNumber:1,                       //初始化加载第一页，默认第一页
+	           pageSize: 10,                       //每页的记录行数（*）
+	          	pageList: [25, 35, 50],        //可供选择的每页的行数（*）
+	    //      	uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+			columns: [{
+		        field: 'id',
+		        title: '主键',
+		        align: 'center',
+		        visible: false
+		    }, {
+		        field: 'name',
+		        title: '试卷名称',
+		        align: 'center'
+		    }, {
+		        field: 'author',
+		        title: '提交人',
+		        align: 'center'
+		    },{
+		        field: 'status',
+		        title: '试卷状态',
+		        align: 'center'
+		    },{
+		        field: 'createDate',
+		        title: '提交时间',
+		        align: 'center',
+		        sortable: true      //是否启用排序
+		    },{
+		        field: 'operate',
+		        title: '操作',
+		        align: 'left',
+		        events: {
+		        	'click .info': function (e, value, row, index) {
+			         	//alert('You click like action, row: ' + row.id);
+			         	window.location.href="questionset_info.html?id="+row.id;
+			        },
+			        'click .remove': function (e, value, row, index) {
+			        	/* questionSetTable.bootstrapTable('remove', {
+			                field: 'id',
+			                values: [row.id]
+			            }); */
+			            var r = confirm("确定删除该试卷？");
+			            if(r) {
+			            	$.post("/learnease/questionset/updateStatus.action",{"questionset_id":row.id,"status":"DISAPPEAR"},function(result){alert(result);},'text');
+			            }
+			        },
+			        'click .update': function (e, value, row, index) {
+			        	$("#change_questionsetId").text(row.id);
+			         	$("#questionSetModal").modal();
+			        }
+		        },
+		        formatter: operateFormatter
+		    }]
+		});
+		function operateFormatter(value, row, index) {
+	        return [
+	            /* '<a class="info" href="javascript:void(0)" title="Info">',
+	            '<i class="glyphicon glyphicon-info-sign"></i>',
+	            '</a>  ',
+	            '<a class="remove" href="javascript:void(0)" title="Remove">',
+	            '<i class="glyphicon glyphicon-remove"></i>',
+	            '</a>' */
+	            '<button type="button" class="btn btn-primary btn-sm info">查看</button>',
+	        	'&nbsp;',
+	        	'<button type="button" class="btn btn-primary btn-sm remove">删除</button>',
+	        	'&nbsp;',
+	        	'<button type="button" class="btn btn-primary btn-sm update">修改</button>',
+	        	'&nbsp;'
+	        ].join('');       //数组转成字符串
+	    }
+		
+		function changeStatus() { 
+			var questionset_id = $.trim($("#change_questionsetId").text());
+			var status = $("#select_status").find("option:selected").val();
+			$.post("/learnease/questionset/updateStatus.action",{"questionset_id":questionset_id,"status":status},function(result){alert(result);},'text');
+			$("#questionSetModal").modal('hide');
+			questionSetTable.bootstrapTable('refresh');
+		}
+	</script>
+</body>
+</html>

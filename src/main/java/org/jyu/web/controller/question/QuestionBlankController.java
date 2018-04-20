@@ -1,5 +1,7 @@
 package org.jyu.web.controller.question;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
@@ -48,15 +50,23 @@ public class QuestionBlankController {
 	 * @param shortName 问题简述
 	 * @param content   问题主干
 	 * @param difficulty  难度
-	 * @param labels  标签（用逗号隔开）
+	 * @param labelIds  标签（用逗号隔开）
 	 * @param answerContent  参考答案内容
 	 * @param analyse  参考答案分析
 	 */
 	@RequestMapping(value="/blank/save",method=RequestMethod.POST)
-	public Result save(String shortName, String content, Integer difficulty, String labels, String answerContent, 
+	public Result save(String shortName, String content, Integer difficulty, String labelIds, String answerContent, 
 			String analyse) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
-		return questionBlankService.save(shortName, content, difficulty, userId, labels, answerContent, analyse);
+		List<String> label_list = new ArrayList<>();
+		String[] label_array = labelIds.split(",");
+		for (int i = 0; i < label_array.length; i++) {
+			if (label_array[i].equals("")) {
+				continue;
+			}
+			label_list.add(label_array[i]);
+		}
+		return questionBlankService.save(shortName, content, difficulty, userId, label_list, answerContent, analyse);
 	}
 	
 	/**
@@ -74,14 +84,22 @@ public class QuestionBlankController {
 	 * @param shortName 问题简述
 	 * @param content   问题主干
 	 * @param difficulty  难度
-	 * @param labels  标签（用逗号隔开）
+	 * @param labelIds  标签（用逗号隔开）
 	 * @param answerContent  参考答案内容
 	 * @param analyse  参考答案分析
 	 */
 	@RequestMapping(value="/blank/update",method=RequestMethod.POST)
-	public Result update(String id, String shortName, String content, Integer difficulty, String labels, String answerContent, 
+	public Result update(String id, String shortName, String content, Integer difficulty, String labelIds, String answerContent, 
 			String analyse) {
-		return questionBlankService.update(id, shortName, content, difficulty, labels, answerContent, analyse);
+		List<String> label_list = new ArrayList<>();
+		String[] label_array = labelIds.split(",");
+		for (int i = 0; i < label_array.length; i++) {
+			if (label_array[i].equals("")) {
+				continue;
+			}
+			label_list.add(label_array[i]);
+		}
+		return questionBlankService.update(id, shortName, content, difficulty, label_list, answerContent, analyse);
 	}
 	
 	/**
@@ -121,6 +139,8 @@ public class QuestionBlankController {
 		questionBlankJson.setCreateTime(questionBlank.getCreateTime());
 		questionBlankJson.setDifficulty(questionBlank.getDifficulty());
 		questionBlankJson.setType(questionBlank.getType());
+		questionBlankJson.setShortName(questionBlank.getShortName());
+		
 		if(questionBlank.getAuthor() != null) {
 			questionBlankJson.setAuthorId(questionBlank.getAuthor().getUid());
 			questionBlankJson.setAuthorName(questionBlank.getAuthor().getName());

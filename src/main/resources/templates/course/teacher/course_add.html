@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>LearnEase</title>
+
+    <!--=== CSS ===-->
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery UI -->
+    <!--<link href="plugins/jquery-ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />-->
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+    <![endif]-->
+
+    <!-- Theme -->
+    <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="assets/css/fontawesome/font-awesome.min.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="assets/css/fontawesome/font-awesome-ie7.min.css">
+    <![endif]-->
+
+    <!--[if IE 8]>
+    <link href="assets/css/ie8.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+    <!--=== JavaScript ===-->
+
+    <script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/libs/lodash.compat.min.js"></script>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="assets/js/libs/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Smartphone Touch Events -->
+    <script type="text/javascript" src="plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="plugins/event.swipe/jquery.event.move.js"></script>
+    <script type="text/javascript" src="plugins/event.swipe/jquery.event.swipe.js"></script>
+
+    <!-- General -->
+    <script type="text/javascript" src="assets/js/libs/breakpoints.js"></script>
+    <script type="text/javascript" src="plugins/respond/respond.min.js"></script> <!-- Polyfill for min/max-width CSS3 Media Queries (only for IE8) -->
+    <script type="text/javascript" src="plugins/cookie/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+
+    <!-- Page specific plugins -->
+    <!-- Charts -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="plugins/flot/excanvas.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.resize.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.time.min.js"></script>
+    <script type="text/javascript" src="plugins/flot/jquery.flot.growraf.min.js"></script>
+    <script type="text/javascript" src="plugins/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+
+    <script type="text/javascript" src="plugins/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="plugins/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="plugins/blockui/jquery.blockUI.min.js"></script>
+
+    <script type="text/javascript" src="plugins/fullcalendar/fullcalendar.min.js"></script>
+
+    <!-- Noty -->
+    <script type="text/javascript" src="plugins/noty/jquery.noty.js"></script>
+    <script type="text/javascript" src="plugins/noty/layouts/top.js"></script>
+    <script type="text/javascript" src="plugins/noty/themes/default.js"></script>
+
+    <!-- Forms -->
+    <script type="text/javascript" src="plugins/uniform/jquery.uniform.min.js"></script>
+    <script type="text/javascript" src="plugins/select2/select2.min.js"></script>
+
+    <!-- App -->
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="assets/js/plugins.js"></script>
+    <script type="text/javascript" src="assets/js/plugins.form-components.js"></script>
+    
+    <script type="text/javascript" src="js/base.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            "use strict";
+
+            App.init(); // Init layout and core plugins
+            Plugins.init(); // Init all plugins
+            FormComponents.init(); // Init all form-specific plugins
+        });
+    </script>
+
+    <!-- Demo JS -->
+    <script type="text/javascript" src="assets/js/custom.js"></script>
+    <script type="text/javascript" src="assets/js/demo/pages_calendar.js"></script>
+    <script type="text/javascript" src="assets/js/demo/charts/chart_filled_blue.js"></script>
+    <script type="text/javascript" src="assets/js/demo/charts/chart_simple.js"></script>
+</head>
+
+<body>
+	<header class="header navbar navbar-fixed-top" role="banner" th:include="/common/common_navigation :: teacher-common-navidation">
+	</header> <!-- /.header -->
+
+	<div id="container">
+	
+		<div id="sidebar" class="sidebar-fixed" th:include="/common/teacher_common_sidebar :: teacher_common_siderbar">
+		</div><!-- /Sidebar -->
+		
+		<div id="content">
+		    <div class="container">
+		        <!-- Breadcrumbs line -->
+		        <div class="crumbs">
+		            <ul id="breadcrumbs" class="breadcrumb">
+		                <li>
+		                    <i class="icon-home"></i>
+		                    <a href="#">课程管理</a>
+		                </li>
+		                <li class="current">
+		                    <a href="#" title="">添加课程</a>
+		                </li>
+		            </ul>
+		
+		            <ul class="crumb-buttons">
+		                <li class="dropdown"><a href="javascript:void(0);" title="" data-toggle="dropdown"><i class="icon-tasks"></i>我的课程</a>
+		
+		                </li>
+		                <li class="dropdown"><a href="javascript:void(0);" title="" data-toggle="dropdown"><i class="icon-tasks"></i>所有课程</a>
+		
+		                </li>
+		            </ul>
+		        </div>
+		        <!-- /Breadcrumbs line -->
+		
+		        <!--=== Page Header ===-->
+		    </div>
+		    <!-- /Page Header -->
+		    <!--=== Page Content ===-->
+		    <!--=== no-padding and table-tabletools ===-->
+		    <div class="row">
+		        <div class="col-md-12">
+		            <div class="widget box">
+		                <div class="widget-header">
+		                    <h4><i class="icon-reorder"></i> 添加课程：</h4>
+		
+		                    <div class="toolbar no-padding">
+		
+		                        <div class="btn-group">
+		                            <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
+		
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class="widget-content no-padding">
+		                    <table class="table table-striped table-bordered table-hover table-checkable table-tabletools datatable">
+		                        <thead>
+		                        <tr>
+		                            <th class="checkbox-column">
+		                                <input type="checkbox" class="uniform">
+		                            </th>
+		                            <th>试卷年份</th>
+		                            <th>试卷名称</th>
+		                            <th class="hidden-xs">大纲</th>
+		                            <th>更多</th>
+		                        </tr>
+		                        </thead>
+		                        <tbody>
+		                        <tr>
+		                            <td class="checkbox-column">
+		                                <input type="checkbox" class="uniform">
+		                            </td>
+		                            <td>...</td>
+		                            <td>.....</td>
+		                            <td class="hidden-xs">.....</td>
+		                            <td><span class="label label-success"><a href="#" >详情</a></span></td>
+		                        </tr>
+		                        <tr>
+		                            <td class="checkbox-column">
+		                                <input type="checkbox" class="uniform">
+		                            </td>
+		                            <td>...</td>
+		                            <td>.....</td>
+		                            <td class="hidden-xs">.....</td>
+		                            <td><span class="label label-success"><a href="#" >详情</a></span></td>
+		                        </tr>
+		                        <tr>
+		                            <td class="checkbox-column">
+		                                <input type="checkbox" class="uniform">
+		                            </td>
+		                            <td>...</td>
+		                            <td>.....</td>
+		                            <td class="hidden-xs">.....</td>
+		                            <td><span class="label label-success"><a href="#" >详情</a></span></td>
+		                        </tr><tr>
+		                            <td class="checkbox-column">
+		                                <input type="checkbox" class="uniform">
+		                            </td>
+		                            <td>...</td>
+		                            <td>.....</td>
+		                            <td class="hidden-xs">.....</td>
+		                            <td><span class="label label-success"><a href="#" >详情</a></span></td>
+		                        </tr><tr>
+		                            <td class="checkbox-column">
+		                                <input type="checkbox" class="uniform">
+		                            </td>
+		                            <td>...</td>
+		                            <td>.....</td>
+		                            <td class="hidden-xs">.....</td>
+		                            <td><span class="label label-success"><a href="#" >详情</a></span></td>
+		                        </tr><tr>
+		                            <td class="checkbox-column">
+		                                <input type="checkbox" class="uniform">
+		                            </td>
+		                            <td>...</td>
+		                            <td>.....</td>
+		                            <td class="hidden-xs">.....</td>
+		                            <td><span class="label label-success"><a href="#" >详情</a></span></td>
+		                        </tr>
+		                        <tr>
+		                            <td class="checkbox-column">
+		                                <input type="checkbox" class="uniform">
+		                            </td>
+		                            <td>...</td>
+		                            <td>.....</td>
+		                            <td class="hidden-xs">.....</td>
+		                            <td><span class="label label-success"><a href="#" >详情</a></span></td>
+		                        </tr><tr>
+		                            <td class="checkbox-column">
+		                                <input type="checkbox" class="uniform">
+		                            </td>
+		                            <td>...</td>
+		                            <td>.....</td>
+		                            <td class="hidden-xs">.....</td>
+		                            <td><span class="label label-success"><a href="#" >详情</a></span></td>
+		                        </tr><tr>
+		                            <td class="checkbox-column">
+		                                <input type="checkbox" class="uniform">
+		                            </td>
+		                            <td>...</td>
+		                            <td>.....</td>
+		                            <td class="hidden-xs">.....</td>
+		                            <td><span class="label label-success"><a href="#" >详情</a></span></td>
+		                        </tr>
+		                        </tbody>
+		                    </table>
+		                </div>
+		            </div>
+		            <div class="widget-content align-center">
+		                <div class="btn-group">
+		                    <button type="submit" class="submit"><i class="icon-plus"></i>添加课程</a>
+		
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <!-- /no-padding and table-tabletools -->
+		    <!--=== Statboxes ===-->
+		    <!-- /.row -->
+		    <!-- /Statboxes -->
+		
+		    <!--=== Blue Chart ===-->
+		    <!-- /.row -->
+		    <!-- /Blue Chart -->
+		    <!-- /.row -->
+		    <!-- /Page Content -->
+		</div>
+		<!-- /.container -->
+	</div>
+
+</body>
+</html>

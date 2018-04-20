@@ -1,10 +1,13 @@
 package org.jyu.web.controller.question;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.question.QuestionMultipleJson;
+import org.jyu.web.entity.question.Option;
 import org.jyu.web.entity.question.QuestionMultiple;
 import org.jyu.web.service.question.QuestionMultipleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,27 +48,34 @@ public class QuestionMultipleController {
 
 	/**
 	 * 保存多选题
-	 * @param shortName
-	 * @param content
-	 * @param difficulty
-	 * @param labelId
-	 * @param options
-	 * @param answerContent
-	 * @param analyse
+	 * @param shortName   简述
+	 * @param content   问题主体
+	 * @param difficulty  难度
+	 * @param labelIds    标签主键（逗号）
+	 * @param options   选项（逗号分割）
+	 * @param answerContent  参考答案（逗号分割）
+	 * @param analyse   答案分析
 	 * @return
 	 */
 	@RequestMapping(value="/multiple/save", method=RequestMethod.POST)
-	public Result save(String shortName, String content, Integer difficulty, String labelId, String options,
+	public Result save(String shortName, String content, Integer difficulty, String labelIds, String options,
 			String answerContent, String analyse) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
 		if (userId == null) {
 			return new Result(false, "请登陆");
 		}
-		return multipleService.save(shortName, content, difficulty, labelId, answerContent, analyse, options, userId);
+		List<String> list = new ArrayList<>();
+		String[] labelId = labelIds.split(",");
+		for (int i = 0; i < labelId.length; i++) {
+			if (!labelId[i].equals("")) {
+				list.add(labelId[i]);
+			}
+		}
+		return multipleService.save(shortName, content, difficulty, list, answerContent, analyse, options, userId);
 	}
 	
 	/**
-	 * 删除判断题
+	 * 删除多选题
 	 * @param id
 	 * @return
 	 */
@@ -80,16 +90,23 @@ public class QuestionMultipleController {
 	 * @param shortName
 	 * @param content
 	 * @param difficulty
-	 * @param labelId
+	 * @param labelIds
 	 * @param options
 	 * @param answerContent
 	 * @param analyse
 	 * @return
 	 */
 	@RequestMapping(value="/multiple/update",  method=RequestMethod.POST)
-	public Result update(String id, String shortName, String content, Integer difficulty, String labelId, String options,
+	public Result update(String id, String shortName, String content, Integer difficulty, String labelIds, String options,
 			String answerContent, String analyse) {
-		return multipleService.update(id, shortName, content, difficulty, labelId, answerContent, analyse, options);
+		List<String> list = new ArrayList<>();
+		String[] labelId = labelIds.split(",");
+		for (int i = 0; i < labelId.length; i++) {
+			if (!labelId[i].equals("")) {
+				list.add(labelId[i]);
+			}
+		}
+		return multipleService.update(id, shortName, content, difficulty, list, answerContent, analyse, options);
 	}
 	
 	/**
@@ -125,7 +142,13 @@ public class QuestionMultipleController {
 		json.setCreateTime(multiple.getCreateTime());
 		json.setDifficulty(multiple.getDifficulty());
 		json.setId(multiple.getId());
-		json.setOptions(multiple.getOptions());
+		json.setShortName(multiple.getShortName());
+		
+		List<String> list = new ArrayList<>();
+		for (Option option : multiple.getOptions()) {
+			list.add(option.getContent());
+		}
+		json.setOptions(list.toString().replaceAll("[", "").replaceAll("]", ""));
 		json.setType(multiple.getType());
 		return json;
 	}

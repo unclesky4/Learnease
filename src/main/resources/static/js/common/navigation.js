@@ -7,11 +7,11 @@ $.ajax({
 	success: function(data) {
 		if (data.success == true || data.success == "true") {
 			$("#show_username").html(data.msg.name);
-			var li_content = "<li><a href='/user_center'>用户主页</a></li>";
+			var li_content = "<li><a href='user_center'>用户主页</a></li>";
 			$("#navbar-nav").prepend(li_content);
 		}else {
 			var content = new Array();
-			content.push("<a href='/login_html' style='font-size: 15px;'><span id='user_login'>登陆</span>");
+			content.push("<a href='login_html' style='font-size: 15px;'><span id='user_login'>登陆</span>");
 			content.push("/");
 			content.push("<span>注册</span></a>");
 			$(".user").html(content.join(""));

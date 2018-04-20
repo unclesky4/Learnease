@@ -1,6 +1,7 @@
 package org.jyu.web.entity.question;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.jyu.web.entity.authority.User;
@@ -55,8 +56,8 @@ public class Question implements Serializable {
 	@ManyToOne
 	private User author;  //提交人
 	
-	@OneToOne
-	private QuestionLabel label;
+	@ManyToMany
+	private List<QuestionLabel> questionLabels;
 
 	public String getId() {
 		return id;
@@ -114,12 +115,12 @@ public class Question implements Serializable {
 		this.type = type;
 	}
 
-	public QuestionLabel getLabel() {
-		return label;
+	public List<QuestionLabel> getQuestionLabels() {
+		return questionLabels;
 	}
 
-	public void setLabel(QuestionLabel label) {
-		this.label = label;
+	public void setQuestionLabels(List<QuestionLabel> questionLabels) {
+		this.questionLabels = questionLabels;
 	}
 
 }

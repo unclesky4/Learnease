@@ -479,300 +479,76 @@
 </head>
 
 <body>
+	<header class="header navbar navbar-fixed-top" role="banner" th:include="/common/common_navigation :: teacher-common-navidation">
+	</header> <!-- /.header -->
 
-<!-- Header -->
-<header class="header navbar navbar-fixed-top" role="banner">
-    <!-- Top Navigation Bar -->
-    <div class="container">
-
-        <!-- Only visible on smartphones, menu toggle -->
-        <ul class="nav navbar-nav">
-            <li class="nav-toggle"><a href="javascript:void(0);" title=""><i class="icon-reorder"></i></a></li>
-        </ul>
-
-        <!-- Logo -->
-        <a class="navbar-brand" href="index.html">
-            <img src="assets/img/logo.png" alt="logo" />
-            <strong>Learnease</strong>
-        </a>
-        <!-- /logo -->
-
-        <!-- Sidebar Toggler -->
-        <a href="#" class="toggle-sidebar bs-tooltip" data-placement="bottom" data-original-title="Toggle navigation">
-            <i class="icon-reorder"></i>
-        </a>
-        <!-- /Sidebar Toggler -->
-
-        <!-- Top Left Menu -->
-        <ul class="nav navbar-nav navbar-left">
-            <li>
-                <a href="user_profile.html">
-                    用户主页
-                </a>
-            </li>
-            <li>
-                <a href="study_center.html">
-                    学习中心
-                </a>
-            </li>
-            <li>
-                <a href="teacher_center.html">
-                    教师中心
-                </a>
-            </li>
-        </ul>
-        <!-- Top Right Menu -->
-        <ul class="nav navbar-nav navbar-right">
-            <!-- Messages -->
-            <li class="dropdown hidden-xs hidden-sm">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="icon-envelope"></i>
-                    <span class="badge">1</span>
-                </a>
-                <ul class="dropdown-menu extended notification">
-                    <li class="title">
-                        <p>You have 3 new messages</p>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);">
-                            <span class="photo"><img src="assets/img/demo/avatar-1.jpg" alt=""/></span>
-								<span class="subject">
-									<span class="from">Bob Carter</span>
-									<span class="time">Just Now</span>
-								</span>
-								<span class="text">
-									Consetetur sadipscing elitr...
-								</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);">
-                            <span class="photo"><img src="assets/img/demo/avatar-2.jpg" alt=""/></span>
-								<span class="subject">
-									<span class="from">Jane Doe</span>
-									<span class="time">45 mins</span>
-								</span>
-								<span class="text">
-									Sed diam nonumy...
-								</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);">
-                            <span class="photo"><img src="assets/img/demo/avatar-3.jpg" alt=""/></span>
-								<span class="subject">
-									<span class="from">Patrick Nilson</span>
-									<span class="time">6 hours</span>
-								</span>
-								<span class="text">
-									No sea takimata sanctus...
-								</span>
-                        </a>
-                    </li>
-                    <li class="footer">
-                        <a href="javascript:void(0);">View all messages</a>
-                    </li>
-                </ul>
-            </li>
-            <!-- User Login Dropdown -->
-            <li class="dropdown user">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <!--<img alt="" src="assets/img/avatar1_small.jpg" />-->
-                    <i class="icon-male"></i>
-                    <span class="username" id="show_username">John Doe</span>
-                    <i class="icon-caret-down small"></i>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="login.html"><i class="icon-off"></i> Log Out</a></li>
-                </ul>
-            </li>
-            <!-- /user login dropdown -->
-        </ul>
-        <!-- /Top Right Menu -->
-    </div>
-    <!-- /top navigation bar -->
-
-</header> <!-- /.header -->
-
-<div id="container">
-	<div id="sidebar" class="sidebar-fixed">
-	    <div id="sidebar-content">
-	        <!--=== Navigation ===-->
-	        <ul id="nav">
-	            <li>
-	                <a href="javascript:void(0);">
-	                    <i class="icon-dashboard"></i>
-	                    题目管理
-	                    <span class="label label-info pull-right"></span>
-	                </a>
-	                <ul class="sub-menu">
-	                    <li>
-	                        <a href="teacher_topic.html">
-	                            <i class="icon-angle-right"></i>
-	                            添加题目
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="teacher_my_topic.html">
-	                            <i class="icon-angle-right"></i>
-	                            我的题目
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="teacher_all_topic.html">
-	                            <i class="icon-angle-right"></i>
-	                            题目列表
-	                        </a>
-	                    </li>
-	                </ul>
-	            </li>
-	            <li>
-	                <a href="javascript:void(0);">
-	                    <i class="icon-edit"></i>
-	                    试卷管理
-	                    <span class="label label-info pull-right"></span>
-	                </a>
-	                <ul class="sub-menu">
-	                    <li>
-	                        <a href="teacher_paper.html">
-	                            <i class="icon-angle-right"></i>
-	                            添加试卷
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="teacher_my_paper.html">
-	                            <i class="icon-angle-right"></i>
-	                            我的试卷
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="teacher_all_paper.html">
-	                            <i class="icon-angle-right"></i>
-	                            试卷列表
-	                        </a>
-	                    </li>
-	                </ul>
-	            <li>
-	                <a href="javascript:void(0);">
-	                    <i class="icon-edit"></i>
-	                    考试管理
-	                    <span class="label label-info pull-right"></span>
-	                </a>
-	                <ul class="sub-menu">
-	                    <li>
-	                        <a href="teacher_exam.html">
-	                            <i class="icon-angle-right"></i>
-	                            添加考试
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="teacher_publish_exam.html">
-	                            <i class="icon-angle-right"></i>
-	                            发布的考试
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="teacher_respond_exam.html">
-	                            <i class="icon-angle-right"></i>
-	                            学生答卷
-	                        </a>
-	                    </li>
-	                </ul>
-	            <li>
-	                <a href="javascript:void(0);">
-	                    <i class="icon-edit"></i>
-	                    课程管理
-	                    <span class="label label-info pull-right"></span>
-	                </a>
-	                <ul class="sub-menu">
-	                    <li>
-	                        <a href="teacher_Course.html">
-	                            <i class="icon-angle-right"></i>
-	                            添加课程
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="teacher_my_Course.html">
-	                            <i class="icon-angle-right"></i>
-	                            我的课程
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="teacher_all_Course.html">
-	                            <i class="icon-angle-right"></i>
-	                            课程列表
-	                        </a>
-	                    </li>
-	                </ul>
-	            </li>
-	        </ul>
-	    </div>
-	    <div id="divider" class="resizeable"></div>
-	</div>
-	<!-- /Sidebar -->
-	<div id="content">
-	    <div class="container">
-	        <!-- Breadcrumbs line -->
-	        <div class="crumbs">
-	            <ul id="breadcrumbs" class="breadcrumb">
-	                <li>
-	                    <i class="icon-home"></i>
-	                    <a href="javascript:void(0);">题目管理</a>
-	                </li>
-	                <li class="current">
-	                    <a href="#" title="">题目列表</a>
-	                </li>
-	            </ul>
-	        </div>
-	        <!-- /Breadcrumbs line -->
-	        
-	        <!--=== Page Content ===-->
-			<div class="row">
-				<div class="col-md-12">
-					<!-- Tabs-->
-					<div class="tabbable tabbable-custom tabbable-full-width">
-						<ul class="nav nav-tabs">
-							<li class="active"><a href="#tab_questionsimple" data-toggle="tab">单选题</a></li>
-							<li><a href="#tab_questionmultiple" data-toggle="tab">多选题</a></li>
-							<li><a href="#tab_questionblank" data-toggle="tab">填空题</a></li>
-							<li><a href="#tab_questionjudgement" data-toggle="tab">判断题</a></li>
-							<li><a href="#tab_questionprogram" data-toggle="tab">编程题</a></li>
-						</ul>
-						<div class="tab-content row">
-							<!-- === 单选题 === -->
-							<div class="tab-pane active" id="tab_questionsimple">
-								<table id="questionSimple_table"></table>
+	<div id="container">
+		<div id="sidebar" class="sidebar-fixed" th:include="/common/teacher_common_sidebar :: teacher_common_siderbar">
+		</div><!-- /Sidebar -->
+	
+		<div id="content">
+		    <div class="container">
+		        <!-- Breadcrumbs line -->
+		        <div class="crumbs">
+		            <ul id="breadcrumbs" class="breadcrumb">
+		                <li>
+		                    <i class="icon-home"></i>
+		                    <a href="javascript:void(0);">题目管理</a>
+		                </li>
+		                <li class="current">
+		                    <a href="#" title="">题目列表</a>
+		                </li>
+		            </ul>
+		        </div>
+		        <!-- /Breadcrumbs line -->
+		        
+		        <!--=== Page Content ===-->
+				<div class="row">
+					<div class="col-md-12">
+						<!-- Tabs-->
+						<div class="tabbable tabbable-custom tabbable-full-width">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#tab_questionsimple" data-toggle="tab">单选题</a></li>
+								<li><a href="#tab_questionmultiple" data-toggle="tab">多选题</a></li>
+								<li><a href="#tab_questionblank" data-toggle="tab">填空题</a></li>
+								<li><a href="#tab_questionjudgement" data-toggle="tab">判断题</a></li>
+								<li><a href="#tab_questionprogram" data-toggle="tab">编程题</a></li>
+							</ul>
+							<div class="tab-content row">
+								<!-- === 单选题 === -->
+								<div class="tab-pane active" id="tab_questionsimple">
+									<table id="questionSimple_table"></table>
+								</div>
+	
+								<!-- === 多选题 === -->
+								<div class="tab-pane" id="tab_questionmultiple">
+									<table id="questionMultiple_table"></table>
+								</div>
+								
+								<!-- === 填空题 === -->
+								<div class="tab-pane" id="tab_questionblank">
+									<table id="questionFillBlank_table"></table>
+								</div>
+								
+								<!-- === 判断题 === -->
+								<div class="tab-pane" id="tab_questionjudgement">
+									<table id="questionJudgement_table"></table>
+								</div>
+								
+								<!-- === 编程题 === -->
+								<div class="tab-pane" id="tab_questionprogram">
+									<table id="questionProgram_table"></table>
+								</div>
+	
 							</div>
-
-							<!-- === 多选题 === -->
-							<div class="tab-pane" id="tab_questionmultiple">
-								<table id="questionMultiple_table"></table>
-							</div>
-							
-							<!-- === 填空题 === -->
-							<div class="tab-pane" id="tab_questionblank">
-								<table id="questionFillBlank_table"></table>
-							</div>
-							
-							<!-- === 判断题 === -->
-							<div class="tab-pane" id="tab_questionjudgement">
-								<table id="questionJudgement_table"></table>
-							</div>
-							
-							<!-- === 编程题 === -->
-							<div class="tab-pane" id="tab_questionprogram">
-								<table id="questionProgram_table"></table>
-							</div>
-
-						</div>
-					</div><!-- /Tabs -->
-				</div>
-			</div> <!-- /.row -->
-			<!-- /Page Content -->
-	        
+						</div><!-- /Tabs -->
+					</div>
+				</div> <!-- /.row -->
+				<!-- /Page Content -->
+		        
+			</div>
+			<!-- /.container -->
 		</div>
-		<!-- /.container -->
 	</div>
-</div>
 </body>
 </html>

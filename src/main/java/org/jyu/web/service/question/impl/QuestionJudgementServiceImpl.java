@@ -1,6 +1,7 @@
 package org.jyu.web.service.question.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.jyu.web.entity.authority.User;
 import org.jyu.web.entity.question.Answer;
 import org.jyu.web.entity.question.Option;
 import org.jyu.web.entity.question.QuestionJudgement;
+import org.jyu.web.entity.question.QuestionLabel;
 import org.jyu.web.enums.QuestionType;
 import org.jyu.web.service.question.QuestionJudgementService;
 import org.jyu.web.utils.DateUtil;
@@ -41,8 +43,11 @@ public class QuestionJudgementServiceImpl implements QuestionJudgementService {
 
 	@Transactional
 	@Override
-	public Result save(String shortName, String content, Integer difficulty, String userId, String labelId, String answerContent,
+	public Result save(String shortName, String content, Integer difficulty, String userId, List<String> labelIds, String answerContent,
 			String analyse) {
+		if (questionJudgementDao.findByShortName(shortName).size() > 0) {
+			return new Result(false, "主题重复");
+		}
 		QuestionJudgement questionJudgement = new QuestionJudgement();
 		User user = userDao.getOne(userId);
 		questionJudgement.setShortName(shortName);
@@ -52,7 +57,15 @@ public class QuestionJudgementServiceImpl implements QuestionJudgementService {
 		questionJudgement.setCreateTime(DateUtil.DateToString(DateUtil.YMDHMS, new Date()));
 		questionJudgement.setType(QuestionType.JUDGEMENT);
 		
-		questionJudgement.setLabel(questionLabelDao.getOne(labelId));
+		//标签
+		List<QuestionLabel> labels = new ArrayList<>();
+		for (String labelId : labelIds) {
+			QuestionLabel questionLabel = questionLabelDao.getOne(labelId);
+			if (questionLabel != null) {
+				labels.add(questionLabel);
+			}
+		}
+		questionJudgement.setQuestionLabels(labels);
 		
 		Option option1 = new Option("对");
 		Option option2 = new Option("错");
@@ -71,7 +84,7 @@ public class QuestionJudgementServiceImpl implements QuestionJudgementService {
 
 	@Transactional
 	@Override
-	public Result update(String id, String shortName, String content, Integer difficulty, String labelId, String answerContent,
+	public Result update(String id, String shortName, String content, Integer difficulty, List<String> labelIds, String answerContent,
 			String analyse) {
 		QuestionJudgement judgement = questionJudgementDao.getOne(id);
 		if(judgement == null) {
@@ -86,8 +99,16 @@ public class QuestionJudgementServiceImpl implements QuestionJudgementService {
 		if(difficulty != null) {
 			judgement.setDifficulty(difficulty);
 		}
-		if (labelId != null) {
-			judgement.setLabel(questionLabelDao.getOne(labelId));
+		if (labelIds != null && labelIds.size() > 0) {
+			judgement.getQuestionLabels().clear();
+			List<QuestionLabel> labels = new ArrayList<>();
+			for (String labelId : labelIds) {
+				QuestionLabel questionLabel = questionLabelDao.getOne(labelId);
+				if (questionLabel != null) {
+					labels.add(questionLabel);
+				}
+			}
+			judgement.setQuestionLabels(labels);
 		}
 		if (answerContent != null && answerContent != "") {
 			judgement.getAnswer().setContent(answerContent);
@@ -118,7 +139,15 @@ public class QuestionJudgementServiceImpl implements QuestionJudgementService {
 		json.setCreateTime(questionJudgement.getCreateTime());
 		json.setDifficulty(questionJudgement.getDifficulty());
 		json.setType(questionJudgement.getType());
-		json.setOptions(questionJudgement.getJudgementOptions());
+		json.setShortName(questionJudgement.getShortName());
+
+		List<Option> options = questionJudgement.getJudgementOptions();
+		String[] options_array = new String[options.size()];
+		for (int i = 0; i < options.size(); i++) {
+			options_array[i] = options.get(i).getContent();
+		}
+		json.setOptions(Arrays.toString(options_array));
+		
 		if(questionJudgement.getAuthor() != null) {
 			json.setAuthorId(questionJudgement.getAuthor().getUid());
 			json.setAuthorName(questionJudgement.getAuthor().getName());
@@ -157,7 +186,15 @@ public class QuestionJudgementServiceImpl implements QuestionJudgementService {
 			json.setCreateTime(questionJudgement.getCreateTime());
 			json.setDifficulty(questionJudgement.getDifficulty());
 			json.setType(questionJudgement.getType());
-			json.setOptions(questionJudgement.getJudgementOptions());
+			json.setShortName(questionJudgement.getShortName());
+			
+			List<Option> options = questionJudgement.getJudgementOptions();
+			String[] options_array = new String[options.size()];
+			for (int i = 0; i < options.size(); i++) {
+				options_array[i] = options.get(i).getContent();
+			}
+			json.setOptions(Arrays.toString(options_array));
+			
 			if(questionJudgement.getAuthor() != null) {
 				json.setAuthorId(questionJudgement.getAuthor().getUid());
 				json.setAuthorName(questionJudgement.getAuthor().getName());

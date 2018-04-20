@@ -40,14 +40,14 @@ public class MyControllerAdvice {
      * @param ex
      * @return
      */
-    @ResponseBody
-    @ExceptionHandler(value = Exception.class)
-    public Map<String, Object> errorHandler(Exception ex) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("success", false);
-        map.put("msg", ex.getMessage());
-        return map;
-    }
+//    @ResponseBody
+//    @ExceptionHandler(value = Exception.class)
+//    public Map<String, Object> errorHandler(Exception ex) {
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        map.put("success", false);
+//        map.put("msg", ex.getMessage());
+//        return map;
+//    }
     
     /**
      * 拦截捕捉自定义异常 MyException.class

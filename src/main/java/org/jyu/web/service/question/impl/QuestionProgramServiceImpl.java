@@ -1,6 +1,7 @@
 package org.jyu.web.service.question.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -45,10 +46,13 @@ public class QuestionProgramServiceImpl implements QuestionProgramService {
 	@Override
 	public Result save(String shortName, String content, Integer difficulty, String description, String input,
 			String output, String exampleInput, String exampleOutput, String hint, String answerContent, String analyse,
-			String labelId, String userId) {
+			List<String> labelIds, String userId) {
 		User user = userDao.getOne(userId);
 		if(user == null) {
 			return new Result(false, "用户不存在");
+		}
+		if (questionProgramDao.findByShortName(shortName).size() > 0) {
+			return new Result(false, "主题重复");
 		}
 		QuestionProgram questionProgram = new QuestionProgram();
 		questionProgram.setAuthor(user);
@@ -64,8 +68,11 @@ public class QuestionProgramServiceImpl implements QuestionProgramService {
 		questionProgram.setShortName(shortName);
 		questionProgram.setType(QuestionType.PROGRAM);
 		
-		QuestionLabel questionLabel = questionLabelDao.getOne(labelId);
-		questionProgram.setLabel(questionLabel);
+		List<QuestionLabel> list = new ArrayList<>();
+		for (String string : labelIds) {
+			list.add(questionLabelDao.getOne(string));
+		}
+		questionProgram.setQuestionLabels(list);
 		
 		Answer answer = new Answer();
 		answer.setContent(answerContent);
@@ -79,7 +86,7 @@ public class QuestionProgramServiceImpl implements QuestionProgramService {
 	@Override
 	public Result update(String id, String shortName, String content, Integer difficulty, String description,
 			String input, String output, String exampleInput, String exampleOutput, String hint, String answerContent,
-			String analyse, String labelId) {
+			String analyse, List<String> labelIds) {
 		QuestionProgram questionProgram = questionProgramDao.getOne(id);
 		if(questionProgram == null) {
 			return new Result(false, "题目不存在");
@@ -119,8 +126,13 @@ public class QuestionProgramServiceImpl implements QuestionProgramService {
 		if(analyse != null && analyse != "") {
 			questionProgram.getAnswer().setAnalyse(analyse);;
 		}
-		if(labelId != null && labelId != "") {
-			questionProgram.setLabel(questionLabelDao.getOne(labelId));
+		if (labelIds != null && labelIds.size() > 0) {
+			questionProgram.getQuestionLabels().clear();
+			List<QuestionLabel> list = new ArrayList<>();
+			for (String string : labelIds) {
+				list.add(questionLabelDao.getOne(string));
+			}
+			questionProgram.setQuestionLabels(list);
 		}
 		questionProgramDao.saveAndFlush(questionProgram);
 		return new Result(true, "修改成功");
@@ -148,7 +160,11 @@ public class QuestionProgramServiceImpl implements QuestionProgramService {
 			questionProgramJson.setInput(program.getInput());
 			questionProgramJson.setOutput(program.getOutput());
 			questionProgramJson.setShortName(program.getShortName());
-			questionProgramJson.setLabel(program.getLabel().getName());
+			List<String> labels = new ArrayList<>();
+			for (QuestionLabel questionLabel : program.getQuestionLabels()) {
+				labels.add(questionLabel.getName());
+			}
+			questionProgramJson.setLabel(labels.toString().replaceAll("[", "").replaceAll("]", ""));
 		}
 		return questionProgramJson;
 	}
@@ -187,7 +203,12 @@ public class QuestionProgramServiceImpl implements QuestionProgramService {
 			json.setInput(questionProgram.getInput());
 			json.setOutput(questionProgram.getOutput());
 			json.setShortName(questionProgram.getShortName());
-			json.setLabel(questionProgram.getLabel().getName());
+			List<QuestionLabel> labels = questionProgram.getQuestionLabels();
+			String[] labels_array = new String[labels.size()];
+			for (int i = 0; i < labels.size(); i++) {
+				labels_array[i] = labels.get(i).getName();
+			}
+			json.setLabel(Arrays.toString(labels_array));
 			list.add(json);
 		}
 		return list;

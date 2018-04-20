@@ -14,6 +14,7 @@ import org.jyu.web.dto.question.QuestionBlankJson;
 import org.jyu.web.entity.authority.User;
 import org.jyu.web.entity.question.Answer;
 import org.jyu.web.entity.question.QuestionBlank;
+import org.jyu.web.entity.question.QuestionLabel;
 import org.jyu.web.enums.QuestionType;
 import org.jyu.web.service.question.QuestionBlankService;
 import org.jyu.web.utils.DateUtil;
@@ -42,8 +43,11 @@ public class QuestionBlankServiceImpl implements QuestionBlankService {
 
 	@Transactional
 	@Override
-	public Result save(String shortName, String content, Integer difficulty, String userId, String labelId, String answerContent, 
+	public Result save(String shortName, String content, Integer difficulty, String userId, List<String> labelIds, String answerContent, 
 			String analyse) {
+		if (questionBlankDao.findByShortName(shortName).size() > 0) {
+			return new Result(false, "主题重复");
+		}
 		QuestionBlank questionBlank = new QuestionBlank();
 		User user = userDao.getOne(userId);
 		questionBlank.setAuthor(user);
@@ -53,7 +57,15 @@ public class QuestionBlankServiceImpl implements QuestionBlankService {
 		questionBlank.setCreateTime(DateUtil.DateToString(DateUtil.YMDHMS, new Date()));
 		questionBlank.setType(QuestionType.BLANK);
 		
-		questionBlank.setLabel(questionLabelDao.getOne(labelId));
+		//标签
+		List<QuestionLabel> labels = new ArrayList<>();
+		for (String labelId : labelIds) {
+			QuestionLabel questionLabel = questionLabelDao.getOne(labelId);
+			if (questionLabel != null) {
+				labels.add(questionLabel);
+			}
+		}
+		questionBlank.setQuestionLabels(labels);
 		
 		Answer answer = new Answer();
 		answer.setAnalyse(analyse);
@@ -65,7 +77,7 @@ public class QuestionBlankServiceImpl implements QuestionBlankService {
 
 	@Transactional
 	@Override
-	public Result update(String id, String shortName, String content, Integer difficulty, String labelId, String answerContent, 
+	public Result update(String id, String shortName, String content, Integer difficulty, List<String> labelIds, String answerContent, 
 			String analyse) {
 		QuestionBlank questionBlank = questionBlankDao.getOne(id);
 		if(questionBlank == null) {
@@ -80,8 +92,16 @@ public class QuestionBlankServiceImpl implements QuestionBlankService {
 		if(difficulty != null) {
 			questionBlank.setDifficulty(difficulty);
 		}
-		if(labelId != null && labelId != "") {
-			questionBlank.setLabel(questionLabelDao.getOne(labelId));
+		if(labelIds != null && labelIds.size() > 0) {
+			questionBlank.getQuestionLabels().clear();
+			List<QuestionLabel> labels = new ArrayList<>();
+			for (String labelId : labelIds) {
+				QuestionLabel questionLabel = questionLabelDao.getOne(labelId);
+				if (questionLabel != null) {
+					labels.add(questionLabel);
+				}
+			}
+			questionBlank.setQuestionLabels(labels);
 		}
 		if(analyse != "" && analyse != null && answerContent != "" & answerContent != null){
 			Answer answer = new Answer();
@@ -131,6 +151,8 @@ public class QuestionBlankServiceImpl implements QuestionBlankService {
 			questionBlankJson.setCreateTime(questionBlank.getCreateTime());
 			questionBlankJson.setDifficulty(questionBlank.getDifficulty());
 			questionBlankJson.setType(questionBlank.getType());
+			questionBlankJson.setShortName(questionBlank.getShortName());
+			
 			if(questionBlank.getAuthor() != null) {
 				questionBlankJson.setAuthorId(questionBlank.getAuthor().getUid());
 				questionBlankJson.setAuthorName(questionBlank.getAuthor().getName());

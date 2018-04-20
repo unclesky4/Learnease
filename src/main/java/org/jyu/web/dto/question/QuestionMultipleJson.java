@@ -1,13 +1,12 @@
 package org.jyu.web.dto.question;
 
-import java.util.List;
-
-import org.jyu.web.entity.question.Option;
 import org.jyu.web.enums.QuestionType;
 
 public class QuestionMultipleJson {
 
 	private String id;
+	
+	private String shortName;  //主题/简述
 	
 	private String content;   //问题主干
 	
@@ -21,7 +20,9 @@ public class QuestionMultipleJson {
 	
 	private String authorName;  //提交人昵称
 	
-	private List<Option> options;  //选项
+	private String options;  //选项
+	
+	private String labels;
 
 	public String getId() {
 		return id;
@@ -29,6 +30,14 @@ public class QuestionMultipleJson {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 
 	public String getContent() {
@@ -79,11 +88,19 @@ public class QuestionMultipleJson {
 		this.authorName = authorName;
 	}
 
-	public List<Option> getOptions() {
+	public String getOptions() {
 		return options;
 	}
 
-	public void setOptions(List<Option> options) {
+	public void setOptions(String options) {
 		this.options = options;
+	}
+
+	public String getLabels() {
+		return labels;
+	}
+
+	public void setLabels(String labels) {
+		this.labels = labels;
 	}
 }

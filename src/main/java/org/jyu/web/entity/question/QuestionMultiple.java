@@ -22,7 +22,7 @@ public class QuestionMultiple extends Question{
 	@ManyToMany(cascade={CascadeType.ALL})
 	private List<Option> options;   //选项
 	
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	private Answer answer;   //参考答案
 
 	public List<Option> getOptions() {

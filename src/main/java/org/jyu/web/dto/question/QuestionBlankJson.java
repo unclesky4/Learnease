@@ -6,6 +6,8 @@ public class QuestionBlankJson{
 
 	private String id;
 	
+	private String shortName; //主题/简述
+	
 	private String content;   //问题主干
 	
 	private Integer difficulty;  //难度
@@ -24,6 +26,14 @@ public class QuestionBlankJson{
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 
 	public String getContent() {

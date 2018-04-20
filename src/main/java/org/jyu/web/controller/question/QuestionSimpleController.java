@@ -1,9 +1,14 @@
 package org.jyu.web.controller.question;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.question.QuestionSimpleJson;
+import org.jyu.web.entity.question.Option;
+import org.jyu.web.entity.question.QuestionLabel;
 import org.jyu.web.entity.question.QuestionSimple;
 import org.jyu.web.service.question.QuestionSimpleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,21 +29,15 @@ public class QuestionSimpleController {
 		return mv;
 	}
 	
-	@RequestMapping(value="simple_add_student", method=RequestMethod.GET)
-	public ModelAndView simple_add_student(ModelAndView mv) {
-		mv.setViewName("/question/student/simple_add.html");
+	@RequestMapping(value="simple_up_html", method=RequestMethod.GET)
+	public ModelAndView simple_up_html(ModelAndView mv) {
+		mv.setViewName("/question/teacher/simple_up.html");
 		return mv;
 	}
 	
-	@RequestMapping(value="simple_up_student", method=RequestMethod.GET)
-	public ModelAndView simple_up_student(ModelAndView mv) {
-		mv.setViewName("/question/student/simple_up.html");
-		return mv;
-	}
-	
-	@RequestMapping(value="simple_query_student", method=RequestMethod.GET)
-	public ModelAndView simple_query_student(ModelAndView mv) {
-		mv.setViewName("/question/student/simple_query.html");
+	@RequestMapping(value="simple_info_student_html", method=RequestMethod.GET)
+	public ModelAndView simple_info_student(ModelAndView mv) {
+		mv.setViewName("/question/student/simple_info.html");
 		return mv;
 	}
 	
@@ -48,15 +47,35 @@ public class QuestionSimpleController {
 	 * @param content
 	 * @param difficulty
 	 * @param options
-	 * @param labels
+	 * @param labelIds
 	 * @param answerContent
 	 * @param analyse
 	 * @return
 	 */
 	@RequestMapping(value="/simple/save", method=RequestMethod.POST)
-	public Result save(String shortName, String content, Integer difficulty, String options, String labels, 
+	public Result save(String shortName, String content, Integer difficulty, String options, String labelIds, 
 			String answerContent, String analyse) {
-		return questionSimpleService.save(shortName, content, difficulty, options, labels, answerContent, analyse);
+		List<String> option_list = new ArrayList<>();
+		String[] option_array = options.split(",");
+		for (int i = 0; i < option_array.length; i++) {
+			if (option_array[i].equals("")) {
+				continue;
+			}
+			option_list.add(option_array[i]);
+		}
+		List<String> label_list = new ArrayList<>();
+		String[] label_array = labelIds.split(",");
+		for (int i = 0; i < label_array.length; i++) {
+			if (label_array[i].equals("")) {
+				continue;
+			}
+			label_list.add(label_array[i]);
+		}
+		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
+		if (userId == null) {
+			new Result(false, "请登陆");
+		}
+		return questionSimpleService.save(shortName, content, difficulty, option_list, label_list, answerContent, analyse, userId);
 	}
 	
 	/**
@@ -66,15 +85,35 @@ public class QuestionSimpleController {
 	 * @param content
 	 * @param difficulty
 	 * @param options
-	 * @param labels
+	 * @param labelId
 	 * @param answerContent
 	 * @param analyse
 	 * @return
 	 */
 	@RequestMapping(value="/simple/update", method=RequestMethod.POST)
-	public Result update(String id, String shortName, String content, Integer difficulty, String options, String labels, 
+	public Result update(String id, String shortName, String content, Integer difficulty, String options, String labelIds, 
 			String answerContent, String analyse) {
-		return questionSimpleService.update(id, shortName, content, difficulty, options, labels, answerContent, analyse);
+		List<String> option_list = new ArrayList<>();
+		if (options != null) {
+			String[] option_array = options.split(",");
+			for (int i = 0; i < option_array.length; i++) {
+				if (option_array[i].equals("")) {
+					continue;
+				}
+				option_list.add(option_array[i]);
+			}
+		}
+		List<String> label_list = new ArrayList<>();
+		if (labelIds != null) {
+			String[] label_array = labelIds.split(",");
+			for (int i = 0; i < label_array.length; i++) {
+				if (label_array[i].equals("")) {
+					continue;
+				}
+				label_list.add(label_array[i]);
+			}
+		}
+		return questionSimpleService.update(id, shortName, content, difficulty, option_list, label_list, answerContent, analyse);
 	}
 	
 	/**
@@ -129,9 +168,18 @@ public class QuestionSimpleController {
 		json.setContent(questionSimple.getContent());
 		json.setCreateTime(questionSimple.getCreateTime());
 		json.setDifficulty(questionSimple.getDifficulty());
+		json.setShortName(questionSimple.getShortName());
 		json.setId(questionSimple.getId());
-		json.setLabelId(questionSimple.getLabel().getId());
-		json.setOptions(questionSimple.getSimpleOptions());
+		List<String> labels = new ArrayList<>();
+		for (QuestionLabel questionLabel : questionSimple.getQuestionLabels()) {
+			labels.add(questionLabel.getName());
+		}
+		json.setLabelName(labels.toString().replaceAll("[", "").replaceAll("]", ""));
+		List<String> options = new ArrayList<>();
+		for (Option option : questionSimple.getSimpleOptions()) {
+			options.add(option.getContent());
+		}
+		json.setOptions(options.toString().replaceAll("[", "").replaceAll("]", ""));
 		json.setAuthorId(questionSimple.getAuthor().getUid());
 		json.setAuthorName(questionSimple.getAuthor().getName());
 		return json;

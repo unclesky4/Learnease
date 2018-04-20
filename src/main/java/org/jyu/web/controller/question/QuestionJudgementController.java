@@ -1,5 +1,7 @@
 package org.jyu.web.controller.question;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
@@ -47,16 +49,23 @@ public class QuestionJudgementController {
 	 * @param shortName 问题简述
 	 * @param content
 	 * @param difficulty
-	 * @param labels
-	 * @param options
-	 * @param answerContent
+	 * @param labelIds
+	 * @param answerContent  参考答案(对/错)
 	 * @param analyse
 	 * @return
 	 */
 	@RequestMapping(value="/judgement/save", method=RequestMethod.POST)
-	public Result save(String shortName, String content, Integer difficulty, String labels, String answerContent, String analyse) {
+	public Result save(String shortName, String content, Integer difficulty, String labelIds, String answerContent, String analyse) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
-		return service.save(shortName, content, difficulty, userId, labels, answerContent, analyse);
+		List<String> label_list = new ArrayList<>();
+		String[] label_array = labelIds.split(",");
+		for (int i = 0; i < label_array.length; i++) {
+			if (label_array[i].equals("")) {
+				continue;
+			}
+			label_list.add(label_array[i]);
+		}
+		return service.save(shortName, content, difficulty, userId, label_list, answerContent, analyse);
 	}
 	
 	/**
@@ -75,16 +84,24 @@ public class QuestionJudgementController {
 	 * @param shortName 问题简述
 	 * @param content
 	 * @param difficulty
-	 * @param labels
+	 * @param labelIds
 	 * @param options
 	 * @param answerContent
 	 * @param analyse
 	 * @return
 	 */
 	@RequestMapping(value="/judgement/update", method=RequestMethod.POST)
-	public Result update(String id, String shortName, String content, Integer difficulty, String labels, String options,
+	public Result update(String id, String shortName, String content, Integer difficulty, String labelIds, String options,
 			String answerContent, String analyse) {
-		return service.update(id, shortName, content, difficulty, labels, answerContent, analyse);
+		List<String> label_list = new ArrayList<>();
+		String[] label_array = labelIds.split(",");
+		for (int i = 0; i < label_array.length; i++) {
+			if (label_array[i].equals("")) {
+				continue;
+			}
+			label_list.add(label_array[i]);
+		}
+		return service.update(id, shortName, content, difficulty, label_list, answerContent, analyse);
 	}
 	
 	/**

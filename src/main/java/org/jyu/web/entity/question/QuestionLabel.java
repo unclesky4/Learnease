@@ -1,11 +1,14 @@
 package org.jyu.web.entity.question;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -29,6 +32,9 @@ public class QuestionLabel implements Serializable {
 	
 	@Column(nullable=false, length=20)
 	private String name;  //标签名
+	
+	@ManyToMany(mappedBy="questionLabels", fetch=FetchType.LAZY)
+	private List<Question> questions;
 
 	public String getId() {
 		return id;

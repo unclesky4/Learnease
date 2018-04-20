@@ -1,5 +1,6 @@
 package org.jyu.web.service.question;
 
+import java.util.List;
 import java.util.Map;
 
 import org.jyu.web.dto.Result;
@@ -8,12 +9,12 @@ import org.jyu.web.dto.question.QuestionProgramJson;
 public interface QuestionProgramService {
 
 	Result save(String shortName, String content, Integer difficulty, String description, String input, String output,
-			String exampleInput, String exampleOutput, String hint, String answerContent, String analyse, String labelId,
+			String exampleInput, String exampleOutput, String hint, String answerContent, String analyse, List<String> labelIds,
 			String userId);
 
 	Result update(String id, String shortName, String content, Integer difficulty, String description, String input,
 			String output, String exampleInput, String exampleOutput, String hint, String answerContent, String analyse,
-			String labelId);
+			List<String> labelIds);
 
 	Result delete(String id);
 

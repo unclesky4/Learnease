@@ -1,5 +1,7 @@
 package org.jyu.web.controller.question;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
@@ -56,16 +58,23 @@ public class QuestionProgramController {
 	 * @param hint   提示
 	 * @param answerContent  参考答案内容
 	 * @param analyse  分析
-	 * @param labels  标签（逗号分割）
+	 * @param labelIds  标签（逗号分割）
 	 * @return
 	 */
 	@RequestMapping(value="/program/save", method=RequestMethod.POST)
 	public Result save(String shortName, String content, Integer difficulty, String description, 
 			String input, String output, String exampleInput, String exampleOutput, String hint, 
-			String answerContent, String analyse, String labels) {
+			String answerContent, String analyse, String labelIds) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
+		List<String> list = new ArrayList<>();
+		String[] labelId = labelIds.split(",");
+		for (int i = 0; i < labelId.length; i++) {
+			if (!labelId[i].equals("")) {
+				list.add(labelId[i]);
+			}
+		}
 		return questionProgramService.save(shortName, content, difficulty, description, input, output, exampleInput, 
-				exampleOutput, hint, answerContent, analyse, labels, userId);
+				exampleOutput, hint, answerContent, analyse, list, userId);
 	}
 	
 	/**
@@ -91,15 +100,22 @@ public class QuestionProgramController {
 	 * @param hint   提示
 	 * @param answerContent  参考答案内容
 	 * @param analyse  分析
-	 * @param labels  标签（逗号分割）
+	 * @param labelIds  标签（逗号分割）
 	 * @return
 	 */
 	@RequestMapping(value="/program/update", method=RequestMethod.POST)
 	public Result update(String id, String shortName, String content, Integer difficulty,
 			String description, String input, String output, String exampleInput, String exampleOutput, 
-			String hint, String answerContent, String analyse, String labels) {
+			String hint, String answerContent, String analyse, String labelIds) {
+		List<String> list = new ArrayList<>();
+		String[] labelId = labelIds.split(",");
+		for (int i = 0; i < labelId.length; i++) {
+			if (!labelId[i].equals("")) {
+				list.add(labelId[i]);
+			}
+		}
 		return questionProgramService.update(id, shortName, content, difficulty, description, input, output, 
-				exampleInput, exampleOutput, hint, answerContent, analyse, labels);
+				exampleInput, exampleOutput, hint, answerContent, analyse, list);
 	}
 	
 	/**

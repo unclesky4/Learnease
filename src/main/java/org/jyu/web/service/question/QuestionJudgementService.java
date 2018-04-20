@@ -1,5 +1,6 @@
 package org.jyu.web.service.question;
 
+import java.util.List;
 import java.util.Map;
 
 import org.jyu.web.dto.Result;
@@ -13,12 +14,12 @@ public interface QuestionJudgementService {
 	 * @param content  判断题主干
 	 * @param difficulty  难度
 	 * @param userId  提交人主键
-	 * @param labelId  标签主键
+	 * @param labelIds  标签主键
 	 * @param answerContent  参考答案（对/错）
 	 * @param analyse 参考答案分析
 	 * @return
 	 */
-	Result save(String shortName, String content, Integer difficulty, String userId, String labelId, String answerContent, 
+	Result save(String shortName, String content, Integer difficulty, String userId, List<String> labelIds, String answerContent, 
 			String analyse);
 	
 	/**
@@ -28,12 +29,12 @@ public interface QuestionJudgementService {
 	 * @param content  判断题主干
 	 * @param difficulty  难度
 	 * @param userId  提交人主键
-	 * @param labelId  标签主键
+	 * @param labelIds  标签主键
 	 * @param answerContent  参考答案（对/错）
 	 * @param analyse 参考答案分析
 	 * @return
 	 */
-	Result update(String shortName, String id, String content, Integer difficulty, String labelId, String answerContent, 
+	Result update(String shortName, String id, String content, Integer difficulty, List<String> labelIds, String answerContent, 
 			String analyse);
 	
 	Result deleteById(String id);

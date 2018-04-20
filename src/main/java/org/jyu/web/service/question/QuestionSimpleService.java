@@ -1,5 +1,6 @@
 package org.jyu.web.service.question;
 
+import java.util.List;
 import java.util.Map;
 
 import org.jyu.web.dto.Result;
@@ -14,10 +15,10 @@ import org.jyu.web.entity.question.QuestionSimple;
  */
 public interface QuestionSimpleService {
 	
-	Result save(String shortName, String content, Integer difficulty, String options, String labelId, 
-			String answerContent, String analyse);
+	Result save(String shortName, String content, Integer difficulty, List<String> options, List<String> labelIds, 
+			String answerContent, String analyse, String userId);
 	
-	Result update(String id, String shortName, String content, Integer difficulty, String options, String labelId, 
+	Result update(String id, String shortName, String content, Integer difficulty, List<String> options, List<String> labelIds, 
 			String answerContent, String analyse);
 	
 	Result deleteById(String id);
