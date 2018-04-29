@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.jyu.web.dao.authority.UserRepository;
@@ -28,6 +32,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 
@@ -153,9 +158,53 @@ public class QuestionSimpleServiceImpl implements QuestionSimpleService {
 		Page<QuestionSimple> page = questionSimpleDao.findAll(pageable);
 		List<QuestionSimple> list = page.getContent();
 		
-		List<QuestionSimpleJson> questionSimpleJsons = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
-		for (QuestionSimple questionSimple : list) {
+		List<QuestionSimpleJson> questionSimpleJsons = convertData(list);
+		map.put("total", page.getTotalElements());
+		map.put("rows", questionSimpleJsons);
+		return map;
+	}
+
+	@Override
+	public Result judgeResult(String qid, String solution) {
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> getPageByUser(int pageNumber, int pageSize, String sortOrder, String userId) {
+		Sort sort = new Sort(Direction.DESC, "createTime");
+		@SuppressWarnings("deprecation")
+		Pageable pageable = new PageRequest(pageNumber-1, pageSize, sort);
+		
+		Specification<QuestionSimple> specification = new Specification<QuestionSimple>() {
+
+			private static final long serialVersionUID = 3011558012551930039L;
+
+			@Override
+			public Predicate toPredicate(Root<QuestionSimple> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				Predicate predicate = cb.equal(root.get("author").get("uid"), userId);
+				return predicate;
+			}
+		};
+		
+		Page<QuestionSimple> page = questionSimpleDao.findAll(specification, pageable);
+		Map<String, Object> map = new HashMap<>();
+		map.put("total", page.getTotalElements());
+		map.put("rows", convertData(page.getContent()));
+		return map;
+	}
+	
+	/**
+	 * 对象转换
+	 * @param questionSimples
+	 * @return
+	 */
+	List<QuestionSimpleJson> convertData(List<QuestionSimple> questionSimples) {
+		List<QuestionSimpleJson> questionSimpleJsons = new ArrayList<>();
+		if (questionSimples == null) {
+			return questionSimpleJsons;
+		}
+		for (QuestionSimple questionSimple : questionSimples) {
 			QuestionSimpleJson tmp = new QuestionSimpleJson();
 			tmp.setContent(questionSimple.getContent());
 			tmp.setCreateTime(questionSimple.getCreateTime());
@@ -171,7 +220,7 @@ public class QuestionSimpleServiceImpl implements QuestionSimpleService {
 			for (int i = 0; i < labels.size(); i++) {
 				labels_array[i] = labels.get(i).getName();
 			}
-			tmp.setLabelName(Arrays.toString(labels_array));
+			tmp.setLabels(Arrays.toString(labels_array));
 			
 			List<Option> options = questionSimple.getSimpleOptions();
 			String[] options_array = new String[options.size()];
@@ -181,14 +230,7 @@ public class QuestionSimpleServiceImpl implements QuestionSimpleService {
 			tmp.setOptions(Arrays.toString(options_array));
 			questionSimpleJsons.add(tmp);
 		}
-		map.put("total", page.getTotalElements());
-		map.put("rows", questionSimpleJsons);
-		return map;
-	}
-
-	@Override
-	public Result judgeResult(String qid, String solution) {
-		return null;
+		return questionSimpleJsons;
 	}
 
 }

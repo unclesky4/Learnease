@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jyu.web.dto.Result;
-import org.jyu.web.dto.question.QuestionProgramJson;
+import org.jyu.web.entity.question.QuestionProgram;
 
 public interface QuestionProgramService {
 
@@ -18,10 +18,19 @@ public interface QuestionProgramService {
 
 	Result delete(String id);
 
-	QuestionProgramJson findById(String id);
+	QuestionProgram findById(String id);
 
 	Map<String, Object> list(int pageNumber, int pageSize, String sortOrder);
 
 	Result judgeResult(String qid, String solution);
 
+	/**
+	 * 分页查询某个用户提交的编程题
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param sortOrder
+	 * @param userId
+	 * @return
+	 */
+	Map<String, Object> getPageByUser(int pageNumber, int pageSize, String sortOrder, String userId);
 }

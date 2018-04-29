@@ -12,9 +12,7 @@ public class QuestionSimpleJson{
 	
 	private String createTime;   //创建时间
 	
-	private String labelId;  //标签
-	
-	private String labelName;  //标签
+	private String labels;  //标签
 	
 	private String authorId;  //提交人主键
 	
@@ -78,20 +76,12 @@ public class QuestionSimpleJson{
 		this.authorName = authorName;
 	}
 
-	public String getLabelId() {
-		return labelId;
+	public String getLabels() {
+		return labels;
 	}
 
-	public void setLabelId(String labelId) {
-		this.labelId = labelId;
-	}
-
-	public String getLabelName() {
-		return labelName;
-	}
-
-	public void setLabelName(String labelName) {
-		this.labelName = labelName;
+	public void setLabels(String labels) {
+		this.labels = labels;
 	}
 
 	public String getOptions() {

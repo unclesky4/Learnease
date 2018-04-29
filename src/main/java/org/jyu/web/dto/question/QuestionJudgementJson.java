@@ -23,7 +23,7 @@ public class QuestionJudgementJson {
 	
 	private String options;  //选项
 	
-	private String labels;
+	private String labels;   //标签
 	
 
 	public String getId() {

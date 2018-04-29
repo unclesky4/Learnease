@@ -1,12 +1,18 @@
 package org.jyu.web.controller.question;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.jyu.web.dto.Result;
+import org.jyu.web.dto.question.AnswerJson;
 import org.jyu.web.dto.question.QuestionProgramJson;
+import org.jyu.web.entity.question.Answer;
+import org.jyu.web.entity.question.QuestionLabel;
+import org.jyu.web.entity.question.QuestionProgram;
 import org.jyu.web.service.question.QuestionProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +48,18 @@ public class QuestionProgramController {
 	@RequestMapping(value="program_query_student", method=RequestMethod.GET)
 	public ModelAndView program_query_student(ModelAndView mv) {
 		mv.setViewName("/question/student/program_query.html");
+		return mv;
+	}
+	
+	/**
+	 * 修改编程题界面
+	 * @param mv
+	 * @param id   判断题主键
+	 * @return
+	 */
+	@RequestMapping(value="program_up_html", method=RequestMethod.GET)
+	public ModelAndView program_up_html(ModelAndView mv, String id) {
+		mv.setViewName("/question/teacher/program_up.html");
 		return mv;
 	}
 	
@@ -125,7 +143,7 @@ public class QuestionProgramController {
 	 */
 	@RequestMapping(value="/program/getById", method=RequestMethod.GET)
 	public QuestionProgramJson getById(String id) {
-		return null;
+		return convert(questionProgramService.findById(id));
 	}
 	
 	/**
@@ -139,5 +157,63 @@ public class QuestionProgramController {
 	public Map<String, Object> getAllQuestionBlank(int pageNumber, int pageSize, String sortOrder) {
 		return questionProgramService.list(pageNumber, pageSize, sortOrder);
 	}
+	
+	
+	/**
+	 * 分页查询登陆用户提交的编程题
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param sortOrder
+	 * @return
+	 */
+	@RequestMapping(value="/program/own", method=RequestMethod.GET)
+	public Map<String, Object> getOwnQuestionProgram(int pageNumber, int pageSize, String sortOrder) {
+		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
+		
+		Map<String, Object> map = new HashMap<>();
+		if (userId == null) {
+			return map;
+		}
+		return questionProgramService.getPageByUser(pageNumber, pageSize, sortOrder, userId);
+	}
+	
+	/**
+	 * 获取某个填空题的参考答案
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/program/answer", method=RequestMethod.GET)
+	public AnswerJson getAnswer(String id) {
+		Answer answer = questionProgramService.findById(id).getAnswer();
+		AnswerJson json = new AnswerJson();
+		json.setId(answer.getId());
+		json.setAnalyse(answer.getAnalyse());
+		json.setContent(answer.getContent());
+		return json;
+	}
 
+	QuestionProgramJson convert(QuestionProgram questionProgram) {
+		if (questionProgram == null) {
+			return null;
+		}
+		QuestionProgramJson json = new QuestionProgramJson();
+		json.setContent(questionProgram.getContent());
+		json.setDescription(questionProgram.getDescription());
+		json.setDifficulty(questionProgram.getDifficulty());
+		json.setExampleInput(questionProgram.getExampleInput());
+		json.setExampleOutput(questionProgram.getExampleOutput());
+		json.setHint(questionProgram.getHint());
+		json.setId(questionProgram.getId());
+		json.setInput(questionProgram.getInput());
+		json.setOutput(questionProgram.getOutput());
+		json.setShortName(questionProgram.getShortName());
+		json.setCreateTime(questionProgram.getCreateTime());
+		List<QuestionLabel> labels = questionProgram.getQuestionLabels();
+		String[] labels_array = new String[labels.size()];
+		for (int i = 0; i < labels.size(); i++) {
+			labels_array[i] = labels.get(i).getName();
+		}
+		json.setLabels(Arrays.toString(labels_array));
+		return json;
+	}
 }

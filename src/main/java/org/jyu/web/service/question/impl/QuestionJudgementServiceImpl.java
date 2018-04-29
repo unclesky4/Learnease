@@ -7,6 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.jyu.web.dao.authority.UserRepository;
 import org.jyu.web.dao.question.QuestionJudgementRepository;
 import org.jyu.web.dao.question.QuestionLabelRepository;
@@ -26,6 +31,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -128,31 +134,8 @@ public class QuestionJudgementServiceImpl implements QuestionJudgementService {
 	}
 
 	@Override
-	public QuestionJudgementJson findById(String id) {
-		QuestionJudgementJson json = new QuestionJudgementJson();
-		QuestionJudgement questionJudgement = questionJudgementDao.getOne(id);
-		if(questionJudgement == null) {
-			return json;
-		}
-		json.setId(questionJudgement.getId());
-		json.setContent(questionJudgement.getContent());
-		json.setCreateTime(questionJudgement.getCreateTime());
-		json.setDifficulty(questionJudgement.getDifficulty());
-		json.setType(questionJudgement.getType());
-		json.setShortName(questionJudgement.getShortName());
-
-		List<Option> options = questionJudgement.getJudgementOptions();
-		String[] options_array = new String[options.size()];
-		for (int i = 0; i < options.size(); i++) {
-			options_array[i] = options.get(i).getContent();
-		}
-		json.setOptions(Arrays.toString(options_array));
-		
-		if(questionJudgement.getAuthor() != null) {
-			json.setAuthorId(questionJudgement.getAuthor().getUid());
-			json.setAuthorName(questionJudgement.getAuthor().getName());
-		}
-		return json;
+	public QuestionJudgement findById(String id) {
+		return questionJudgementDao.getOne(id);
 	}
 
 	@Override
@@ -177,6 +160,30 @@ public class QuestionJudgementServiceImpl implements QuestionJudgementService {
 		return null;
 	}
 	
+	@Override
+	public Map<String, Object> getPageByUser(int pageNumber, int pageSize, String sortOrder, String userId) {
+		Sort sort = new Sort(Direction.DESC, "createTime");
+		@SuppressWarnings("deprecation")
+		Pageable pageable = new PageRequest(pageNumber-1, pageSize, sort);
+		
+		Specification<QuestionJudgement> specification = new Specification<QuestionJudgement>() {
+
+			private static final long serialVersionUID = 3011558012551930039L;
+
+			@Override
+			public Predicate toPredicate(Root<QuestionJudgement> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				Predicate predicate = cb.equal(root.get("author").get("uid"), userId);
+				return predicate;
+			}
+		};
+		
+		Page<QuestionJudgement> page = questionJudgementDao.findAll(specification, pageable);
+		Map<String, Object> map = new HashMap<>();
+		map.put("total", page.getTotalElements());
+		map.put("rows", convertData(page.getContent()));
+		return map;
+	}
+	
 	List<QuestionJudgementJson> convertData(List<QuestionJudgement> judgements) {
 		List<QuestionJudgementJson> list = new ArrayList<>();
 		for (QuestionJudgement questionJudgement : judgements) {
@@ -187,6 +194,13 @@ public class QuestionJudgementServiceImpl implements QuestionJudgementService {
 			json.setDifficulty(questionJudgement.getDifficulty());
 			json.setType(questionJudgement.getType());
 			json.setShortName(questionJudgement.getShortName());
+			
+			List<QuestionLabel> labels = questionJudgement.getQuestionLabels();
+			String[] labels_array = new String[labels.size()];
+			for (int i = 0; i < labels.size(); i++) {
+				labels_array[i] = labels.get(i).getName();
+			}
+			json.setLabels(Arrays.toString(labels_array));
 			
 			List<Option> options = questionJudgement.getJudgementOptions();
 			String[] options_array = new String[options.size()];

@@ -140,22 +140,7 @@
 							<a href="javascript:void(0);" title="">我的考试</a>
 						</li>
 					</ul>
-
-					<ul class="crumb-buttons">
-						<li><a href="study_center.html" title=""><i class="icon-tasks"></i><span>所有课程</span></a></li>
-						<li><a href="mycourse.html" title=""><i class="icon-list"></i><span>我的课程</span></a></li>
-						<li><a href="mysolutionset.html" title=""><i class="icon-list"></i><span>我的答卷</span></a></li>
-						<li><a href="mytest.html" title=""><i class="icon-tasks"></i><span>我的考试</span></a></li>
-						<li><a href="myproblem.html" title=""><i class="icon-list"></i><span>已刷题目</span></a></li>
-						<li class="dropdown"><a href="javascript:void(0);" title="" data-toggle="dropdown"><i class="icon-tasks"></i>题目列表<i class="icon-angle-down left-padding"></i></a>
-							<ul class="dropdown-menu pull-right">
-							<li><a href="list_1.html" title=""></i>单选题</a></li>
-							<li><a href="list_2.html" title=""></i>多选题</a></li>
-							<li><a href="list_3.html" title=""></i>判断题</a></li>
-							<li><a href="list_4.html" title=""></i>填空题</a></li>
-							<li><a href="list_5.html" title=""></i>编程题</a></li>
-							</ul>
-						</li>
+					<ul class="crumb-buttons" th:include="/common/common_study_crumbs :: crumb-buttons">
 					</ul>
 				</div>
 				<!-- /Breadcrumbs line -->

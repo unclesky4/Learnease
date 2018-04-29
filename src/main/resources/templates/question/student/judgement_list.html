@@ -145,11 +145,7 @@
 			        align: 'center',
 			        visible: false
 			    }, {
-			        field: 'questionNumber',
-			        title: '题号',
-			        align: 'center'
-			    }, {
-			        field: 'topic',
+			        field: 'shortName',
 			        title: '主题',
 			        align: 'center'
 			    },{
@@ -162,7 +158,7 @@
 			        align: 'center',
 			        sortable: true      //是否启用排序
 			    },{
-			        field: 'label',
+			        field: 'labels',
 			        title: '标签',
 			        align: 'center'
 			    },{
@@ -197,10 +193,23 @@
 
 		<div id="content">
 			<div class="container">
-				<!-- Breadcrumbs line -->
-				<div class="crumbs" th:include="/common/common_study_crumbs :: common_study_crumbs">
+				<div class="crumbs" th:fragment="common_study_crumbs">
+					<ul id="breadcrumbs" class="breadcrumb">
+						<li>
+							<i class="icon-home"></i>
+							<a href="javascript:void(0);">学习中心</a>
+						</li>
+						<li class="current">
+							<a href="javascript:void(0);" title="">题目列表</a>
+						</li>
+						<li class="current">
+							<a href="javascript:void(0);" title="">判断题</a>
+						</li>
+					</ul>
+			
+					<ul class="crumb-buttons" th:include="/common/common_study_crumbs :: crumb-buttons">
+					</ul>
 				</div>
-				<!-- /Breadcrumbs line -->
 
 				<!--=== Page Content ===-->
 				<div style="width:100%; margin-top: 5px;"> <!-- .row-bg -->

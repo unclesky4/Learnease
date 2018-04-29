@@ -1,13 +1,18 @@
 package org.jyu.web.controller.question;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.jyu.web.dto.Result;
+import org.jyu.web.dto.question.AnswerJson;
 import org.jyu.web.dto.question.QuestionMultipleJson;
+import org.jyu.web.entity.question.Answer;
 import org.jyu.web.entity.question.Option;
+import org.jyu.web.entity.question.QuestionLabel;
 import org.jyu.web.entity.question.QuestionMultiple;
 import org.jyu.web.service.question.QuestionMultipleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +48,18 @@ public class QuestionMultipleController {
 	@RequestMapping(value="multiple_query_student", method=RequestMethod.GET)
 	public ModelAndView multiple_query_student(ModelAndView mv) {
 		mv.setViewName("/question/student/multiple_query.html");
+		return mv;
+	}
+	
+	/**
+	 * 修改多选题界面
+	 * @param mv
+	 * @param id   单选题主键
+	 * @return
+	 */
+	@RequestMapping(value="multiple_up_html", method=RequestMethod.GET)
+	public ModelAndView multiple_up_html(ModelAndView mv, String id) {
+		mv.setViewName("/question/teacher/multiple_up.html");
 		return mv;
 	}
 
@@ -114,6 +131,7 @@ public class QuestionMultipleController {
 	 * @param id
 	 * @return
 	 */
+	@RequestMapping(value="/multiple/getById",  method=RequestMethod.GET)
 	public QuestionMultipleJson getById(String id) {
 		return convert(multipleService.findById(id));
 	}
@@ -130,6 +148,39 @@ public class QuestionMultipleController {
 		return multipleService.list(pageNumber, pageSize, sortOrder);
 	}
 	
+	/**
+	 * 分页查询登陆用户提交的多选题
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param sortOrder
+	 * @return
+	 */
+	@RequestMapping(value="/multiple/own", method=RequestMethod.GET)
+	public Map<String, Object> getOwnQuestionProgram(int pageNumber, int pageSize, String sortOrder) {
+		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
+		
+		Map<String, Object> map = new HashMap<>();
+		if (userId == null) {
+			return map;
+		}
+		return multipleService.getPageByUser(pageNumber, pageSize, sortOrder, userId);
+	}
+	
+	/**
+	 * 获取某个多选题的参考答案
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/multiple/answer", method=RequestMethod.GET)
+	public AnswerJson getAnswer(String id) {
+		Answer answer = multipleService.findById(id).getAnswer();
+		AnswerJson json = new AnswerJson();
+		json.setId(answer.getId());
+		json.setAnalyse(answer.getAnalyse());
+		json.setContent(answer.getContent());
+		return json;
+	}
+	
 	
 	QuestionMultipleJson convert(QuestionMultiple multiple) {
 		if (multiple == null) {
@@ -144,11 +195,18 @@ public class QuestionMultipleController {
 		json.setId(multiple.getId());
 		json.setShortName(multiple.getShortName());
 		
+		List<QuestionLabel> labels = multiple.getQuestionLabels();
+		String[] labels_array = new String[labels.size()];
+		for (int i = 0; i < labels.size(); i++) {
+			labels_array[i] = labels.get(i).getName();
+		}
+		json.setLabels(Arrays.toString(labels_array));
+		
 		List<String> list = new ArrayList<>();
 		for (Option option : multiple.getOptions()) {
 			list.add(option.getContent());
 		}
-		json.setOptions(list.toString().replaceAll("[", "").replaceAll("]", ""));
+		json.setOptions(list.toString());
 		json.setType(multiple.getType());
 		return json;
 	}

@@ -22,4 +22,13 @@ public interface QuestionBlankService {
 	
 	Result judgeResult(String qid, String solution);
 
+	/**
+	 * 分页查询某个用户提交的填空题
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param sortOrder
+	 * @param userId
+	 * @return
+	 */
+	Map<String, Object> getPageByUser(int pageNumber, int pageSize, String sortOrder, String userId);
 }

@@ -6,8 +6,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.jyu.web.dao.authority.UserRepository;
 import org.jyu.web.dao.question.QuestionLabelRepository;
@@ -27,6 +30,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -146,27 +150,9 @@ public class QuestionProgramServiceImpl implements QuestionProgramService {
 	}
 
 	@Override
-	public QuestionProgramJson findById(String id) {
+	public QuestionProgram findById(String id) {
 		QuestionProgram program = questionProgramDao.getOne(id);
-		QuestionProgramJson questionProgramJson = new QuestionProgramJson();
-		if(program != null) {
-			questionProgramJson.setContent(program.getContent());
-			questionProgramJson.setDescription(program.getDescription());
-			questionProgramJson.setDifficulty(program.getDifficulty());
-			questionProgramJson.setExampleInput(program.getExampleInput());
-			questionProgramJson.setExampleOutput(program.getExampleOutput());
-			questionProgramJson.setHint(program.getHint());
-			questionProgramJson.setId(program.getId());
-			questionProgramJson.setInput(program.getInput());
-			questionProgramJson.setOutput(program.getOutput());
-			questionProgramJson.setShortName(program.getShortName());
-			List<String> labels = new ArrayList<>();
-			for (QuestionLabel questionLabel : program.getQuestionLabels()) {
-				labels.add(questionLabel.getName());
-			}
-			questionProgramJson.setLabel(labels.toString().replaceAll("[", "").replaceAll("]", ""));
-		}
-		return questionProgramJson;
+		return program;
 	}
 
 	@Override
@@ -189,6 +175,30 @@ public class QuestionProgramServiceImpl implements QuestionProgramService {
 		return null;
 	}
 	
+	@Override
+	public Map<String, Object> getPageByUser(int pageNumber, int pageSize, String sortOrder, String userId) {
+		Sort sort = new Sort(Direction.DESC, "createTime");
+		@SuppressWarnings("deprecation")
+		Pageable pageable = new PageRequest(pageNumber-1, pageSize, sort);
+		
+		Specification<QuestionProgram> specification = new Specification<QuestionProgram>() {
+
+			private static final long serialVersionUID = 3011558012551930039L;
+
+			@Override
+			public Predicate toPredicate(Root<QuestionProgram> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				Predicate predicate = cb.equal(root.get("author").get("uid"), userId);
+				return predicate;
+			}
+		};
+		
+		Page<QuestionProgram> page = questionProgramDao.findAll(specification, pageable);
+		Map<String, Object> map = new HashMap<>();
+		map.put("total", page.getTotalElements());
+		map.put("rows", convertData(page.getContent()));
+		return map;
+	}
+	
 	List<QuestionProgramJson> convertData(List<QuestionProgram> programs) {
 		List<QuestionProgramJson> list = new ArrayList<>();
 		for (QuestionProgram questionProgram : programs) {
@@ -203,40 +213,16 @@ public class QuestionProgramServiceImpl implements QuestionProgramService {
 			json.setInput(questionProgram.getInput());
 			json.setOutput(questionProgram.getOutput());
 			json.setShortName(questionProgram.getShortName());
+			json.setCreateTime(questionProgram.getCreateTime());
 			List<QuestionLabel> labels = questionProgram.getQuestionLabels();
 			String[] labels_array = new String[labels.size()];
 			for (int i = 0; i < labels.size(); i++) {
 				labels_array[i] = labels.get(i).getName();
 			}
-			json.setLabel(Arrays.toString(labels_array));
+			json.setLabels(Arrays.toString(labels_array));
 			list.add(json);
 		}
 		return list;
 	}
 	
-	/**
-	 * 使用正则表达式删除HTML标签
-	 * @param htmlStr
-	 * @return
-	 */
-	String delHTMLTag(String htmlStr){ 
-        String regEx_script="<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式 
-        String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式 
-        String regEx_html="<[^>]+>"; //定义HTML标签的正则表达式 
-         
-        Pattern p_script=Pattern.compile(regEx_script,Pattern.CASE_INSENSITIVE); 
-        Matcher m_script=p_script.matcher(htmlStr); 
-        htmlStr=m_script.replaceAll(""); //过滤script标签 
-         
-        Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE); 
-        Matcher m_style=p_style.matcher(htmlStr); 
-        htmlStr=m_style.replaceAll(""); //过滤style标签 
-         
-        Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE); 
-        Matcher m_html=p_html.matcher(htmlStr); 
-        htmlStr=m_html.replaceAll(""); //过滤html标签 
-
-        return htmlStr.trim(); //返回文本字符串
-	}
-
 }

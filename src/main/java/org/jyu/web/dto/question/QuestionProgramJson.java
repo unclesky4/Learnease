@@ -22,11 +22,13 @@ public class QuestionProgramJson {
 	
 	private String hint;  //提示
 	
-	private String label;  //标签
+	private String labels;  //标签
 	
 	private String authorId;  //提交人主键
 	
 	private String authorName;  //提交人昵称
+	
+	private String createTime;
 
 	public String getId() {
 		return id;
@@ -108,12 +110,12 @@ public class QuestionProgramJson {
 		this.hint = hint;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getLabels() {
+		return labels;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
+	public void setLabels(String labels) {
+		this.labels = labels;
 	}
 
 	public String getAuthorId() {
@@ -130,5 +132,13 @@ public class QuestionProgramJson {
 
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 }

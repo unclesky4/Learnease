@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.question.QuestionJudgementJson;
+import org.jyu.web.entity.question.QuestionJudgement;
 
 public interface QuestionJudgementService {
 	
@@ -39,10 +40,20 @@ public interface QuestionJudgementService {
 	
 	Result deleteById(String id);
 	
-	QuestionJudgementJson findById(String id);
+	QuestionJudgement findById(String id);
 	
 	Map<String, Object> list(int pageNumber, int pageSize, String sortOrder);
 	
 	Result judgeResult(String qid, String answercontent);
+	
+	/**
+	 * 分页查询某个用户提交的判断题
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param sortOrder
+	 * @param userId
+	 * @return
+	 */
+	Map<String, Object> getPageByUser(int pageNumber, int pageSize, String sortOrder, String userId);
 
 }

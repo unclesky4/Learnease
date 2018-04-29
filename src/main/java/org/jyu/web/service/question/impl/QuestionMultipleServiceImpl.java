@@ -7,6 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.jyu.web.dao.authority.UserRepository;
 import org.jyu.web.dao.question.QuestionLabelRepository;
 import org.jyu.web.dao.question.QuestionMultipleRepository;
@@ -16,15 +21,16 @@ import org.jyu.web.entity.question.Answer;
 import org.jyu.web.entity.question.Option;
 import org.jyu.web.entity.question.QuestionLabel;
 import org.jyu.web.entity.question.QuestionMultiple;
+import org.jyu.web.enums.QuestionType;
 import org.jyu.web.service.question.QuestionMultipleService;
 import org.jyu.web.utils.DateUtil;
-import org.jyu.web.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +59,7 @@ public class QuestionMultipleServiceImpl implements QuestionMultipleService {
 		multiple.setDifficulty(difficulty);
 		multiple.setCreateTime(DateUtil.DateToString(DateUtil.YMDHMS, new Date()));
 		multiple.setAuthor(userDao.getOne(userId));
+		multiple.setType(QuestionType.MULTIPLE);
 		
 		//选项
 		List<Option> options_list = new ArrayList<>();
@@ -158,6 +165,30 @@ public class QuestionMultipleServiceImpl implements QuestionMultipleService {
 		map.put("rows", this.convertData(page.getContent()));
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> getPageByUser(int pageNumber, int pageSize, String sortOrder, String userId) {
+		Sort sort = new Sort(Direction.DESC, "createTime");
+		@SuppressWarnings("deprecation")
+		Pageable pageable = new PageRequest(pageNumber-1, pageSize, sort);
+		
+		Specification<QuestionMultiple> specification = new Specification<QuestionMultiple>() {
+
+			private static final long serialVersionUID = 3011558012551930039L;
+
+			@Override
+			public Predicate toPredicate(Root<QuestionMultiple> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				Predicate predicate = cb.equal(root.get("author").get("uid"), userId);
+				return predicate;
+			}
+		};
+		
+		Page<QuestionMultiple> page = questionMultipleDao.findAll(specification, pageable);
+		Map<String, Object> map = new HashMap<>();
+		map.put("total", page.getTotalElements());
+		map.put("rows", convertData(page.getContent()));
+		return map;
+	}
 
 	List<QuestionMultipleJson> convertData(List<QuestionMultiple> multiples) {
 		List<QuestionMultipleJson> list = new ArrayList<>();
@@ -186,7 +217,6 @@ public class QuestionMultipleServiceImpl implements QuestionMultipleService {
 			json.setType(questionMultiple.getType());
 			list.add(json);
 		}
-		System.err.println(JsonUtil.toJson(list));
 		return list;
 	}
 }

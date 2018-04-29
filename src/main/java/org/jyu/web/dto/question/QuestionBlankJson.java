@@ -19,6 +19,8 @@ public class QuestionBlankJson{
 	private String authorId;  //提交人主键
 	
 	private String authorName;  //提交人昵称
+	
+	private String labels;   //标签
 
 	public String getId() {
 		return id;
@@ -82,6 +84,14 @@ public class QuestionBlankJson{
 
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
+	}
+
+	public String getLabels() {
+		return labels;
+	}
+
+	public void setLabels(String labels) {
+		this.labels = labels;
 	}
 	
 }

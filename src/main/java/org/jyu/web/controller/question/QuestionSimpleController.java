@@ -1,12 +1,15 @@
 package org.jyu.web.controller.question;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.jyu.web.dto.Result;
+import org.jyu.web.dto.question.AnswerJson;
 import org.jyu.web.dto.question.QuestionSimpleJson;
+import org.jyu.web.entity.question.Answer;
 import org.jyu.web.entity.question.Option;
 import org.jyu.web.entity.question.QuestionLabel;
 import org.jyu.web.entity.question.QuestionSimple;
@@ -29,13 +32,26 @@ public class QuestionSimpleController {
 		return mv;
 	}
 	
+	/**
+	 * 修改单选题界面
+	 * @param mv
+	 * @param id   单选题主键
+	 * @return
+	 */
 	@RequestMapping(value="simple_up_html", method=RequestMethod.GET)
-	public ModelAndView simple_up_html(ModelAndView mv) {
+	public ModelAndView simple_up_html(ModelAndView mv, String id) {
 		mv.setViewName("/question/teacher/simple_up.html");
+		mv.addObject("simple", questionSimpleService.findById(id));
 		return mv;
 	}
 	
-	@RequestMapping(value="simple_info_student_html", method=RequestMethod.GET)
+	/**
+	 * 单选题信息界面
+	 * @param mv
+	 * @param id  单选题主键
+	 * @return
+	 */
+	@RequestMapping(value="simple_info_html", method=RequestMethod.GET)
 	public ModelAndView simple_info_student(ModelAndView mv) {
 		mv.setViewName("/question/student/simple_info.html");
 		return mv;
@@ -131,7 +147,7 @@ public class QuestionSimpleController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/simple/simple/getById", method=RequestMethod.GET)
+	@RequestMapping(value="/simple/getById", method=RequestMethod.GET)
 	public QuestionSimpleJson getById(String id) {
 		return convert(questionSimpleService.findById(id));
 	}
@@ -159,6 +175,38 @@ public class QuestionSimpleController {
 		return null;
 	}
 	
+	/**
+	 * 分页查询登陆用户提交的单选题
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param sortOrder
+	 * @return
+	 */
+	@RequestMapping(value="/simple/own", method=RequestMethod.GET)
+	public Map<String, Object> getOwnQuestionSimple(int pageNumber, int pageSize, String sortOrder) {
+		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
+		
+		Map<String, Object> map = new HashMap<>();
+		if (userId == null) {
+			return map;
+		}
+		return questionSimpleService.getPageByUser(pageNumber, pageSize, sortOrder, userId);
+	}
+	
+	/**
+	 * 获取某个单选题的参考答案
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/simple/answer", method=RequestMethod.GET)
+	public AnswerJson getAnswer(String id) {
+		Answer answer = questionSimpleService.findById(id).getSimpleAnswer();
+		AnswerJson json = new AnswerJson();
+		json.setId(answer.getId());
+		json.setAnalyse(answer.getAnalyse());
+		json.setContent(answer.getContent());
+		return json;
+	}
 	
 	QuestionSimpleJson convert(QuestionSimple questionSimple) {
 		if (questionSimple == null) {
@@ -174,12 +222,12 @@ public class QuestionSimpleController {
 		for (QuestionLabel questionLabel : questionSimple.getQuestionLabels()) {
 			labels.add(questionLabel.getName());
 		}
-		json.setLabelName(labels.toString().replaceAll("[", "").replaceAll("]", ""));
+		json.setLabels(labels.toString());
 		List<String> options = new ArrayList<>();
 		for (Option option : questionSimple.getSimpleOptions()) {
 			options.add(option.getContent());
 		}
-		json.setOptions(options.toString().replaceAll("[", "").replaceAll("]", ""));
+		json.setOptions(options.toString());
 		json.setAuthorId(questionSimple.getAuthor().getUid());
 		json.setAuthorName(questionSimple.getAuthor().getName());
 		return json;

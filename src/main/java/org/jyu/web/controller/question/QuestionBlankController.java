@@ -1,13 +1,18 @@
 package org.jyu.web.controller.question;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.jyu.web.dto.Result;
+import org.jyu.web.dto.question.AnswerJson;
 import org.jyu.web.dto.question.QuestionBlankJson;
+import org.jyu.web.entity.question.Answer;
 import org.jyu.web.entity.question.QuestionBlank;
+import org.jyu.web.entity.question.QuestionLabel;
 import org.jyu.web.service.question.QuestionBlankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +47,18 @@ public class QuestionBlankController {
 	@RequestMapping(value="blank_query_student", method=RequestMethod.GET)
 	public ModelAndView blank_query_student(ModelAndView mv) {
 		mv.setViewName("/question/student/blank_query.html");
+		return mv;
+	}
+	
+	/**
+	 * 修改填空题界面
+	 * @param mv
+	 * @param id   判断题主键
+	 * @return
+	 */
+	@RequestMapping(value="blank_up_html", method=RequestMethod.GET)
+	public ModelAndView blank_up_html(ModelAndView mv, String id) {
+		mv.setViewName("/question/teacher/blank_up.html");
 		return mv;
 	}
 	
@@ -128,6 +145,39 @@ public class QuestionBlankController {
 		return null;
 	}
 	
+	/**
+	 * 分页查询登陆用户提交的编程题
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param sortOrder
+	 * @return
+	 */
+	@RequestMapping(value="/blank/own", method=RequestMethod.GET)
+	public Map<String, Object> getOwnQuestionProgram(int pageNumber, int pageSize, String sortOrder) {
+		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
+		
+		Map<String, Object> map = new HashMap<>();
+		if (userId == null) {
+			return map;
+		}
+		return questionBlankService.getPageByUser(pageNumber, pageSize, sortOrder, userId);
+	}
+	
+	/**
+	 * 获取某个填空题的参考答案
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/blank/answer", method=RequestMethod.GET)
+	public AnswerJson getAnswer(String id) {
+		Answer answer = questionBlankService.findById(id).getAnswer();
+		AnswerJson json = new AnswerJson();
+		json.setId(answer.getId());
+		json.setAnalyse(answer.getAnalyse());
+		json.setContent(answer.getContent());
+		return json;
+	}
+	
 	
 	QuestionBlankJson convert(QuestionBlank questionBlank) {
 		QuestionBlankJson questionBlankJson = new QuestionBlankJson();
@@ -140,6 +190,13 @@ public class QuestionBlankController {
 		questionBlankJson.setDifficulty(questionBlank.getDifficulty());
 		questionBlankJson.setType(questionBlank.getType());
 		questionBlankJson.setShortName(questionBlank.getShortName());
+		
+		List<QuestionLabel> labels = questionBlank.getQuestionLabels();
+		String[] labels_array = new String[labels.size()];
+		for (int i = 0; i < labels.size(); i++) {
+			labels_array[i] = labels.get(i).getName();
+		}
+		questionBlankJson.setLabels(Arrays.toString(labels_array));
 		
 		if(questionBlank.getAuthor() != null) {
 			questionBlankJson.setAuthorId(questionBlank.getAuthor().getUid());

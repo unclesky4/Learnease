@@ -1,12 +1,19 @@
 package org.jyu.web.controller.question;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.jyu.web.dto.Result;
+import org.jyu.web.dto.question.AnswerJson;
 import org.jyu.web.dto.question.QuestionJudgementJson;
+import org.jyu.web.entity.question.Answer;
+import org.jyu.web.entity.question.Option;
+import org.jyu.web.entity.question.QuestionJudgement;
+import org.jyu.web.entity.question.QuestionLabel;
 import org.jyu.web.service.question.QuestionJudgementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +48,18 @@ public class QuestionJudgementController {
 	@RequestMapping(value="judgement_query_student", method=RequestMethod.GET)
 	public ModelAndView judgement_query_student(ModelAndView mv) {
 		mv.setViewName("/question/student/judgement_query.html");
+		return mv;
+	}
+	
+	/**
+	 * 修改判断题界面
+	 * @param mv
+	 * @param id   判断题主键
+	 * @return
+	 */
+	@RequestMapping(value="judgement_up_html", method=RequestMethod.GET)
+	public ModelAndView judgement_up_html(ModelAndView mv, String id) {
+		mv.setViewName("/question/teacher/judgement_up.html");
 		return mv;
 	}
 
@@ -110,7 +129,7 @@ public class QuestionJudgementController {
 	 */
 	@RequestMapping(value="/judgement/getById", method=RequestMethod.GET)
 	public QuestionJudgementJson getById(String id) {
-		return service.findById(id);
+		return convert(service.findById(id));
 	}
 	
 	/**
@@ -133,5 +152,68 @@ public class QuestionJudgementController {
 	@RequestMapping(value="/judgement/judge",method=RequestMethod.POST)
 	public Result judgeAnswer(String qid, String answercontent) {
 		return null;
+	}
+	
+	/**
+	 * 分页查询登陆用户提交的编程题
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param sortOrder
+	 * @return
+	 */
+	@RequestMapping(value="/judgement/own", method=RequestMethod.GET)
+	public Map<String, Object> getOwnQuestionProgram(int pageNumber, int pageSize, String sortOrder) {
+		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
+		
+		Map<String, Object> map = new HashMap<>();
+		if (userId == null) {
+			return map;
+		}
+		return service.getPageByUser(pageNumber, pageSize, sortOrder, userId);
+	}
+	
+	/**
+	 * 获取某个判断题的参考答案
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/judgement/answer", method=RequestMethod.GET)
+	public AnswerJson getAnswer(String id) {
+		Answer answer = service.findById(id).getAnswer();
+		AnswerJson json = new AnswerJson();
+		json.setId(answer.getId());
+		json.setAnalyse(answer.getAnalyse());
+		json.setContent(answer.getContent());
+		return json;
+	}
+	
+	QuestionJudgementJson convert(QuestionJudgement questionJudgement) {
+		QuestionJudgementJson json = new QuestionJudgementJson();
+		json.setId(questionJudgement.getId());
+		json.setContent(questionJudgement.getContent());
+		json.setCreateTime(questionJudgement.getCreateTime());
+		json.setDifficulty(questionJudgement.getDifficulty());
+		json.setType(questionJudgement.getType());
+		json.setShortName(questionJudgement.getShortName());
+		
+		List<QuestionLabel> labels = questionJudgement.getQuestionLabels();
+		String[] labels_array = new String[labels.size()];
+		for (int i = 0; i < labels.size(); i++) {
+			labels_array[i] = labels.get(i).getName();
+		}
+		json.setLabels(Arrays.toString(labels_array));
+
+		List<Option> options = questionJudgement.getJudgementOptions();
+		String[] options_array = new String[options.size()];
+		for (int i = 0; i < options.size(); i++) {
+			options_array[i] = options.get(i).getContent();
+		}
+		json.setOptions(Arrays.toString(options_array));
+		
+		if(questionJudgement.getAuthor() != null) {
+			json.setAuthorId(questionJudgement.getAuthor().getUid());
+			json.setAuthorName(questionJudgement.getAuthor().getName());
+		}
+		return json;
 	}
 }

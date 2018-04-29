@@ -19,5 +19,15 @@ public interface QuestionMultipleService {
 	QuestionMultiple findById(String id);
 	
 	Map<String, Object> list(int pageNumber, int pageSize, String sortOrder);
+	
+	/**
+	 * 分页查询某个用户提交的多选题
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param sortOrder
+	 * @param userId
+	 * @return
+	 */
+	Map<String, Object> getPageByUser(int pageNumber, int pageSize, String sortOrder, String userId);
 
 }

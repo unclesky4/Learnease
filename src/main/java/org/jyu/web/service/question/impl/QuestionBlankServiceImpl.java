@@ -1,10 +1,16 @@
 package org.jyu.web.service.question.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.jyu.web.dao.authority.UserRepository;
 import org.jyu.web.dao.question.QuestionBlankRepository;
@@ -24,6 +30,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -142,6 +149,37 @@ public class QuestionBlankServiceImpl implements QuestionBlankService {
 		return map;
 	}
 	
+
+	@Override
+	public Result judgeResult(String qid, String solution) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Map<String, Object> getPageByUser(int pageNumber, int pageSize, String sortOrder, String userId) {
+		Sort sort = new Sort(Direction.DESC, "createTime");
+		@SuppressWarnings("deprecation")
+		Pageable pageable = new PageRequest(pageNumber-1, pageSize, sort);
+		
+		Specification<QuestionBlank> specification = new Specification<QuestionBlank>() {
+
+			private static final long serialVersionUID = 3011558012551930039L;
+
+			@Override
+			public Predicate toPredicate(Root<QuestionBlank> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				Predicate predicate = cb.equal(root.get("author").get("uid"), userId);
+				return predicate;
+			}
+		};
+		
+		Page<QuestionBlank> page = questionBlankDao.findAll(specification, pageable);
+		Map<String, Object> map = new HashMap<>();
+		map.put("total", page.getTotalElements());
+		map.put("rows", convertData(page.getContent()));
+		return map;
+	}
+	
 	List<QuestionBlankJson> convertData(List<QuestionBlank> questionBlanks) {
 		List<QuestionBlankJson> list = new ArrayList<>();
 		for (QuestionBlank questionBlank : questionBlanks) {
@@ -153,6 +191,13 @@ public class QuestionBlankServiceImpl implements QuestionBlankService {
 			questionBlankJson.setType(questionBlank.getType());
 			questionBlankJson.setShortName(questionBlank.getShortName());
 			
+			List<QuestionLabel> labels = questionBlank.getQuestionLabels();
+			String[] labels_array = new String[labels.size()];
+			for (int i = 0; i < labels.size(); i++) {
+				labels_array[i] = labels.get(i).getName();
+			}
+			questionBlankJson.setLabels(Arrays.toString(labels_array));
+			
 			if(questionBlank.getAuthor() != null) {
 				questionBlankJson.setAuthorId(questionBlank.getAuthor().getUid());
 				questionBlankJson.setAuthorName(questionBlank.getAuthor().getName());
@@ -160,12 +205,6 @@ public class QuestionBlankServiceImpl implements QuestionBlankService {
 			list.add(questionBlankJson);
 		}
 		return list;
-	}
-
-	@Override
-	public Result judgeResult(String qid, String solution) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

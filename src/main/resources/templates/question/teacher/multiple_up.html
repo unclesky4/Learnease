@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>LearnEase</title>
+
+	<!--=== CSS ===-->
+
+	<!-- Bootstrap -->
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- jQuery UI -->
+	<!--<link href="plugins/jquery-ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />-->
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+	<![endif]-->
+
+	<!-- Theme -->
+	<link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+
+	<link rel="stylesheet" href="assets/css/fontawesome/font-awesome.min.css">
+	<!--[if IE 7]>
+		<link rel="stylesheet" href="assets/css/fontawesome/font-awesome-ie7.min.css">
+	<![endif]-->
+
+	<!--[if IE 8]>
+		<link href="assets/css/ie8.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+	<link href='extensions/select2-4.0.5/dist/css/select2.min.css' rel='stylesheet' type='text/css'>
+
+	<!--=== JavaScript ===-->
+
+	<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/libs/lodash.compat.min.js"></script>
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="assets/js/libs/html5shiv.js"></script>
+	<![endif]-->
+
+	<!-- Smartphone Touch Events -->
+	<script type="text/javascript" src="plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript" src="plugins/event.swipe/jquery.event.move.js"></script>
+	<script type="text/javascript" src="plugins/event.swipe/jquery.event.swipe.js"></script>
+
+	<!-- General -->
+	<script type="text/javascript" src="assets/js/libs/breakpoints.js"></script>
+	<script type="text/javascript" src="plugins/respond/respond.min.js"></script> <!-- Polyfill for min/max-width CSS3 Media Queries (only for IE8) -->
+	<script type="text/javascript" src="plugins/cookie/jquery.cookie.min.js"></script>
+	<script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+
+	<!-- Page specific plugins -->
+	<!-- Charts -->
+	<script type="text/javascript" src="plugins/sparkline/jquery.sparkline.min.js"></script>
+
+	<script type="text/javascript" src="plugins/daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="plugins/daterangepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="plugins/blockui/jquery.blockUI.min.js"></script>
+
+	<!-- Forms -->
+	<script type="text/javascript" src="plugins/typeahead/typeahead.min.js"></script> <!-- AutoComplete -->
+	<script type="text/javascript" src="plugins/autosize/jquery.autosize.min.js"></script>
+	<script type="text/javascript" src="plugins/inputlimiter/jquery.inputlimiter.min.js"></script>
+	<script type="text/javascript" src="plugins/uniform/jquery.uniform.min.js"></script> <!-- Styled radio and checkboxes -->
+	<script type="text/javascript" src="plugins/tagsinput/jquery.tagsinput.min.js"></script>
+	<script type="text/javascript" src="extensions/select2-4.0.5/dist/js/select2.min.js"></script> <!-- Styled select boxes -->
+	<script type="text/javascript" src="plugins/fileinput/fileinput.js"></script>
+	<script type="text/javascript" src="plugins/duallistbox/jquery.duallistbox.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap-inputmask/jquery.inputmask.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap-wysihtml5/wysihtml5.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
+
+	<!-- Globalize -->
+	<script type="text/javascript" src="plugins/globalize/globalize.js"></script>
+	<script type="text/javascript" src="plugins/globalize/cultures/globalize.culture.de-DE.js"></script>
+	<script type="text/javascript" src="plugins/globalize/cultures/globalize.culture.ja-JP.js"></script>
+
+	<!-- App -->
+	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script type="text/javascript" src="assets/js/plugins.js"></script>
+	<script type="text/javascript" src="assets/js/plugins.form-components.js"></script>
+
+	<script>
+	$(document).ready(function(){
+		"use strict";
+
+		App.init(); // Init layout and core plugins
+		Plugins.init(); // Init all plugins
+		FormComponents.init(); // Init all form-specific plugins
+	});
+	</script>
+
+	<!-- Demo JS -->
+	<script type="text/javascript" src="assets/js/custom.js"></script>
+	<script type="text/javascript" src="assets/js/demo/form_components.js"></script>
+</head>
+<body>
+	<header class="header navbar navbar-fixed-top" role="banner" th:include="/common/common_navigation :: teacher-common-navidation">
+	</header> <!-- /.header -->
+
+	<div id="container">
+		<div id="sidebar" class="sidebar-fixed" th:include="/common/teacher_common_sidebar :: teacher_common_siderbar">
+		</div><!-- /Sidebar -->
+
+		<div id="content">
+			<div class="container">
+				<!-- Breadcrumbs line -->
+				<div class="crumbs">
+					<ul id="breadcrumbs" class="breadcrumb">
+						<li><i class="icon-home"></i> <a href="javascript:void(0);">教师中心</a>
+						</li>
+						<li class="current"><a href="javascript:void(0);" title="">题目管理</a>
+						</li>
+						<li class="current"><a href="javascript:void(0);" title="">我的题目</a>
+						</li>
+						<li class="current"><a href="javascript:void(0);" title="">多选题-详情页</a>
+						</li>
+					</ul>
+				</div>
+				<!-- /Breadcrumbs line -->
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="widget box">
+							<div class="widget-content">
+								<form class="form-horizontal row-border" action="#">
+									<input type="text" id="questionmultiple_id" style="display:none;"/>
+									<div class="form-group">
+										<label class="col-md-2 control-label">主题:</label>
+										<div class="col-md-10">
+											<input class="form-control" name="regular" type="text"
+												id="questionmultiple_topic">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-md-2 control-label">题目:</label>
+										<div class="col-md-10">
+											<textarea id="questionmultiple_questionName" rows="5"
+												name="wysiwyg" class="form-control wysiwyg"></textarea>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-md-2 control-label">选项:</label>
+										<div class="col-md-10" id="questionmultiple_options">
+											<input class="form-control input-width-xxlarge option" type="text"
+												placeholder="" style="display: block; margin-top: 6px;">
+											<input class="form-control input-width-xxlarge option" type="text"
+												placeholder="" style="display: block; margin-top: 6px;">
+											<input class="form-control input-width-xxlarge option" type="text"
+												placeholder="" style="display: block; margin-top: 6px;">
+											<input class="form-control input-width-xxlarge option" type="text"
+												placeholder="" style="display: block; margin-top: 6px;">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-md-2 control-label">难度:</label>
+										<div class="col-md-10" style="margin-top: -10px;">
+											<div class="row next-row">
+												<div class="col-md-12">
+													<select class="form-control" name="select"
+														id="questionmultiple_difficulty">
+														<option value="1">★</option>
+														<option value="2">★★</option>
+														<option value="3">★★★</option>
+														<option value="4">★★★★</option>
+														<option value="5">★★★★★</option>
+													</select>
+												</div>
+											</div>
+											<!--.row -->
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-md-2 control-label">标签:</label>
+										<div class="col-md-10">
+											<select id="questionmultiple_labels" multiple="multiple">
+											</select>
+										</div>
+									</div>
+
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+									data-dismiss="modal" onclick="update();">更新题目</button>
+							</div>
+						</div>
+						
+						<div class="widget box">
+							<div class="widget-content">
+								<form class="form-horizontal row-border" action="#">
+									<input type="text" id="answer_id" style="display:none;"/>
+									<div class="form-group">
+										<label class="col-md-2 control-label">参考答案:</label>
+										<div class="col-md-10" id="questionmultiple_answerContent">
+											<input class="form-control input-width-xxlarge"
+												type="text" placeholder=""
+												style="display: block; margin-top: 6px;">
+											<input class="form-control input-width-xxlarge" type="text" placeholder=""
+												style="display: block; margin-top: 6px;">
+											<input class="form-control input-width-xxlarge" type="text" placeholder=""
+												style="display: block; margin-top: 6px;">
+											<input class="form-control input-width-xxlarge" type="text" placeholder=""
+												style="display: block; margin-top: 6px;">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-md-2 control-label">参考答案分析:</label>
+										<div class="col-md-10">
+											<textarea id="questionmultiple_analyse" rows="5" name="wysiwyg"
+												class="form-control wysiwyg"></textarea>
+										</div>
+									</div>
+
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+									data-dismiss="modal" onclick="updateAnswer();">更新参考答案</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--Forms -->
+			</div>
+			<!-- /.container -->
+
+		</div>
+	</div>
+</body>
+<script th:inline="javascript">
+	var search = location.search;
+	var questionId = search.split("?id=")[1];
+	
+	$("#questionmultiple_id").val(questionId);
+	
+	$(function() {
+		$.ajax({
+			url: "/questionLabel/label_select2",
+		    dataType: 'json',
+		    type: 'get',
+		    success: function(data) {
+		    	var array = new Array();
+		    	$.each(data, function(key, value) {
+		    		array.push("<option value='"+value.id+"'>"+value.text+"</option>");
+		    	});
+		    	$("#questionmultiple_labels").html(array.join(""));
+		    },
+		    error: function(){
+		    	
+		    }
+		});
+	    
+	    $("#questionmultiple_labels").select2({
+		    width: "100%"
+		});
+	    
+		
+		$.ajax({
+			url: "/multiple/getById",
+			async: true,
+			dataType: "json",
+			data: {"id":questionId},
+			type: "get",
+			success: function(result) {
+				$("#questionmultiple_topic").val(result.shortName);
+				$("#questionmultiple_questionName").val(result.content);
+				$("#questionmultiple_difficulty").val(result.difficulty);
+				$("#createTime").val(result.createTime);
+			    if(result.labels != null) {
+			    	$("#questionmultiple_labels").val(result.labels.replace("\[", "").replace("\]","").split(","));
+			    }
+			    var option = $.trim(result.options.replace("\[", "").replace("\]","")).split(",");
+			    var i = 0;
+			    $($("#questionmultiple_options input")).each(function() {
+					//alert($(this).val());
+					$(this).val(option[i]);
+					i++;
+				});
+			},
+			error: function() {
+				alert("error");
+			}
+		});
+		
+		$.ajax({
+			url: "/multiple/answer",
+			async: true,
+			dataType: "json",
+			data: {"id":questionId},
+			type: "get",
+			success: function(result) {
+				$("#answer_id").val(result.id);
+				$("#questionmultiple_answerContent input").val(result.content);
+				var i=0;
+				var answers = $.trim(result.content.replace("\[", "").replace("\]","")).split(",");
+				$.each($("#questionmultiple_answerContent input"), function(index, value) {
+					$(this).val(answers[i]);
+					i++;
+				});
+				$("#questionmultiple_analyse").val(result.analyse);
+			},
+			error: function() {
+				alert("error");
+			}
+		});
+	    
+	});
+	
+	//修改单选题
+	function update() {
+		var r = confirm("确定更新问题？");
+		if(!r){return;}
+		var	topic = $.trim($("#questionmultiple_topic").val());
+		var	questionName = $.trim($("#questionmultiple_questionName").val());
+		//选项
+		var options = new Array();
+		$($("#questionmultiple_options input")).each(function() {
+			//alert($(this).val());
+			if ($(this).val() != "") {
+				options.push($(this).val());
+			}
+		});
+		//标签
+		var labels = $("#questionmultiple_labels").val();
+		if(labels == null) {
+			alert("请选择标签");
+			return ;
+		}
+		
+		//难度
+		var difficulty = $("#questionmultiple_difficulty").find('option:selected').val();
+		
+		if(topic=="" || topic.length > 20){
+			alert("主题不能为空且长度须小于20");
+			return false;
+		}
+		if(questionName == "" || questionName.length > 256) {
+			alert('题目不能为空且长度须小于256');
+		    return false;
+		}
+		
+	    $.ajax({
+	        url:'/multiple/update',
+	        type:'post',
+	        async: false,
+	        dataType:'json',
+	        data:{
+	        	"id": questionId,
+	        	"shortName": topic,
+	        	"content": questionName,
+	            "difficulty":difficulty,
+	            "labelIds":labels.join(","),
+	            "options":options.join(","),
+	            "difficulty": difficulty
+	        },
+	        success: function(result){
+	            alert(result.msg);
+	        },
+	        error: function(xhr,textStatus) {
+	            console.log('错误'+" "+xhr+" "+textStatus);
+	        }
+	    });
+	}
+	
+	function updateAnswer() {
+		var r = confirm("确定更新参考答案？");
+		if(!r){return;}
+		
+    	var	answer_id = $.trim($("#answer_id").val());
+    	var	answerContent = $.trim($("#questionmultiple_answerContent").val());
+    	var	analyse = $.trim($("#questionmultiple_analyse").val());
+    	
+    	$.ajax({
+	        url:'/answer/update',
+	        type:'post',
+	        async: false,
+	        dataType:'json',
+	        data:{
+	        	"id": answer_id,
+	        	"answerContent": answerContent,
+	        	"analyse": analyse
+	        },
+	        success: function(result){
+	            alert(result.msg);
+	        },
+	        error: function(xhr,textStatus) {
+	            console.log('错误'+" "+xhr+" "+textStatus);
+	        }
+	    });
+    }
+</script>
+</html>
