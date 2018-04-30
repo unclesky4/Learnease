@@ -12,6 +12,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailUtil {
+	
+	//
+	static final String mailValidateAddress = "localhost";
+	
+	public static String MailValidateAddress() {
+		return mailValidateAddress;
+	}
 
 	/**
 	 * 发送邮件
@@ -39,7 +46,7 @@ public class MailUtil {
 			//主题
 			message.setSubject("激活邮件");
 			//正文
-			message.setContent("<h1>请点击激活链接：<h2><a href='http://localhost:8080/validate_html?code="+code+
+			message.setContent("<h1>请点击激活链接：<h2><a href='http://"+mailValidateAddress+":8080/validate_html?code="+code+
 					"'>http://localhost:8080/validate_html?code="+code+"<a><h2><h1>","text/html;charset=UTF-8");
 			//3.发送邮件
 			Transport transport = session.getTransport();
@@ -80,7 +87,7 @@ public class MailUtil {
 			//主题
 			message.setSubject("重置密码");
 			//正文
-			message.setContent("<h1>请点击重置密码链接：<h2><a href='http://localhost:8080/reset_pwd_html?code="+code+
+			message.setContent("<h1>请点击重置密码链接：<h2><a href='http://"+mailValidateAddress+":8080/reset_pwd_html?code="+code+
 					"'>http://localhost:8080/reset_pwd_html?email="+email+"&code="+code+"<a><h2><h1>","text/html;charset=UTF-8");
 			//3.发送邮件
 			Transport transport = session.getTransport();

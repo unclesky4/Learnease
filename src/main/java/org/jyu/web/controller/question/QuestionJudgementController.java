@@ -33,24 +33,6 @@ public class QuestionJudgementController {
 		return mv;
 	}
 	
-	@RequestMapping(value="judgement_add_student", method=RequestMethod.GET)
-	public ModelAndView judgement_add_student(ModelAndView mv) {
-		mv.setViewName("/question/student/judgement_add.html");
-		return mv;
-	}
-	
-	@RequestMapping(value="judgement_up_student", method=RequestMethod.GET)
-	public ModelAndView judgement_up_student(ModelAndView mv) {
-		mv.setViewName("/question/student/judgement_up.html");
-		return mv;
-	}
-	
-	@RequestMapping(value="judgement_query_student", method=RequestMethod.GET)
-	public ModelAndView judgement_query_student(ModelAndView mv) {
-		mv.setViewName("/question/student/judgement_query.html");
-		return mv;
-	}
-	
 	/**
 	 * 修改判断题界面
 	 * @param mv

@@ -33,24 +33,6 @@ public class QuestionMultipleController {
 		return mv;
 	}
 	
-	@RequestMapping(value="multiple_add_student", method=RequestMethod.GET)
-	public ModelAndView multiple_add_student(ModelAndView mv) {
-		mv.setViewName("/question/student/multiple_add.html");
-		return mv;
-	}
-	
-	@RequestMapping(value="multiple_up_student", method=RequestMethod.GET)
-	public ModelAndView multiple_up_student(ModelAndView mv) {
-		mv.setViewName("/question/student/multiple_up.html");
-		return mv;
-	}
-	
-	@RequestMapping(value="multiple_query_student", method=RequestMethod.GET)
-	public ModelAndView multiple_query_student(ModelAndView mv) {
-		mv.setViewName("/question/student/multiple_query.html");
-		return mv;
-	}
-	
 	/**
 	 * 修改多选题界面
 	 * @param mv

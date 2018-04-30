@@ -110,7 +110,7 @@ public class ExecuteRun{
 		//为编译运行的目录添加后缀，确保每次运行不在同一目录下（因为程序输出文件名相同，不能更改）
 		this.executable.setExecuteDirectoryNameSuffix(UUIDUtil.getUUID());
 		this.executable.setUsingGUI(false);
-		this.executable.validateProgram(1);
+		//this.executable.validateProgram(1);
 		this.executable.execute();
 		
 		//System.out.println("是否编译成功："+this.executable.getExecutionData().isCompileSuccess());

@@ -26,28 +26,25 @@ public class QuestionProgramController {
 	@Autowired
 	private QuestionProgramService questionProgramService;
 	
-	
+	/**
+	 * 编程题列表  -- study
+	 * @param mv
+	 * @return
+	 */
 	@RequestMapping(value="program_list_student", method=RequestMethod.GET)
 	public ModelAndView program_list_student(ModelAndView mv) {
 		mv.setViewName("/question/student/program_list.html");
 		return mv;
 	}
 	
-	@RequestMapping(value="program_add_student", method=RequestMethod.GET)
-	public ModelAndView program_add_student(ModelAndView mv) {
-		mv.setViewName("/question/student/program_add.html");
-		return mv;
-	}
-	
-	@RequestMapping(value="program_up_student", method=RequestMethod.GET)
-	public ModelAndView program_up_student(ModelAndView mv) {
-		mv.setViewName("/question/student/program_up.html");
-		return mv;
-	}
-	
-	@RequestMapping(value="program_query_student", method=RequestMethod.GET)
-	public ModelAndView program_query_student(ModelAndView mv) {
-		mv.setViewName("/question/student/program_query.html");
+	/**
+	 * 编程题列表  -- study
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value="program_info_html", method=RequestMethod.GET)
+	public ModelAndView program_info_html(ModelAndView mv) {
+		mv.setViewName("/question/student/program_info.html");
 		return mv;
 	}
 	
@@ -178,7 +175,7 @@ public class QuestionProgramController {
 	}
 	
 	/**
-	 * 获取某个填空题的参考答案
+	 * 获取某个填编程题的参考答案
 	 * @param id
 	 * @return
 	 */

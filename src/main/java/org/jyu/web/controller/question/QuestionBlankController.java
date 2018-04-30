@@ -32,24 +32,6 @@ public class QuestionBlankController {
 		return mv;
 	}
 	
-	@RequestMapping(value="blank_add_student", method=RequestMethod.GET)
-	public ModelAndView blank_add_student(ModelAndView mv) {
-		mv.setViewName("/question/student/blank_add.html");
-		return mv;
-	}
-	
-	@RequestMapping(value="blank_up_student", method=RequestMethod.GET)
-	public ModelAndView blank_up_student(ModelAndView mv) {
-		mv.setViewName("/question/student/blank_up.html");
-		return mv;
-	}
-	
-	@RequestMapping(value="blank_query_student", method=RequestMethod.GET)
-	public ModelAndView blank_query_student(ModelAndView mv) {
-		mv.setViewName("/question/student/blank_query.html");
-		return mv;
-	}
-	
 	/**
 	 * 修改填空题界面
 	 * @param mv

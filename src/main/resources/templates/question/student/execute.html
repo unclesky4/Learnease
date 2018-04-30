@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>Learnease</title>
+
+	<!--=== CSS ===-->
+
+	<!-- Bootstrap -->
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- jQuery UI -->
+	<!--<link href="plugins/jquery-ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />-->
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+	<![endif]-->
+
+	<!-- Theme -->
+	<link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+
+	<link rel="stylesheet" href="assets/css/fontawesome/font-awesome.min.css">
+	<!--[if IE 7]>
+		<link rel="stylesheet" href="assets/css/fontawesome/font-awesome-ie7.min.css">
+	<![endif]-->
+
+	<!--[if IE 8]>
+		<link href="assets/css/ie8.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+
+	<!--=== JavaScript ===-->
+
+	<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/libs/lodash.compat.min.js"></script>
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="assets/js/libs/html5shiv.js"></script>
+	<![endif]-->
+
+	<!-- Smartphone Touch Events -->
+	<script type="text/javascript" src="plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript" src="plugins/event.swipe/jquery.event.move.js"></script>
+	<script type="text/javascript" src="plugins/event.swipe/jquery.event.swipe.js"></script>
+
+	<!-- General -->
+	<script type="text/javascript" src="assets/js/libs/breakpoints.js"></script>
+	<script type="text/javascript" src="plugins/respond/respond.min.js"></script> <!-- Polyfill for min/max-width CSS3 Media Queries (only for IE8) -->
+	<script type="text/javascript" src="plugins/cookie/jquery.cookie.min.js"></script>
+	<script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+
+	<!-- Page specific plugins -->
+	<!-- Charts -->
+	<script type="text/javascript" src="plugins/sparkline/jquery.sparkline.min.js"></script>
+
+	<script type="text/javascript" src="plugins/daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="plugins/daterangepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="plugins/blockui/jquery.blockUI.min.js"></script>
+
+	<!-- App -->
+	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script type="text/javascript" src="assets/js/plugins.js"></script>
+	<script type="text/javascript" src="assets/js/plugins.form-components.js"></script>
+
+	<script>
+	$(document).ready(function(){
+		"use strict";
+
+		App.init(); // Init layout and core plugins
+		Plugins.init(); // Init all plugins
+		FormComponents.init(); // Init all form-specific plugins
+	});
+	</script>
+
+	<!-- Demo JS -->
+	<script type="text/javascript" src="assets/js/custom.js"></script>
+	
+	<!--导入Ace js库-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-beautify.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-emmet.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-spellcheck.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-java.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/worker-javascript.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-php.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/worker-php.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-c_cpp.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-python.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/snippets/python.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-solarized_dark.js" type="text/javascript" charset="utf-8"></script>
+	
+	<style>
+		.select_language {
+			width: 200px;
+			height:30px;
+		   /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+		  border: solid 1px #000;
+		
+		  /*很关键：将默认的select选择框样式清除*/
+		  appearance:none;
+		  -moz-appearance:none;
+		  -webkit-appearance:none;
+		
+		  /*在选择框的最右侧中间显示小箭头图片*/
+		  background: url("img/1.png") no-repeat scroll right center transparent;
+		
+		
+		  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+		  padding-right: 16px;
+		}
+	</style>
+	
+</head>
+
+<body>
+	<header class="header navbar navbar-fixed-top" role="banner" th:include="/common/common_navigation :: study-common-navidation">
+	</header> <!-- /.header -->
+
+	<!-- container -->
+	<div id="container" class="sidebar-closed">
+		<!-- content -->
+		<div id="content">
+			<span id="problemTopic" style="display:none;"></span>
+			<div class="container">
+				<!-- 代码编辑 -->
+				<div class="widget box" style="width:100%;">
+					<div class="widget-header">
+						<h4>程序</h4>
+						<select class="select_language" id="selectLanguage">
+							<option value="java" selected="selected">Java</option>
+							<option value="c">GNU C (Unix / Windows)</option>
+							<option value="cpp">GNU C++ (Unix / Windows)</option>
+							<option value="php">PHP</option>
+							<option value="python">Python</option>
+						</select>
+						<button type="button" class="btn btn-primary" onclick="run();">运行代码</button>
+						<button type="button" class="btn btn-primary" onclick="cleanProgram();">清除代码</button>
+						<a href="#paramInput"><strong>输入参数</strong></a>&nbsp;&nbsp;
+						<a href="#paramInput"><strong>查看输出</strong></a>
+					</div>
+					<div class="widget-content" style="height:700px;">
+						<pre id="code" class="ace_editor" style="min-height:680px"></pre>
+					</div>
+				</div>
+				<!-- /代码编辑 -->
+
+				<!-- 参数 -->
+				<a href="javascript:void(0);" name="paramInput" id="paramInput"></a>
+				<div class="widget box" style="width:100%;">
+					<div class="widget-header">
+						<h4>参数</h4>
+					</div>
+					<div class="widget-content" style="height:220px;">
+						<!--程序输出-->
+						<pre style="height:200px;" id="program_param"></pre>
+					</div>
+				</div><!-- /参数 -->
+
+				<!-- 程序输出 -->
+				<div class="widget box" style="width:100%;">
+					<div class="widget-header">
+						<h4>输出结果</h4>
+						<button type="button" class="btn btn-primary" onclick="cleanOutput();">清空输出结果</button>
+					</div>
+					<div class="widget-content" style="height:320px;">
+						<pre style="height:300px;" id="program_output"></pre>
+					</div>
+				</div><!-- /程序输出 -->
+			</div>
+		</div><!-- /content -->
+	</div><!-- /container -->
+</body>
+<script>
+	var search = location.search;
+	var problemTopic = search.split("?param=")[1];
+	//alert(problemTopic);
+	$("#problemTopic").html(problemTopic);
+
+    /*代码编辑器初始化*/
+    var editor = ace.edit("code");
+    
+    //设置风格和语言（更多风格和语言，请到github上相应目录查看）
+    theme = "clouds"
+    language = "c_cpp"
+    //editor.setTheme("ace/theme/" + theme);
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode("ace/mode/" + language);
+    
+    //字体大小
+    editor.setFontSize(16);
+    
+    //设置只读（true时只读，用于展示代码）
+    editor.setReadOnly(false); 
+    
+    //自动换行,设置为off关闭
+    editor.setOption("wrap", "free")
+    
+    //启用提示菜单
+    ace.require("ace/ext/language_tools");
+    editor.setOptions({
+            enableBasicAutocompletion: true,
+            enableSnippets: true,
+            enableLiveAutocompletion: true
+        });
+    //设置高亮
+    editor.setHighlightActiveLine(true);
+    //设置程序语言模式
+    var JavaMode = ace.require("ace/mode/java").Mode;
+    editor.session.setMode(new JavaMode());
+
+/*    var JavaScriptMode = ace.require("ace/mode/javascript").Mode;
+    editor.session.setMode(new JavaScriptMode());
+    var c_cppMode = ace.require("ace/mode/c_cpp").Mode;
+    editor.session.setMode(new c_cppMode());
+    var JavaMode = ace.require("ace/mode/java").Mode;
+    editor.session.setMode(new JavaScriptMode());
+    var phpMode = ace.require("ace/mode/php").Mode;
+    editor.session.setMode(new phpMode());
+    var pythonMode = ace.require("ace/mode/python").Mode;
+    editor.session.setMode(new pythonMode()); */
+
+    /*程序参数编辑框初始化*/
+    var param = ace.edit("program_param");
+    param.setTheme("ace/theme/" + theme);
+    param.setFontSize(15);
+
+    /*程序输出初始化*/
+    var output = ace.edit("program_output");
+    //output.setTheme("ace/theme/" + theme);
+    //设置只读
+    output.setReadOnly(true); 
+
+    ////设置程序语言模式的方法
+    function changeEditerMode(param) {
+        var mode = ace.require("ace/mode/"+param).Mode;
+        editor.session.setMode(new mode());
+    }
+
+    //提交程序运行
+    function run() {
+        var problemTopic = $.trim($("#problemTopic").text());
+        var languageDisplayName = "";
+        var inputParam = param.getValue();
+        var solutionContent = editor.getValue();
+        if(solutionContent == "") {
+        	alert("没有程序代码");
+        	return;
+        }
+
+        var language = $(".select_language").find('option:selected').val();
+        switch(language) {
+            case "java":
+            	languageDisplayName = "Java";
+                break;
+            case "c":
+            	languageDisplayName = "GNU C";
+                break;
+            case "cpp":
+            	languageDisplayName = "GNU C++";
+                break;
+            case "php":
+            	languageDisplayName = "PHP";
+                break;
+            case "python":
+            	languageDisplayName = "Python";
+                break;
+            default:;
+        }
+        var info = new Array();
+        $.ajax({
+            url: "/judge/execute",
+            async: true,
+            dataType: "json",
+            data: {"problemTopic":problemTopic,
+                "languageDisplayName":languageDisplayName,
+                "inputParam":inputParam,
+                "solutionContent":solutionContent
+            },
+            type: 'post',
+            success: function(data) {
+           		if(data.status == true || data.status == "true") {
+        			if(data.judgeResult.judgeResultType == "COMPILERFAILED") {
+        				info[0] = ">>编译失败";
+        				info[1] = data.judgeResult.programOuputInfo;
+        			}else if(data.judgeResult.judgeResultType == "EXECUTEFAILED") {
+        				info[0] = ">>运行失败，请检查输入参数";
+        			}else if(data.judgeResult.judgeResultType == "SUCCESS") {
+        				info[0] = ">>用时："+(data.judgeResult.compileTimeMS+data.judgeResult.executeTimeMS)+"ms";
+        				info[1] = ">>输出结果：\n"+data.judgeResult.programOuputInfo;
+        			}
+           		}else{
+           			info[0] = ">>error:"+data.failInfo;
+           		}
+            	output.setValue(info.join(" \n"));
+            	var top = $('#program_output').offset().top;
+            	$('html, body').animate({
+					scrollTop: top
+            	}, 500)
+            },
+            error: function() {
+                alert("error");
+            }
+        });
+
+    }
+
+    //清除输入的代码
+    function cleanProgram() {
+        //alert(editor.getValue());
+        editor.setValue("");
+    }
+
+    //清楚程序输出结果
+    function cleanOutput() {
+        output.setValue("")
+    }
+    
+    //选择编程语言时设定Ace编辑器的语言模式
+    $("#selectLanguage").change(function() {
+    	//alert($("#selectLanguage").find("option:selected").val());
+    	switch($("#selectLanguage").find("option:selected").val()) {
+	    	case "java":
+	    		var mode = ace.require("ace/mode/java").Mode;
+	            editor.session.setMode(new mode());
+	    		break;
+	    	case "c":
+	    		var mode = ace.require("ace/mode/c_cpp").Mode;
+	            editor.session.setMode(new mode());
+	            //alert("c");
+	    		break;
+	    	case "cpp":
+	    		break;
+	    	case "python":
+	    		var mode = ace.require("ace/mode/python").Mode;
+	            editor.session.setMode(new mode());
+	            //alert("python");
+	    		break;
+	    	case "php":
+	    		var mode = ace.require("ace/mode/php").Mode;
+	            editor.session.setMode(new mode());
+	            //alert("php");
+	    		break;
+	    	default:;
+    	}
+    });
+</script>
+</html>

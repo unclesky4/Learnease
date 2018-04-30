@@ -1,17 +1,20 @@
 package org.jyu.web.service.question.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.jyu.web.conf.InitPC2;
 import org.jyu.web.dao.authority.UserRepository;
 import org.jyu.web.dao.question.QuestionLabelRepository;
 import org.jyu.web.dao.question.QuestionProgramRepository;
@@ -24,6 +27,9 @@ import org.jyu.web.entity.question.QuestionProgram;
 import org.jyu.web.enums.QuestionType;
 import org.jyu.web.service.question.QuestionProgramService;
 import org.jyu.web.utils.DateUtil;
+import org.jyu.web.utils.FileUtil;
+import org.jyu.web.utils.OtherUtil;
+import org.jyu.web.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -82,7 +88,34 @@ public class QuestionProgramServiceImpl implements QuestionProgramService {
 		answer.setContent(answerContent);
 		answer.setAnalyse(analyse);
 		questionProgram.setAnswer(answer);
-		questionProgramDao.saveAndFlush(questionProgram);
+		QuestionProgram questionProgram2 = questionProgramDao.saveAndFlush(questionProgram);
+		
+		//添加问题到PC2
+		synchronized (this) {
+			if (questionProgram2 != null) {
+				String name = UUIDUtil.getUUID();
+				String inputFileName = org.jyu.web.utils.FileUtil.path + name+".input";
+				String answerFileName = FileUtil.path + name+".output";
+				Properties problemProperties = new Properties();
+				problemProperties.setProperty("JUDGING_TYPE", "COMPUTER_AND_MANUAL_JUDGING");
+				problemProperties.setProperty("VALIDATOR_PROGRAM", "pc2.jar edu.csus.ecs.pc2.validator.Validator");
+				problemProperties.setProperty("VALIDATOR_COMMAND_LINE", "DEFAULT_INTERNATIONAL_VALIDATOR_COMMAND"); 
+				File judgesDataFile = null;
+				File judgesAnswerFile = null;
+				if(FileUtil.createFile(inputFileName) != null && FileUtil.createFile(answerFileName) != null) {
+					judgesDataFile = new File(inputFileName);
+					if(judgesDataFile != null) {
+						FileUtil.writeFile(judgesDataFile, OtherUtil.delHTMLTag(questionProgram.getExampleInput()));
+					}
+					judgesAnswerFile = new File(answerFileName);
+					if(judgesAnswerFile != null) {
+						FileUtil.writeFile(judgesAnswerFile, OtherUtil.delHTMLTag(questionProgram.getExampleOutput()));
+					}
+				}
+				
+				InitPC2.getAdmin_serverConnection().addProblem(content, shortName, judgesDataFile, judgesAnswerFile, false, problemProperties);
+			}
+		}
 		return new Result(true, "保存成功");
 	}
 

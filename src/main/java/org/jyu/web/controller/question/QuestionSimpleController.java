@@ -26,6 +26,11 @@ public class QuestionSimpleController {
 	@Autowired
 	private QuestionSimpleService questionSimpleService;
 	
+	/**
+	 * 单选题列表  -- study
+	 * @param mv
+	 * @return
+	 */
 	@RequestMapping(value="simple_list_student", method=RequestMethod.GET)
 	public ModelAndView simple_list_student(ModelAndView mv) {
 		mv.setViewName("/question/student/simple_list.html");
