@@ -1,25 +1,25 @@
-package org.jyu.web.service.question.impl;
+package org.jyu.web.service.paper.impl;
 
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jyu.web.SpringBootStart;
-import org.jyu.web.service.question.QuestionLabelService;
+import org.jyu.web.service.paper.PaperLabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes=SpringBootStart.class)
-public class QuestionLabelServiceImplTest {
+public class PaperLabelServiceImplTest {
 	
 	@Autowired
-	private QuestionLabelService service;
+	private PaperLabelService paperLabelService;
 
 	@Test
 	public void testSave() {
-		System.out.println(service.save("微服务架构").getMsg());
+		System.out.println(paperLabelService.save("dgdsjfg").getMsg());
 	}
 
 	@Test
@@ -28,17 +28,12 @@ public class QuestionLabelServiceImplTest {
 	}
 
 	@Test
-	public void testDeleteById() {
+	public void testDeleteByid() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testFindById() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFindByName() {
+	public void testPageJson() {
 		fail("Not yet implemented");
 	}
 

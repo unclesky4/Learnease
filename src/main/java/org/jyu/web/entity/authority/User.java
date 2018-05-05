@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.jyu.web.entity.paper.Paper;
 import org.jyu.web.entity.question.Question;
 import org.jyu.web.entity.question.Solution;
 
@@ -37,40 +38,54 @@ public class User implements Serializable {
 	@Column(length=32)
 	private String uid;
 	
+	//昵称
 	@Column(nullable=false, length=20)
-	private String name;    //昵称
+	private String name;
 	
-	@Column(nullable=false, length=50)
-	private String email;    //邮箱帐号
+	//邮箱帐号
+	@Column(nullable=false, length=50, unique=true)
+	private String email;
 	
+	//密码
 	@JsonIgnore
 	@Column(nullable=false, length=32)
-	private String pwd;  //密码
+	private String pwd;
 	
+	 //邮箱是否已验证   1：已验证   0：未验证
 	@Column(nullable=false, length=1)
-	private Integer validation;    //邮箱是否已验证   1：已验证   0：未验证
+	private Integer validation;
 	
 	@Column(nullable=false, length=22)
 	private String registerTime;
 	
+	//uuid值，用于验证
 	@JsonIgnore
 	@Column(nullable=false, length=32)
-	private String code;       //uuid值，用于验证
+	private String code;
 	
+	//验证期限（24小时）
 	@Column(nullable=false, length=22)
-	private String deadline;     //验证期限（24小时）
+	private String deadline;
 	
+	//用户的教师对象
 	@OneToOne(mappedBy="user")
 	private Teacher teacher;
 	
+	//用户的学生对象
 	@OneToOne(mappedBy="user")
 	private Student student;
 	
+	//用户创建的题目
 	@OneToMany(mappedBy="author")
 	private List<Question> questions;
 	
+	//用户刷题的答案
 	@OneToMany(mappedBy="submitter")
 	private List<Solution> solutions;
+	
+	//用户创建的试卷
+	@OneToMany(mappedBy="author")
+	private List<Paper> papers;
 
 	public String getUid() {
 		return uid;

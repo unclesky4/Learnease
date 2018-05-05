@@ -1,11 +1,10 @@
-package org.jyu.web.entity.question;
+package org.jyu.web.entity.paper;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -13,28 +12,29 @@ import javax.persistence.ManyToMany;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- * 
- * @ClassName: QuestionLabel 
- * @Description: 问题标签
+ * @ClassName: PapersLabel 
+ * @Description: 试卷标签
  * @author: unclesky4
- * @date: Apr 1, 2018 10:00:37 AM
+ * @date: May 1, 2018 1:14:52 PM
  */
 @Entity
-public class QuestionLabel implements Serializable {
-	
-	private static final long serialVersionUID = -5095660055271932970L;
+public class PaperLabel implements Serializable {
 
+	private static final long serialVersionUID = -2145995042963865418L;
+	
 	@Id
 	@GenericGenerator(name="system-uuid", strategy="uuid")
 	@GeneratedValue(generator="system-uuid")
 	@Column(length=32)
-	private String id;   //主键
+	private String id;
 	
+	//试卷标签名称
 	@Column(nullable=false, length=20, unique=true)
-	private String name;  //标签名
-	
-	@ManyToMany(mappedBy="questionLabels", fetch=FetchType.LAZY)
-	private List<Question> questions;
+	private String name;
+
+	//关联试卷
+	@ManyToMany(mappedBy="paperLabels")
+	private List<Paper> papers;
 
 	public String getId() {
 		return id;
@@ -50,5 +50,13 @@ public class QuestionLabel implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Paper> getPapers() {
+		return papers;
+	}
+
+	public void setPapers(List<Paper> papers) {
+		this.papers = papers;
 	}
 }

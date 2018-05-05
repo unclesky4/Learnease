@@ -9,6 +9,7 @@ import org.apache.shiro.SecurityUtils;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.question.AnswerJson;
 import org.jyu.web.dto.question.QuestionSimpleJson;
+import org.jyu.web.entity.authority.User;
 import org.jyu.web.entity.question.Answer;
 import org.jyu.web.entity.question.Option;
 import org.jyu.web.entity.question.QuestionLabel;
@@ -233,8 +234,12 @@ public class QuestionSimpleController {
 			options.add(option.getContent());
 		}
 		json.setOptions(options.toString());
-		json.setAuthorId(questionSimple.getAuthor().getUid());
-		json.setAuthorName(questionSimple.getAuthor().getName());
+		
+		User user = questionSimple.getAuthor();
+		if (user != null) {
+			json.setAuthorId(questionSimple.getAuthor().getUid());
+			json.setAuthorName(questionSimple.getAuthor().getName());
+		}
 		return json;
 	}
 

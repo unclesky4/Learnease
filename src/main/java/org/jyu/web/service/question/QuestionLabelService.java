@@ -7,9 +7,9 @@ import org.jyu.web.entity.question.QuestionLabel;
 
 public interface QuestionLabelService {
 	
-	Result save(QuestionLabel questionLabel);
+	Result save(String name);
 	
-	Result update(QuestionLabel questionLabel);
+	Result update(String id, String name);
 	
 	Result deleteById(String id);
 	

@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>LearnEase</title>
+
+    <!--=== CSS ===-->
+
+	<!-- Bootstrap -->
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- jQuery UI -->
+	<!--<link href="plugins/jquery-ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />-->
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+	<![endif]-->
+
+	<!-- Theme -->
+	<link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+
+	<link rel="stylesheet" href="assets/css/fontawesome/font-awesome.min.css">
+	<!--[if IE 7]>
+		<link rel="stylesheet" href="assets/css/fontawesome/font-awesome-ie7.min.css">
+	<![endif]-->
+
+	<!--[if IE 8]>
+		<link href="assets/css/ie8.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+
+	<!--=== JavaScript ===-->
+
+	<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/libs/lodash.compat.min.js"></script>
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="assets/js/libs/html5shiv.js"></script>
+	<![endif]-->
+
+	<!-- Smartphone Touch Events -->
+	<script type="text/javascript" src="plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript" src="plugins/event.swipe/jquery.event.move.js"></script>
+	<script type="text/javascript" src="plugins/event.swipe/jquery.event.swipe.js"></script>
+
+	<!-- General -->
+	<script type="text/javascript" src="assets/js/libs/breakpoints.js"></script>
+	<script type="text/javascript" src="plugins/respond/respond.min.js"></script> <!-- Polyfill for min/max-width CSS3 Media Queries (only for IE8) -->
+	<script type="text/javascript" src="plugins/cookie/jquery.cookie.min.js"></script>
+	<script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script type="text/javascript" src="plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+
+	<!-- Page specific plugins -->
+	<!-- Charts -->
+	<script type="text/javascript" src="plugins/sparkline/jquery.sparkline.min.js"></script>
+
+	<script type="text/javascript" src="plugins/daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="plugins/daterangepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="plugins/blockui/jquery.blockUI.min.js"></script>
+
+	<!-- Forms -->
+	<script type="text/javascript" src="plugins/typeahead/typeahead.min.js"></script> <!-- AutoComplete -->
+	<script type="text/javascript" src="plugins/autosize/jquery.autosize.min.js"></script>
+	<script type="text/javascript" src="plugins/inputlimiter/jquery.inputlimiter.min.js"></script>
+	<script type="text/javascript" src="plugins/uniform/jquery.uniform.min.js"></script> <!-- Styled radio and checkboxes -->
+	<script type="text/javascript" src="plugins/tagsinput/jquery.tagsinput.min.js"></script>
+	<script type="text/javascript" src="plugins/select2/select2.min.js"></script> <!-- Styled select boxes -->
+	<script type="text/javascript" src="plugins/fileinput/fileinput.js"></script>
+	<script type="text/javascript" src="plugins/duallistbox/jquery.duallistbox.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap-inputmask/jquery.inputmask.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap-wysihtml5/wysihtml5.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
+
+	<!-- Globalize -->
+	<script type="text/javascript" src="plugins/globalize/globalize.js"></script>
+	<script type="text/javascript" src="plugins/globalize/cultures/globalize.culture.de-DE.js"></script>
+	<script type="text/javascript" src="plugins/globalize/cultures/globalize.culture.ja-JP.js"></script>
+
+	<!-- App -->
+	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script type="text/javascript" src="assets/js/plugins.js"></script>
+	<script type="text/javascript" src="assets/js/plugins.form-components.js"></script>
+
+	<script>
+	$(document).ready(function(){
+		"use strict";
+
+		App.init(); // Init layout and core plugins
+		Plugins.init(); // Init all plugins
+		FormComponents.init(); // Init all form-specific plugins
+	});
+	</script>
+
+	<!-- Demo JS -->
+	<script type="text/javascript" src="assets/js/custom.js"></script>
+	<script type="text/javascript" src="assets/js/demo/form_components.js"></script>
+
+    <!--jquery cookie-->
+    <script type="text/javascript" src="extensions/jquerycookie/jquery.cookie.js"></script>
+    
+    <!-- bootstrap table-->
+    <link href='extensions/BootstrapTable/dist/bootstrap-table.min.css' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="extensions/BootstrapTable/dist/bootstrap-table.min.js"></script>
+
+    <style>
+    	.page-header  {display: none; font-size:20px;}
+    	.simple_page, .judgement_page, .blank_page, .multiple_page, .program_page {display: none;}
+    	input{height:24px; border: 1px solid #ccc; 
+                padding: 7px 0px;
+                border-radius: 3px; /*css3属性IE不支持*/
+                padding-left:5px;}
+    </style>
+    <style>
+        #simple_page,#multiple_page,#blank_page,#program_page,#judgement_page {display: none;}
+        #questionSimple_detail,#questionMultiple_detail,#questionBlank_detail,#questionJudgement_detail,#questionProgram_detail {
+            display: none; width:80%; margin: 10px auto;}
+        #question_optionList {list-style:none;}
+        #calculate :hover {color: #0000C6;}
+        .choose {
+            /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+            border: solid 1px #000;
+
+            /*很关键：将默认的select选择框样式清除*/
+            appearance:none;
+            -moz-appearance:none;
+            -webkit-appearance:none;
+
+            /*在选择框的最右侧中间显示小箭头图片*/
+            background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+
+
+            /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+            padding-right: 14px;
+        }
+    </style>
+</head>
+
+<body>
+	<header class="header navbar navbar-fixed-top" role="banner" th:include="/common/common_navigation :: teacher-common-navidation">
+	</header>
+	<!-- /.header -->
+
+    <div id="container">
+        <div id="sidebar" class="sidebar-fixed" th:include="/common/teacher_common_sidebar :: teacher_common_siderbar">
+		</div>
+		<!-- /Sidebar -->
+
+        <div id="content">
+            <div class="container">
+                <!-- Breadcrumbs line -->
+                <div class="crumbs">
+                    <ul id="breadcrumbs" class="breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="javascript:void(0);">试卷管理</a>
+                        </li>
+                        <li class="current">
+                            <a href="javascript:void(0);" title="">添加试卷</a>
+                        </li>
+                    </ul>
+
+                    <ul class="crumb-buttons" onclick="problemNum();">
+                        <li><a href="javascript:void(0);" title="" onclick="getTotalScore();">
+                            统计分值：<span id="score_total">0</span>分</a>
+                        </li>
+                        <li class="dropdown">
+                        	<a href="javascript:void(0);" title="" data-toggle="dropdown">
+                        		<i class="icon-tasks"></i><span>试卷信息</span><i class="icon-angle-down left-padding"></i>
+                        	</a>
+                            <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="javascript:void(0);" title="" onclick="showPage('questionSet_info');">
+                                <i class="icol-page-white-edit"></i>填写试卷信息</a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="javascript:void(0);" title="" onclick="showQuestionDetail('questionsimple');">
+                                <i class="icon-info-sign"></i>单选题--信息</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" title="" onclick="showQuestionDetail('questionmultiple');">
+                                <i class="icon-info-sign"></i>多选题--信息</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" title="" onclick="showQuestionDetail('questionblank');">
+                                <i class="icon-info-sign"></i>填空题--信息</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" title="" onclick="showQuestionDetail('questionjudgement');">
+                                <i class="icon-info-sign"></i>判断题--信息</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" title="" onclick="showQuestionDetail('questionprogram');">
+                                <i class="icon-info-sign"></i>编程题--信息</a>
+                            </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="javascript:void(0);" title="" data-toggle="dropdown"><i class="icon-tasks"></i><span>添加题目</span><i class="icon-angle-down left-padding"></i></a>
+                            <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);" title="" onclick="showPage('simple_page');">
+                                <i class="icos-folder"></i>单选题
+                                <span style="margin-left:5px;">(已选<span id="simple_number">0</span>题)</span></a>
+                            </li>
+                            <li><a href="javascript:void(0);" title="" onclick="showPage('multiple_page');">
+                                <i class="icos-folder"></i>多选题
+                                <span style="margin-left:5px;">(已选<span id="multiple_number">0</span>题)</span></a>
+                            </li>
+                            <li><a href="javascript:void(0);" title="" onclick="showPage('blank_page');">
+                                <i class="icos-folder"></i>填空题
+                                <span style="margin-left:5px;">(已选<span id="blank_number">0</span>题)</span></a>
+                            </li>
+                            <li><a href="javascript:void(0);" title="" onclick="showPage('judgement_page');">
+                                <i class="icos-folder"></i>判断题
+                                <span style="margin-left:5px;">(已选<span id="judgement_number">0</span>题)</span></a>
+                            </li>
+                            <li><a href="javascript:void(0);" title="" onclick="showPage('program_page');">
+                                <i class="icos-folder"></i>编程题
+                                <span style="margin-left:5px;">(已选<span id="program_number">0</span>题)</span></a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="javascript:void(0);" title="" onclick="resetQuestion();">
+                                <i class="icol-arrow-undo"></i>重置所有已选择的题目</a></li>
+                            </ul>
+                        </li> 
+                        <li><a href="javascript:void(0);" title="" onclick="save();">
+                            <i class="icos-save"></i><span>保存</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /Breadcrumbs line -->
+                    
+                <!--=== Page Content ===-->
+                <div class="row">
+                    <!-- 试卷信息 -->
+                    <div class="questionSet_info">
+                        <div class="questionSet_info" style="width:500px; margin: 30px auto;">
+                            <form>
+                                <div class="form-group">
+                                    <label for="">试卷名</label>
+                                    <input type="email" class="form-control" id="questionset_name">
+                                </div><br/>
+                                <div class="form-group">
+                                    <label for="">试卷状态</label><br/>
+                                    <select id="questionset_status">
+                                    	<option value="0">私有</option>
+										<option value="1">公开</option>
+                                    </select>
+                                </div>
+                                <br/>
+                                <div class="form-group">
+                                	<label for="">试卷标签</label>
+                                    <select multiple="multiple" id="questionset_label" size="5"></select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- 显示单选题信息 -->
+                    <div class="questionSimple_detail page-header">
+                    	<table id="questionSimple_detail_table"></table>
+                    </div>
+                    
+                    <!-- 显示多选题信息 -->
+                    <div class="questionMultiple_detail page-header">
+                    	
+                    </div>
+                    
+                    <!--显示判断题信息 -->
+                    <div class="questionJudgement_detail page-header">
+                    	
+                    </div>
+                    
+                    <!-- 显示填空题信息 -->
+                    <div class="questionBlank_detail page-header">
+                    
+                    </div>
+                    
+                    <!-- 显示编程题信息 -->
+                    <div class="questionProgram_detail page-header">
+                    
+                    </div>
+                    
+                    <!--试卷添加单选题-->
+                    <div class="simple_page">
+                        <table id="questionSimple_table"></table>
+                    </div>
+
+                    <!--试卷添加多选题-->
+                    <div class="multiple_page">
+                        <table id="questionMultiple_table"></table>
+                    </div>
+
+                    <!--试卷添加填空题-->
+                    <div class="blank_page">
+                        <table id="questionFillBlank_table"></table>
+                    </div>
+
+                    <!--试卷添加判断题-->
+                    <div class="judgement_page">
+                        <table id="questionJudgement_table"></table>
+                    </div>
+
+                    <!--试卷添加编程题-->
+                    <div class="program_page">
+                        <table id="questionProgram_table"></table>
+                    </div>
+
+                </div>
+                <!--=== /Page Content ===-->
+            </div>
+            <!-- /.container -->
+        </div>
+    </div>
+    
+	<script type="text/javascript">
+		var activePage = "questionSet_info";
+	    
+	    var questionsimpleTable = $("#questionSimple_table");
+	    var questionmultipleTable = $("#questionMultiple_table");
+	    var questionjudgementTable = $("#questionJudgement_table");
+	    var questionblankTable = $("#questionFillBlank_table");
+	    var questionprogramTable = $("#questionProgram_table");
+	
+	    $(document).ready(function() {
+	    	//初始化下拉选择菜单
+            $("#questionset_status").select2({
+            	width: "100%"
+            });
+          	//初始化select2
+    		$.get("/paperLabel/label_select2",{},function(result) {
+    			$("#questionset_label").select2({
+    			    width: "100%"
+    			});
+    			var tmp = new Array();
+    			$.each(result, function(i,v) {
+    				tmp.push("<option value='"+v.id+"'>"+v.text+"</option>");
+    			});
+    			
+    			$("#questionset_label").html(tmp.join(""));
+    		}, "json");
+	
+	        //单选题  bootstrap-table
+	        questionsimpleTable.bootstrapTable({
+	            url: "/simple/all",
+	            method:'get',
+	            sortOrder: 'desc',
+	            dataType:'json',
+	            contentType: "application/json",
+	            striped: true,   //是否显示行间隔色
+	            singleSelect: false,
+	            cache: false,
+	            search: false,        //查找输入框
+	            showColumns: false,      //True to show the columns drop down list
+	            showRefresh: true,    //True to show the refresh button
+	            showPaginationSwitch: false,
+	            pagination:true,
+	            queryParamsType:"",
+	            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+	            pageNumber:1,                       //初始化加载第一页，默认第一页
+	            pageSize: 10,                       //每页的记录行数（*）
+	            pageList: [25, 35, 50],        //可供选择的每页的行数（*）
+	     //         uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+	            columns: [
+	                [{
+	                    title: '单选题',
+	                    colspan: 8,
+	                    align: 'center'
+	                }],
+	                [{
+	                    field: 'id',
+	                    title: '主键',
+	                    align: 'center',
+	                    visible: false
+	                },{
+	                    field: 'shortName',
+	                    align: 'center',
+	                    title: '主题'
+	                },{
+	                    field: 'difficulty',
+	                    align: 'center',
+	                    title: '难度'
+	                },{
+	                    field: 'createTime',
+	                    title: '提交时间',
+	                    align: 'center',
+	                    sortable: false      //是否启用排序
+	                },{
+	                    field: 'labels',
+	                    title: '标签',
+	                    align: 'center'
+	                },{
+	                    field: 'score',
+	                    title: '分值',
+	                    align: 'center',
+	                    formatter: scoreFormatter
+	                },{
+	                    field: 'operate',
+	                    title: '操作',
+	                    align: 'center',
+	                    events: {
+	                        'click .info': function (e, value, row, index) {
+	                            window.open("QuestionList/html/questionSimpleInfo.html?codeId="+row.id);
+	                        },
+	                        'click .add': function (e, value, row, index) {
+	                            //获取和保存选择的分值
+	                            var score = $("#"+row.id+"_score").find('option:selected').val();
+	                            if(score == 0 || score == "0" || score =="" || typeof(score)=="undefined"){
+	                                alert("请选择分值！");
+	                                return;
+	                            }
+	                            //保存选择的题目
+	                            addProblem("questionsimple",row.id, score);
+	                            questionsimpleTable.bootstrapTable('refresh');
+	                        },
+	                        'click .cancel': function (e, value, row, index) {
+	                            //去除已选择的题目
+	                        	deleteProblem("questionsimple",row.id);
+	                        	questionsimpleTable.bootstrapTable('refresh');
+	                        },
+	                    },
+	                    formatter: operateFormatter
+	                }]
+	            ]
+	        });
+	        
+	        //多选题  bootstrap-table
+	        questionmultipleTable.bootstrapTable({
+	            url: "/multiple/all",
+	            method:'GET',
+	            sortOrder: 'desc',
+	            dataType:'json',
+	            contentType: "application/json",
+	            striped: true,   //是否显示行间隔色
+	            singleSelect: false,
+	            cache: false,
+	            search: false,        //查找输入框
+	            showColumns: false,      //True to show the columns drop down list
+	            showRefresh: true,    //True to show the refresh button
+	            showPaginationSwitch: false,
+	            pagination:true,
+	            queryParamsType:"",
+	            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+	            pageNumber:1,                       //初始化加载第一页，默认第一页
+	            pageSize: 10,                       //每页的记录行数（*）
+	            pageList: [10, 25, 35, 50],        //可供选择的每页的行数（*）
+	     //         uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+	            columns: [
+	                [{
+	                    title: '多选题',
+	                    colspan: 8,
+	                    align: 'center'
+	                }], 
+	                [{
+	                    field: 'id',
+	                    title: '主键',
+	                    align: 'center',
+	                    visible: false
+	                },{
+	                    field: 'shortName',
+	                    align: 'center',
+	                    title: '主题'
+	                },{
+	                    field: 'difficulty',
+	                    align: 'center',
+	                    title: '难度'
+	                },{
+	                    field: 'createTime',
+	                    title: '提交时间',
+	                    align: 'center',
+	                    sortable: false      //是否启用排序
+	                },{
+	                    field: 'labels',
+	                    align: 'center',
+	                    title: '标签'
+	                },{
+	                    field: 'score',
+	                    title: '分值',
+	                    align: 'center',
+	                    formatter: scoreFormatter
+	                },{
+	                    field: 'operate',
+	                    title: '操作',
+	                    align: 'center',
+	                    events: {
+	                        'click .info': function (e, value, row, index) {
+	                            alert(row.id);
+	                            alert('You click like action, row: ' + JSON.stringify(row));
+	                        },
+	                        'click .add': function (e, value, row, index) {
+	                            //获取和保存选择的分值
+	                            var score = $("#"+row.id+"_score").find('option:selected').val();
+	                            if(score == 0 || score == "0" || score =="" || typeof(score)=="undefined"){
+	                                alert("请选择分值！");
+	                                return;
+	                            }
+	                            row.score = score;
+	                            //保存选择的题目信息
+	                            addProblem("questionmultiple",row.id, score);
+	                            cookieName = "questionmultiple";
+	                            questionmultipleTable.bootstrapTable('refresh');
+	                        },
+	                        'click .cancel': function (e, value, row, index) {
+	                            //去除已选择的题目
+	                        	deleteProblem("questionmultiple",row.id);
+	                        },
+	                    },
+	                    formatter: operateFormatter
+	                }]
+	            ]
+	        });
+	        
+	        //判断题  bootstrap-table
+	        questionjudgementTable.bootstrapTable({
+	            url: "/judgement/all",
+	            method:'GET',
+	            sortOrder: 'desc',
+	            dataType:'json',
+	            contentType: "application/json",
+	            striped: true,   //是否显示行间隔色
+	            singleSelect: false,
+	            cache: false,
+	            search: false,        //查找输入框
+	            showColumns: false,      //True to show the columns drop down list
+	            showRefresh: false,    //True to show the refresh button
+	            showPaginationSwitch: false,
+	            queryParamsType:"",
+	            pagination:true,
+	            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+	            pageNumber:1,                       //初始化加载第一页，默认第一页
+	            pageSize: 10,                       //每页的记录行数（*）
+	            pageList: [25, 35, 50],        //可供选择的每页的行数（*）
+	     //         uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+	            columns: [
+	                [{
+	                    title: '判断题',
+	                    colspan: 8,
+	                    align: 'center'
+	                }],
+	                [{
+	                    field: 'id',
+	                    title: '主键',
+	                    align: 'center',
+	                    visible: false
+	                },{
+	                    field: 'shortName',
+	                    align: 'center',
+	                    title: '主题'
+	                },{
+	                    field: 'difficulty',
+	                    align: 'center',
+	                    title: '难度'
+	                },{
+	                    field: 'createTime',
+	                    title: '提交时间',
+	                    align: 'center',
+	                    sortable: false      //是否启用排序
+	                },{
+	                    field: 'labels',
+	                    align: 'center',
+	                    title: '标签'
+	                },{
+	                    field: 'score',
+	                    title: '分值',
+	                    align: 'center',
+	                    formatter: scoreFormatter
+	                },{
+	                    field: 'operate',
+	                    title: '操作',
+	                    align: 'center',
+	                    events: {
+	                        'click .info': function (e, value, row, index) {
+	                            alert('You click like action, row: ' + JSON.stringify(row));
+	                        },
+	                        'click .add': function (e, value, row, index) {
+	                            //获取和保存选择的分值
+	                            var score = $("#"+row.id+"_score").find('option:selected').val();
+	                            if(score == 0 || score == "0" || score =="" || typeof(score)=="undefined"){
+	                                alert("请选择分值！");
+	                                return;
+	                            }
+	                            row.score = score;
+	                            //保存选择的题目信息
+	                            addProblem("questionjudgement",row.id, score);
+	                            questionjudgementTable.bootstrapTable('refresh');
+	                        },
+	                        'click .cancel': function (e, value, row, index) {
+	                            //去除已选择的题目
+	                        	deleteProblem("questionjudgement",row.id);
+	                        	questionblankTable.bootstrapTable('refresh');
+	                        },
+	                    },
+	                    formatter: operateFormatter
+	                }]
+	            ]
+	        });
+	        
+	      
+	        
+	        //填空题  bootstrap-table
+	        questionblankTable.bootstrapTable({
+	            url: "/blank/all",
+	            method:'GET',
+	            sortOrder: 'desc',
+	            dataType:'json',
+	            contentType: "application/json",
+	            striped: true,   //是否显示行间隔色
+	            singleSelect: false,
+	            cache: false,
+	            search: false,        //查找输入框
+	            showColumns: false,      //True to show the columns drop down list
+	            showRefresh: false,    //True to show the refresh button
+	            showPaginationSwitch: false,
+	            queryParamsType:"",
+	            pagination:true,
+	            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+	            pageNumber:1,                       //初始化加载第一页，默认第一页
+	            pageSize: 10,                       //每页的记录行数（*）
+	            pageList: [25, 35, 50],        //可供选择的每页的行数（*）
+	     //         uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+	            columns: [
+	                [{
+	                    title: '填空题',
+	                    colspan: 8,
+	                    align: 'center'
+	                }],
+	                [{
+	                    field: 'id',
+	                    title: '主键',
+	                    align: 'center',
+	                    visible: false
+	                },{
+	                    field: 'shortName',
+	                    align: 'center',
+	                    title: '主题'
+	                },{
+	                    field: 'difficulty',
+	                    title: '难度'
+	                },{
+	                    field: 'createTime',
+	                    align: 'center',
+	                    title: '提交时间',
+	                    sortable: false      //是否启用排序
+	                },{
+	                    field: 'labels',
+	                    align: 'center',
+	                    title: '标签'
+	                },{
+	                    field: 'score',
+	                    title: '分值',
+	                    align: 'center',
+	                    formatter: scoreFormatter
+	                },{
+	                    field: 'operate',
+	                    title: '操作',
+	                    align: 'center',
+	                    events: {
+	                        'click .info': function (e, value, row, index) {
+	                            alert('You click like action, row: ' + JSON.stringify(row));
+	                        },
+	                        'click .add': function (e, value, row, index) {
+	                            //获取和保存选择的分值
+	                            var score = $("#"+row.id+"_score").find('option:selected').val();
+	                            if(score == 0 || score == "0" || score =="" || typeof(score)=="undefined"){
+	                                alert("请选择分值！");
+	                                return;
+	                            }
+	                            row.score = score;
+	                            //保存选择的题目信息
+	                            addProblem("questionblank",row.id, score);
+	                            questionblankTable.bootstrapTable('refresh');
+	                        },
+	                        'click .cancel': function (e, value, row, index) {
+	                            //去除已选择的题目
+	                        	deleteProblem("questionblank",row.id);
+	                        	questionblankTable.bootstrapTable('refresh');
+	                        },
+	                    },
+	                    formatter: operateFormatter
+	                }]
+	            ]
+	        });
+	        
+	        //编程题  bootstrap-table
+	        questionprogramTable.bootstrapTable({
+	            url: "/program/all",
+	            method:'GET',
+	            sortOrder: 'desc',
+	            dataType:'json',
+	            contentType: "application/json",
+	            striped: true,   //是否显示行间隔色
+	            singleSelect: false,
+	            cache: false,
+	            search: false,        //查找输入框
+	            showColumns: false,      //True to show the columns drop down list
+	            showRefresh: true,    //True to show the refresh button
+	            showPaginationSwitch: false,
+	            queryParamsType:"",
+	            pagination:true,
+	            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+	            pageNumber:1,                       //初始化加载第一页，默认第一页
+	            pageSize: 10,                       //每页的记录行数（*）
+	            pageList: [25, 35, 50],        //可供选择的每页的行数（*）
+	     //         uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+	            columns: [
+	                [{
+	                    title: '编程题',
+	                    colspan: 8,
+	                    align: 'center'
+	                }], 
+	                [{
+	                    field: 'id',
+	                    title: '主键',
+	                    align: 'center',
+	                    visible: false
+	                },{
+	                    field: 'shortName',
+	                    align: 'center',
+	                    title: '主题'
+	                },{
+	                    field: 'difficulty',
+	                    align: 'center',
+	                    title: '难度'
+	                },{
+	                    field: 'createTime',
+	                    title: '提交时间',
+	                    align: 'center',
+	                    sortable: false      //是否启用排序
+	                },{
+	                    field: 'labels',
+	                    align: 'center',
+	                    title: '标签'
+	                },{
+	                    field: 'score',
+	                    title: '分值',
+	                    align: 'center',
+	                    formatter: scoreFormatter
+	                },{
+	                    field: 'operate',
+	                    title: '操作',
+	                    align: 'center',
+	                    events: {
+	                        'click .info': function (e, value, row, index) {
+	                            alert('You click like action, row: ' + JSON.stringify(row));
+	                        },
+	                        'click .add': function (e, value, row, index) {
+	                            //获取和保存选择的分值
+	                            var score = $("#"+row.id+"_score").find('option:selected').val();
+	                            if(score == 0 || score == "0" || score =="" || typeof(score)=="undefined"){
+	                                alert("请选择分值！");
+	                                return;
+	                            }
+	                            row.score = score;
+	                            //保存选择的题目信息
+	                            addProblem("questionprogram",row.id, score);
+	                            questionprogramTable.bootstrapTable('refresh');
+	                        },
+	                        'click .cancel': function (e, value, row, index) {
+	                            //去除已选择的题目
+	                        	deleteProblem("questionprogram",row.id);
+	                        	questionblankTable.bootstrapTable('refresh');
+	                        },
+	                    },
+	                    formatter: operateFormatter
+	                }]
+	            ]
+	        });
+	        
+	        function scoreFormatter(value, row, index) {
+	            return [
+	                '<select id="'+row.id+'_score" class="choose">',
+	                    '<option value="0">0</option>',
+	                    '<option value="1">1</option>',
+	                    '<option value="2">2</option>',
+	                    '<option value="3">3</option>',
+	                    '<option value="4">4</option>',
+	                    '<option value="5">5</option>',
+	                    '<option value="6">6</option>',
+	                    '<option value="7">7</option>',
+	                    '<option value="8">8</option>',
+	                    '<option value="9">9</option>',
+	                    '<option value="10">10</option>',
+	                    '<option value="11">11</option>',
+	                    '<option value="12">12</option>',
+	                    '<option value="13">13</option>',
+	                    '<option value="14">14</option>',
+	                    '<option value="15">15</option>',
+	                '</select>',
+	            '</div>'
+	            ].join(" ");
+	        }
+	        
+	        
+	        function operateFormatter(value, row, index) {
+	            if($.inArray(row.id, getCookieValue('questionsimple')) != -1 || 
+	            		$.inArray(row.id, getCookieValue('questionsimple')) != -1 || 
+	            		$.inArray(row.id, getCookieValue('questionmultiple')) != -1 || 
+	            		$.inArray(row.id, getCookieValue('questionblank')) != -1 || 
+	            		$.inArray(row.id, getCookieValue('questionprogram')) != -1 ||
+	            		$.inArray(row.id, getCookieValue('questionjudgement')) != -1){
+                    return [
+                        '<a class="info" href="javascript:void(0)" title="具体信息">',
+                        '<i class="glyphicon glyphicon-info-sign"></i>',
+                        '</a>  ',
+                        '<a class="cancel" href="javascript:void(0)" title="取消">',
+                        '<i class="glyphicon glyphicon-minus-sign"></i>', 
+                        '</a>'
+                    ].join('');
+                }
+	            
+	            return [
+	                '<a class="info" href="javascript:void(0)" title="具体信息">',
+	                '<i class="glyphicon glyphicon-info-sign"></i>',
+	                '</a>  ',
+	                '<a class="add" href="javascript:void(0)" title="添加">',
+	                '<i class="glyphicon glyphicon-plus-sign"></i>',         //glyphicon glyphicon-remove-sign
+	                '</a>'
+	            ].join('');       //数组转成字符串
+	        }
+	    });
+	
+	    //显示选择的每种题目类型的数量
+	    //sign: 标签id      operate: add | delete
+	    function show_questionNum(sign, operate){
+	        var flag = "#"+sign;
+	        //alert(flag+" " +questionArray.length);
+	        var num = Number($.trim($(flag).html()));
+	        var z = /^[0-9]*$/;
+	        if(!z.test(num)){
+	            alert("warning");
+	            return;
+	        }
+	        switch(operate) {
+	            case 'add':
+	                var tmp = num+1;
+	                //alert(tmp);
+	                $(flag).html(tmp)
+	                break;
+	            case 'delete':
+	                if(num > 0){
+	                    $(flag).html(num-1);
+	                }
+	                break;
+	            default:
+	        } 
+	    }
+	    
+	    //显示已选择的某种类型题目的信息页面
+	    //cookieName:   questionsimple/questionmultiple/questionblank/questionjudgement/questionprogram
+	    function showQuestionDetail(cookieName) {
+	    	//保存拼接字符串
+	    	var tmp = new Array();
+	    	
+	    	//要显示的页面ID
+	    	var detailPage;
+	    	
+	    	var questionArray = getCookieValue(cookieName);
+	    	//alert(questionArray);
+	    	switch(cookieName) {
+	    		case 'questionsimple':
+	    			detailPage="questionSimple_detail";
+                    for(var i=0; (i+1)<questionArray.length;i++) {
+                    	var qid = questionArray[i];
+                    	var difficulty = "";   //难度
+                        var questionName = "";   //题目
+                        var options = new Array();   //保存选项
+                        var option_li = new Array();   //li  选项
+                        var answer = new Array();   //答案
+                        
+                      	//获取答案
+                        $.get("/simple/answer", {"id": qid}, function(data) {
+                        	answer.push(data.content);
+                        }, "json");
+                        
+                    	$.ajax({
+                            url: "/simple/getById",
+                            data: {
+                                'id': questionArray[i]
+                            },
+                            async: false,
+                            dataType: 'json',
+                            success: function(result){
+                                $(result).each(function(index, object) {
+                                    questionName = object.content;
+                                    switch (Number(object.difficulty)) {
+                                    case 1:
+                                        difficulty = "★";
+                                        break;
+                                    case 2:
+                                        difficulty = "★★";
+                                        break;
+                                    case 3:
+                                        difficulty = "★★★";
+                                        break;
+                                    case 4:
+                                        difficulty = "★★★★";
+                                        break;
+                                    case 5:
+                                        difficulty = "★★★★★";
+                                        jsonObject.put("difficulty", "★★★★★");
+                                        break;
+                                    default:
+                                        difficulty = "";
+                                        break;
+                                    }
+                                    
+                                    //获取选项
+                                    options = result.options.replace("[", "").replace("]", "").split(",");
+                                    
+                                    //使标准答案选项变色
+                                    for(var i=0; i< options.length; i++){
+                                    	var option = $.trim(options[i]);
+                                        if($.inArray(option, answer) != -1) {
+                                        	 option_li.push('<li style="color:#6600FF;">'+options[i]+'</li>');
+                                        }else{
+                                        	option_li.push('<li>'+options[i]+'</li>');
+                                        }
+                                    }
+                                    
+                                });
+                                i++;
+                                var a = [
+                                    '<div class="panel panel-default">',
+                                    '<span class="qid" style="display:none;"></span>',
+                                    '<div class="panel-heading">',
+                                        '<span>题目:</span>',
+                                        '<span>&nbsp;('+questionArray[i]+'分)</span>',
+                                        '<p style="text-indent:2em;">'+questionName+'</p>',
+                                    '</div>',
+                                    '<ul class="list-group">',
+                                        '<li class="list-group-item">',
+                                            '<ul style="list-style:none;">',
+                                            option_li.join(" "),
+                                            '</ul>',
+                                        '</li>',
+                                    '</ul>',
+                                '</div>'].join(" ");
+                                tmp.push(a);
+                            },
+                            error: function(){
+                                alert("error");
+                            }
+                        });
+                    }
+	    			break;
+	    		case 'questionmultiple':
+	    			detailPage="questionMultiple_detail";
+	    			for(var i = 0; i < questionArray.length; i++){
+	    				var qid = questionArray[i];
+	                    var difficulty = "";   //难度
+	                    var questionName = "";   //题目
+	                    var options = new Array();   //保存选项
+	                    var option_li = new Array();   //li  选项
+	                    var answer = new Array();   //答案
+	                    
+	                  	//获取答案
+                        $.get("/multiple/answer", {"id": qid}, function(data) {
+                        	answer = data.content.split(",");
+                        }, "json");
+	                    
+	                    $.ajax({
+	                        url: "/multiple/getById",
+	                        data: {
+	                            'id': questionArray[i]
+	                        },
+	                        async: false,
+	                        dataType: 'json',
+	                        success: function(result){
+	                            $(result).each(function(index, object) {
+	                                questionName = object.content;
+	                                switch (Number(object.difficulty)) {
+	                                case 1:
+	                                    difficulty = "★";
+	                                    break;
+	                                case 2:
+	                                    difficulty = "★★";
+	                                    break;
+	                                case 3:
+	                                    difficulty = "★★★";
+	                                    break;
+	                                case 4:
+	                                    difficulty = "★★★★";
+	                                    break;
+	                                case 5:
+	                                    difficulty = "★★★★★";
+	                                    jsonObject.put("difficulty", "★★★★★");
+	                                    break;
+	                                default:
+	                                    difficulty = "";
+	                                    break;
+	                                }
+	                                
+	                                
+	                                //获取选项
+	                                options = result.options.replace("[", "").replace("]", "").split(",");
+	                                
+	                                //使标准答案选项变色
+	                                for(var i=0; i< options.length; i++){
+                                        if($.inArray($.trim(options[i]), answer) != -1) {
+                                        	 option_li.push('<li style="color:#6600FF;">'+options[i]+'</li>');
+                                        }else{
+                                        	option_li.push('<li>'+options[i]+'</li>');
+                                        }
+                                    }
+	                                
+	                            });
+	                            i++;
+	                            var a = [
+	                                '<div class="panel panel-default">',
+	                                '<span class="qid" style="display:none;"></span>',
+	                                '<div class="panel-heading">',
+	                                    '<span>题目:</span>',
+	                                    '<span>&nbsp;('+questionArray[i]+'分)</span>',
+	                                    '<p style="text-indent:2em;">'+questionName+'</p>',
+	                                '</div>',
+	                                '<ul class="list-group">',
+	                                    '<li class="list-group-item">',
+	                                        '<ul style="list-style:none;">',
+	                                        option_li.join(" "),
+	                                        '</ul>',
+	                                    '</li>',
+	                                '</ul>',
+	                            '</div>'].join(" ");
+	                            tmp.push(a);
+	                        },
+	                        error: function(){
+	                            alert("error");
+	                        }
+	                    });
+		            }
+	    			break;
+	    		case 'questionblank':
+	    			detailPage="questionBlank_detail";
+	    			for(var i = 0; i < questionArray.length; i++){
+	    				var qid = questionArray[i];
+	                    var difficulty = "";   //难度
+	                    var questionName = "";   //题目
+	                    var answer_li = new Array();   //li  选项
+	                    var answer = new Array();   //答案
+	                    
+	                  	//获取答案
+                        $.get("/blank/answer", {"id": qid}, function(data) {
+                        	answer = data.content.split(",");
+                        }, "json");
+	                    
+	                    $.ajax({
+	                        url: "/blank/getById",
+	                        data: {
+	                            'id': questionArray[i]
+	                        },
+	                        async: false,
+	                        dataType: 'json',
+	                        success: function(result){
+	                            //alert(JSON.stringify(result));
+	                            $(result).each(function(index, object) {
+	                                questionName = object.content;
+	                                switch (Number(object.difficulty)) {
+	                                case 1:
+	                                    difficulty = "★";
+	                                    break;
+	                                case 2:
+	                                    difficulty = "★★";
+	                                    break;
+	                                case 3:
+	                                    difficulty = "★★★";
+	                                    break;
+	                                case 4:
+	                                    difficulty = "★★★★";
+	                                    break;
+	                                case 5:
+	                                    difficulty = "★★★★★";
+	                                    jsonObject.put("difficulty", "★★★★★");
+	                                    break;
+	                                default:
+	                                    difficulty = "";
+	                                    break;
+	                                }
+	                                
+	                                
+	                                //使答案选项变色
+	                                answer_li.push('<li style="color:#6600FF;">'+answer+'</li>');
+	                            });
+	                            i++;
+	                            var a = [
+	                                '<div class="panel panel-default">',
+	                                '<span class="qid" style="display:none;"></span>',
+	                                '<div class="panel-heading">',
+	                                    '<span>题目:</span>',
+	                                    '<span>&nbsp;('+questionArray[i]+'分)</span>',
+	                                    '<p style="text-indent:2em;">'+questionName+'</p>',
+	                                '</div>',
+	                                '<ul class="list-group">',
+	                                    '<li class="list-group-item">',
+	                                        '<ul style="list-style:none;">',
+	                                        	answer_li.join(" "),
+	                                        '</ul>',
+	                                    '</li>',
+	                                '</ul>',
+	                            '</div>'].join(" ");
+	                            tmp.push(a);
+	                        },
+	                        error: function(){
+	                            alert("error");
+	                        }
+	                    });
+		            }
+	    			break;
+	    		case 'questionjudgement':
+	    			detailPage="questionJudgement_detail";
+	    			for(var i = 0; i < questionArray.length; i++){
+	    				var qid = questionArray[i];
+	                    var difficulty = "";   //难度
+	                    var questionName = "";   //题目
+	                    var options = new Array();   //保存选项
+	                    var option_li = new Array();   //li  选项
+	                    var answer = new Array();   //答案
+	                    
+	                    //获取答案
+                        $.get("/judgement/answer", {"id": qid}, function(data) {
+                        	answer = data.content;
+                        }, "json");
+	                    
+	                    $.ajax({
+	                        url: "/judgement/getById",
+	                        data: {
+	                            'id': questionArray[i]
+	                        },
+	                        async: false,
+	                        dataType: 'json',
+	                        success: function(result){
+	                            //alert(JSON.stringify(result));
+	                            $(result).each(function(index, object) {
+	                                questionName = object.content;
+	                                switch (Number(object.difficulty)) {
+	                                case 1:
+	                                    difficulty = "★";
+	                                    break;
+	                                case 2:
+	                                    difficulty = "★★";
+	                                    break;
+	                                case 3:
+	                                    difficulty = "★★★";
+	                                    break;
+	                                case 4:
+	                                    difficulty = "★★★★";
+	                                    break;
+	                                case 5:
+	                                    difficulty = "★★★★★";
+	                                    jsonObject.put("difficulty", "★★★★★");
+	                                    break;
+	                                default:
+	                                    difficulty = "";
+	                                    break;
+	                                }
+	                                
+	                                //获取选项
+	                                options = result.options.replace("[", "").replace("]", "").split(",");
+	                                //alert(options);
+	                                //使标准答案选项变色
+	                                for(var i=0; i< options.length; i++){
+                                        if($.inArray($.trim(options[i]), answer) != -1) {
+                                        	 option_li.push('<li style="color:#6600FF;">'+options[i]+'</li>');
+                                        }else{
+                                        	option_li.push('<li>'+options[i]+'</li>');
+                                        }
+                                    }
+	                            });
+	                            i++;
+	                            var a = [
+	                                '<div class="panel panel-default">',
+	                                '<span class="qid" style="display:none;"></span>',
+	                                '<div class="panel-heading">',
+	                                    '<span>题目:</span>',
+	                                    '<span>&nbsp;('+questionArray[i]+'分)</span>',
+	                                    '<p style="text-indent:2em;">'+questionName+'</p>',
+	                                '</div>',
+	                                '<ul class="list-group">',
+	                                    '<li class="list-group-item">',
+	                                        '<ul style="list-style:none;">',
+	                                            '<li>'+option_li.join(" ")+'</li>',
+	                                        '</ul>',
+	                                    '</li>',
+	                                '</ul>',
+	                            '</div>'].join(" ");
+	                            tmp.push(a);
+	                        },
+	                        error: function(){
+	                            alert("error");
+	                        }
+	                    });
+		            }
+	    			break;
+	    		case 'questionprogram':
+	    			detailPage="questionProgram_detail";
+	    			for(var i = 0; i < questionArray.length; i++){
+	    				var qid = questionArray[i];
+	    				var description = "";
+	                    var difficulty = "";   //难度
+	                    var questionName = "";   //题目
+	                    var answer = "";   //答案
+	                    var input = "";
+	                    var output = "";
+	                    var exampleInput = "";
+	                    var exampleOutput = "";
+	                    var hint = "";
+	                    
+	                    //获取答案
+                        $.get("/program/answer", {"id": qid}, function(data) {
+                     	   answer = data.content;
+                        }, "json");
+	                    
+	                    $.ajax({
+	                        url: "/program/getById",
+	                        data: {
+	                            'id': questionArray[i]
+	                        },
+	                        async: false,
+	                        dataType: 'json',
+	                        success: function(result){
+	                            //alert(JSON.stringify(result));
+                                description = result.description;
+                                questionName = result.content;
+                                switch (Number(result.difficulty)) {
+                                case 1:
+                                    difficulty = "★";
+                                    break;
+                                case 2:
+                                    difficulty = "★★";
+                                    break;
+                                case 3:
+                                    difficulty = "★★★";
+                                    break;
+                                case 4:
+                                    difficulty = "★★★★";
+                                    break;
+                                case 5:
+                                    difficulty = "★★★★★";
+                                    jsonObject.put("difficulty", "★★★★★");
+                                    break;
+                                default:
+                                    difficulty = "";
+                                    break;
+                                }
+                                
+                                input = result.input;
+                                output = result.output;
+                                exampleInput = result.exampleInput;
+                                exampleOutput = result.exampleOutput;
+                                hint = result.hint;
+	                                
+	                            i++;
+	                            var a = [
+	                                '<div class="panel panel-default">',
+	                                '<span class="qid" style="display:none;"></span>',
+	                                '<div class="panel-heading">',
+	                                    '<span>题目:</span>',
+	                                    '<span>&nbsp;('+questionArray[i]+'分)</span>',
+	                                    '<p style="text-indent:2em;">'+questionName+'</p>',
+	                                '</div>',
+	                                '<div class="panel-body">',
+	                                    '<span>描述：'+description+'</span>',
+	                                '</div>',
+	                                '<ul class="list-group">',
+	                                    '<li class="list-group-item"><span>输入：</span>'+input+'</li>',
+	                                    '<li class="list-group-item"><span>输出：</span>'+output+'</li>',
+	                                    '<li class="list-group-item"><span>输入示例：</span>'+exampleInput+'</li>',
+	                                    '<li class="list-group-item"><span>输出示例：</span>'+exampleOutput+'</li>',
+	                                    '<li class="list-group-item"><span>提示：</span>'+hint+'</li>',
+	                                    '<li style="color:#6600FF;" class="list-group-item"><span>参考答案：</span>'+answer+'</li>',
+	                                '</ul>',
+	                            '</div>'].join(" ");
+	                            tmp.push(a);
+	                        },
+	                        error: function(){
+	                            alert("error");
+	                        }
+	                    });
+		            }
+	    			break;
+	    		default:;
+	    	}
+    		$("."+detailPage).html(tmp.join(" "));
+    		showPage(detailPage);
+	    }
+	    
+	    //保存试卷
+ 	    function save(){
+	        var name = $.trim($("#questionset_name").val());
+	        var status = $.trim($("#questionset_status").val());
+	        var labels = $("#questionset_label").val();
+	        
+	        //alert(status+" "+labels);
+	        
+	        var questions = new Array();
+	        var scores = new Array();
+	        
+	        if(name == ""){
+	            alert("请填写试卷名称！");
+	            return;
+	        }
+	        if(status == ""){
+	            alert("请选择试卷状态！");
+	            return;
+	        }
+	        if(labels == ""){
+	            alert("请添加试卷标签！");
+	            return;
+	        }
+	        
+	        var tmp1 = getCookieValue("questionsimple");
+	        var tmp2 = getCookieValue("questionmultiple");
+	        var tmp3 = getCookieValue("questionblank");
+	        var tmp4 = getCookieValue("questionjudgement");
+	        var tmp5 = getCookieValue("questionprogram");
+	        for(var i=0; i<tmp2.length; i++) {
+	        	tmp1.push(tmp2[i]);
+	        }
+	        for(var i=0; i<tmp3.length; i++) {
+	        	tmp1.push(tmp3[i]);
+	        }
+	        for(var i=0; i<tmp4.length; i++) {
+	        	tmp1.push(tmp4[i]);
+	        }
+	        for(var i=0; i<tmp5.length; i++) {
+	        	tmp1.push(tmp5[i]);
+	        }
+	        
+	        for(var j=0; j<tmp1.length; j++) {
+	        	questions.push(tmp1[j]);
+	        	j++;
+	        	scores.push(tmp1[j]);
+	        }
+	        //alert(questions.length);
+	        //alert(scores.length);
+	        
+	        var r = confirm("确定保存试卷！");
+	    	if(r == false) {
+	    		return;
+	    	}
+	        
+	        $.ajax({
+	            url: "/paper/add",
+	            async: false,
+	            dataType: 'json',
+	            type: 'post',
+	            data: {
+	                "name": name,
+	                "questions": questions.join(","),
+	                "scores": scores.join(","),
+	                "status": status,
+	                "labels": labels.join(",")
+	            },
+	            success: function(result){
+	                alert(result.msg);
+	                if(result.success == true || result.success == "true") {
+	                	$.cookie("questionsimple","");
+		    	    	$.cookie("questionmultiple","");
+		    	    	$.cookie("questionblank","");
+		    	    	$.cookie("questionjudgement","");
+		    	    	$.cookie("questionprogram","");
+		                questionsimpleTable.bootstrapTable('refresh');
+		                questionmultipleTable.bootstrapTable('refresh');
+		                questionjudgementTable.bootstrapTable('refresh');
+		                questionblankTable.bootstrapTable('refresh');
+		                questionprogramTable.bootstrapTable('refresh');
+		                $("#score_total").text(0);
+	                }
+	            },
+	            error: function() {
+	                alert("error");
+	            }
+	        });
+	    }
+	    
+	    //显示/隐藏子页面
+	    function showPage(param) {
+	    	$("."+activePage).hide();
+	    	$("."+param).show();
+	    	activePage = param;
+	    }
+	    
+	    //添加题目和其对应的分值，保存到cookie
+	    //cookieName: questionsimple/questionmultiple/questionblank/questionjudgement/questionprogram
+	    function addProblem(cookieName, problemId, score) {
+	    	//alert(cookieName+"   " +problemId+ "    " + score);
+	    	var tmp = new Array();
+	    	//cookie不存在
+	    	if(typeof($.cookie(cookieName)) == "undefined" || $.cookie(cookieName) == "") {
+	    		$.cookie(cookieName,$.trim(problemId)+","+$.trim(score));
+	    		return;
+	    	}
+    		tmp = $.cookie(cookieName).split(",");
+    		if($.inArray(problemId, tmp) != -1) {
+    			alert("题目不能重复添加");
+    			return;
+    		}
+    		var string = $.cookie(cookieName);
+    		$.cookie(cookieName,string+","+$.trim(problemId)+","+$.trim(score));
+    		return;
+	    }
+	    
+	    //获取某类型题目已选择的记录数
+	    function getCount(cookieName) {
+	    	var tmp = getCookieValue(cookieName);
+	    	//alert(tmp);
+	    	return tmp.length/2;
+	    }
+	    
+	    //显示每种题目已选的数量
+	    function problemNum() {
+	    	$("#simple_number").text(getCount("questionsimple"));
+	    	$("#multiple_number").text(getCount("questionmultiple"));
+	    	$("#blank_number").text(getCount("questionblank"));
+	    	$("#judgement_number").text(getCount("questionjudgement"));
+	    	$("#program_number").text(getCount("questionprogram"));
+	    }
+	    
+	    //从cookie中删除已添加的题目
+	    //cookieName: questionsimple/questionmultiple/questionblank/questionjudgement/questionprogram
+	    function deleteProblem(cookieName, problemId) {
+	    	if($.cookie(cookieName) == null) {
+	    		return;
+	    	}
+	    	var tmp = new Array();
+	    	var info = $.cookie(cookieName);
+	    	tmp = info.split(",");
+	    	if($.inArray(problemId, tmp) != -1) {
+    			tmp.splice($.inArray(problemId, tmp),2);
+    			$.cookie(cookieName,tmp.join(","));
+    		}
+	    }
+	    
+	    //获取某类型题目的cookie值---返回数组
+	    //cookieName: questionsimple/questionmultiple/questionblank/questionjudgement/questionprogram
+	    function getCookieValue(cookieName) {
+	    	var tmp = new Array();
+	    	if($.cookie(cookieName) == "" || typeof($.cookie(cookieName)) == "undefined") {
+	    		return tmp;
+	    	}else{
+	    		tmp = $.trim($.cookie(cookieName)).split(",");
+	    		return tmp;
+	    	}
+	    }
+	    
+	    //重置所有选择的题目
+	    function resetQuestion() {
+	    	var r = confirm("确定重置已选择的题目！");
+	    	if(r == false) {
+	    		return;
+	    	}
+	    	$.cookie("questionsimple","");
+	    	$.cookie("questionmultiple","");
+	    	$.cookie("questionblank","");
+	    	$.cookie("questionjudgement","");
+	    	$.cookie("questionprogram","");
+	    	questionsimpleTable.bootstrapTable('refresh');
+	    	questionmultipleTable.bootstrapTable('refresh');
+	    	questionblankTable.bootstrapTable('refresh');
+	    	questionjudgementTable.bootstrapTable('refresh');
+	    	questionprogramTable.bootstrapTable('refresh');
+	    }
+	    
+	    //获取试卷总分
+	    function getTotalScore() {
+	    	var total = 0;
+	    	var array = getCookieValue('questionsimple');
+	    	for(var i=1;i<array.length;i++) {
+	    		total=total+parseInt(array[i]);
+	    		i++;
+	    	}
+	    	array = getCookieValue("questionmultiple");
+	    	for(var i=1; i<array.length; i++) {
+	    		total=total+parseInt(array[i]);
+	    		i++;
+	    	}
+	    	array = getCookieValue("questionblank");
+	    	for(var i=1; i<array.length; i++) {
+	    		total=total+parseInt(array[i]);
+	    		i++;
+	    	}
+	    	array = getCookieValue("questionjudgement");
+	    	for(var i=1; i<array.length; i++) {
+	    		total=total+parseInt(array[i]);
+	    		i++;
+	    	}
+	    	array = getCookieValue("questionprogram");
+	    	for(var i=1; i<array.length; i++) {
+	    		total=total+parseInt(array[i]);
+	    		i++;
+	    	} 
+	    	$("#score_total").text(total);
+	    }
+	</script>
+</body>
+</html>

@@ -19,14 +19,21 @@ public class QuestionLabelServiceImpl implements QuestionLabelService {
 
 	@Transactional
 	@Override
-	public Result save(QuestionLabel questionLabel) {
+	public Result save(String name) {
+		if (questionLabelDao.findByName(name) != null) {
+			return new Result(false, "标签已存在");
+		}
+		QuestionLabel questionLabel = new QuestionLabel();
+		questionLabel.setName(name);
 		questionLabelDao.saveAndFlush(questionLabel);
 		return new Result(true, "保存成功");
 	}
 
 	@Transactional
 	@Override
-	public Result update(QuestionLabel questionLabel) {
+	public Result update(String id, String name) {
+		QuestionLabel questionLabel = questionLabelDao.getOne(id);
+		questionLabel.setName(name);
 		questionLabelDao.saveAndFlush(questionLabel);
 		return new Result(true, "更新成功");
 	}

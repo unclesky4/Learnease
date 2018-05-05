@@ -33,7 +33,7 @@ public class Role implements Serializable {
 	@Column(length=20, nullable=false)
 	private String name;   //角色名称
 	
-	@Column(length=20, nullable=false)
+	@Column(length=20, nullable=false, unique=true)
 	private String code;  //角色代码
 	
 	@ManyToMany

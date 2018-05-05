@@ -154,7 +154,7 @@ public class UserController {
 	    User user = userService.findByEmail(email);
 	    subject.getSession().setAttribute("userId", user.getUid());
 	    subject.getSession().setAttribute("username", user.getName());
-	    subject.getSession().setTimeout(5*60*60*1000);
+	    subject.getSession().setTimeout(3*24*60*60*1000);
 	    return new Result(true, "登陆成功");
 	}
 	
