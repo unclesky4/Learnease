@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="sidebar" class="sidebar-fixed" th:fragment="manage_common_siderbar">
+		<div id="sidebar-content">
+           <!--=== Navigation ===-->
+           <ul id="nav">
+           		<li  th:each="map,mapStat: ${permissions}">
+                   <a href="javascript:void(0);">
+                       <i class="icon-folder-open"></i>
+                       <span th:text="${mapStat.current.key}"></span>
+                       <span class="label label-info pull-right"></span>
+                   </a>
+                   <ul class="sub-menu" th:each="permission : ${mapStat.current.value}">
+                       <li>
+                           <a th:href="${permission.code}">
+                               <i class="icon-angle-right"></i>
+                               <span th:text="${permission.name}"></span>
+                           </a>
+                       </li>
+                   </ul>
+               </li>
+           </ul><!-- /Navigation -->
+       	</div> <!--/sidebar-content-->
+       	<div id="divider" class="resizeable"></div>
+	</div>
+</body>
+</html>

@@ -1,17 +1,12 @@
-package org.jyu.web.service.authority.impl;
+package org.jyu.web.service.manage.impl;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-import java.util.Map;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jyu.web.SpringBootStart;
 import org.jyu.web.dto.Result;
-import org.jyu.web.dto.ZtreeJson;
 import org.jyu.web.service.manage.PermissionService;
-import org.jyu.web.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,10 +14,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes=SpringBootStart.class)
 public class PermissionServiceImplTest {
-	
-	@Autowired
-	private PermissionService service;
 
+	@Autowired
+	private PermissionService permissionService;
+	
 	@Test
 	public void testFindById() {
 		fail("Not yet implemented");
@@ -30,9 +25,7 @@ public class PermissionServiceImplTest {
 
 	@Test
 	public void testFindAll() {
-		Map<String, Object> map = service.findAll();
-		System.out.println(map == null);
-		System.out.println(map);
+		fail("Not yet implemented");
 	}
 
 	@Test
@@ -42,15 +35,13 @@ public class PermissionServiceImplTest {
 
 	@Test
 	public void testFindForZTree() {
-		List<ZtreeJson> list = service.findForZTree("ff8080816279a7ad016279a7c8d80000");
-		System.out.println(list.size());
-		System.out.println(JsonUtil.toJson(list));
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testSave() {
-		Result result = service.save("用户查询", "user_html", false, true, true, "ff8080816279a7ad016279a7c8d80000");
-		System.out.println(result.getSuccess());
+		Result result = permissionService.save("sdf", "permission_html", true, true, true, null);
+		System.out.println(result.getMsg());
 	}
 
 	@Test

@@ -4,8 +4,8 @@ package org.jyu.web.controller.authority;
 import java.util.List;
 
 import org.jyu.web.dto.Result;
-import org.jyu.web.entity.authority.Role;
-import org.jyu.web.service.authority.RoleService;
+import org.jyu.web.entity.manage.Role;
+import org.jyu.web.service.manage.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

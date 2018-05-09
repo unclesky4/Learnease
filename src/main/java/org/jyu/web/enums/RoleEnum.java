@@ -1,5 +1,4 @@
 package org.jyu.web.enums;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;

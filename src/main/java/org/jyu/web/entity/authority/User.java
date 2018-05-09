@@ -55,7 +55,7 @@ public class User implements Serializable {
 	@Column(nullable=false, length=1)
 	private Integer validation;
 	
-	@Column(nullable=false, length=22)
+	@Column(nullable=false, length=22, updatable=false)
 	private String registerTime;
 	
 	//uuid值，用于验证

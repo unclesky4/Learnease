@@ -11,7 +11,6 @@ public class ZtreeJson {
 	public ZtreeJson() {}
 
 	public ZtreeJson(String id, String name, Boolean isParent) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.isParent = isParent;
