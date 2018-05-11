@@ -25,7 +25,7 @@
 	<body>
 		<div class="content_wrap">
 			<div class="zpermission_manageBackground left">
-				<ul id="permission_manage" class="ztree"></ul>
+				<ul id="permission_tree" class="ztree"></ul>
 			</div>
 		</div>
 		<div id="add_permission" title="添加权限" style="display:none;">
@@ -70,183 +70,101 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-		var setting = {
-			async: {
-				enable: true,
-				url:"ztree_data",
-				autoParam:["id","name", "level"],
-				otherParam:{"otherParam":"zTreeAsync"},
-				type: "get"
-			},
-			check: {
-				enable: true
-			},
-			data: {
-				simpleData: {
-					enable: true
-				}
-			},
-			edit: {
-				enable: true,
-				editNameSelectAll: true,
-				showRemoveBtn: false,
-				showRenameBtn: false,
-				removeTitle: "remove",
-				renameTitle: "rename"
-			},
-			view: {
-				addHoverDom: addHoverDom,
-				removeHoverDom: removeHoverDom,
-				selectedMulti: false
-			},
-			callback: {
-				beforeRemove: beforeRemove,
-				onRemove: onRemove
-			}
-		};
-		
-		
-		function beforeRemove(treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("permission_manage");
-			zTree.selectNode(treeNode);
-			return confirm("确认删除'+treeNode.name+'节点？");
-		}
-		function onRemove(e, treeId, treeNode) {
-			
-		}
-
-		$(document).ready(function(){
-			$.fn.zTree.init($("#permission_manage"), setting);
-		});
-		
-		//用于当鼠标移动到节点上时，显示用户自定义控件
-		function addHoverDom(treeId, treeNode) {
-			var aObj = $("#" + treeNode.tId + "_a");
-			if ($(".diyImg_add_"+treeNode.id).length>0) return;
-			if ($(".diyImg_rename_"+treeNode.id).length>0) return;
-			if ($(".diyImg_delete_"+treeNode.id).length>0) return;
-			
-			var addStr = "<img title='add' class='diyImg_add_"+treeNode.id+
-				" button' src='/extensions/zTree_v3/css/zTreeStyle/add_1.png' onfocus='this.blur();' style='margin-bottom:-4px;'/>";
-			aObj.append(addStr);
-			
-			var renameStr = "<img title='rename' class='diyImg_rename_"+treeNode.id+
-				" button' src='/extensions/zTree_v3/css/zTreeStyle/rename_1.png' onfocus='this.blur();' style='margin-bottom:-4px;'/>";
-			aObj.append(renameStr);
-		
-			var deleteStr = "<img class='diyImg_delete_"+treeNode.id+
-				" button' src='/extensions/zTree_v3/css/zTreeStyle/delete_1.png' onfocus='this.blur();' style='margin-bottom:-4px;'/>";    
-			aObj.append(deleteStr);
-			
-			//点击事件--弹出层
-			//save
- 			var add_btn = $(".diyImg_add_"+treeNode.id);
-			if (add_btn) add_btn.bind("click", function(){
-				var zTree = $.fn.zTree.getZTreeObj("permission_manage");
-				var add_dialog = $( "#add_permission" ).dialog({
-				      height: 300,
-				      width: 350,
-				      buttons: {
-				    	  "save": function() {
-							var name = $("#add_name").val();
-							var code = $("#add_code").val();
-							var isCatalog = $('#add_isCatalog option:selected').val() == "true" ? true : false;
-							var isMenuShow = $('#add_isMenuShow option:selected').val() == "true" ? true : false;
-							var params = {
-								"name": name,
-								"code": code,
-								"isCatalog": isCatalog,
-								"isMenuShow": isMenuShow,
-								"pid": treeNode.id
-							};
-							$.post("permission_add",params,function(result){
-								if(result.success == "true" || result.success == true) {
-									add_dialog.dialog( "close" );
-									zTree.addNodes(treeNode, {"id":result.msg, "name":name, "isParent":isCatalog});
-								}else{
-									alert(result.msg);
-								}
-								
-							},"json");
-				    	  },
-				          Cancel: function() {
-				        	  add_dialog.dialog( "close" );
-				          }
-				        },
-				});
-			});
-			
-			//rename
-			var rename_btn = $(".diyImg_rename_"+treeNode.id);
-			if (rename_btn) rename_btn.bind("click", function(){
-				alert(JSON.stringify(treeNode));
-				var zTree = $.fn.zTree.getZTreeObj("permission_manage");
-				var add_dialog = $( "#update_permission" ).dialog({
-				      height: 300,
-				      width: 350,
-				      buttons: {
-				    	  "update": function() {
-							var name = $("#up_name").val();
-							var code = $("#up_code").val();
-							var isCatalog = $('#up_isCatalog option:selected').val() == "true" ? true : false;
-							var isMenuShow = $('#up_isMenuShow option:selected').val() == "true" ? true : false;
-							var params = {
-								"id": treeNode.id,
-								"name": name,
-								"code": code,
-								"isCatalog": isCatalog,
-								"isMenuShow": isMenuShow,
-								"pid": treeNode.id
-							};
-							$.post("permission_up",params,function(result){
-								if(result.success == "true" || result.success == true) {
-									add_dialog.dialog( "close" );
-									zTree.updateNodes(treeNode, {"id":result.msg.id, "name":result.msg.name, "isParent":result.msg.isCatalog});
-								}else{
-									alert(result.msg);
-								}
-								
-							},"json");
-				    	  },
-				          Cancel: function() {
-				        	  add_dialog.dialog( "close" );
-				          }
-				        },
-				});
-			});
-			
-			//delete
-			var delete_btn = $(".diyImg_delete_"+treeNode.id);
-			if (delete_btn) delete_btn.bind("click", function(){
-				var zTree = $.fn.zTree.getZTreeObj("permission_manage");
-				if(confirm("确认删除'+treeNode.name+'节点？")) {
-					$.post("permission_del",{"id":treeNode.id},function(result){
-						if(result.success == "true" || result.success == true) {
-							//true 表示执行此方法时触发 beforeRemove & onRemove 事件回调函数
-							zTree.removeNode(treeNode, false);
-						}else{
-							alert(result.msg);
+		var permission_tree = {
+			init: function() {
+				$.get("permission_all",{},function(result) {
+					var setting = {
+						edit: {
+						   drag: {
+							   autoExpandTrigger: true
+							},
+						   enable: true,
+						   showRemoveBtn: true,
+						   showRenameBtn: false
+					   	},
+						check : {enable : true,nocheckInherit : true},
+						data: {simpleData: {enable: true}},
+						view: {
+							addHoverDom: permission_tree.addHoverDom,
+							removeHoverDom: permission_tree.removeHoverDom
+						},
+						callback: {
+							beforeRemove: permission_tree.beforeRemove,
+							onClick: permission_tree.onClick
 						}
-						
-					},"json");
+					};
+					$.fn.zTree.init($("#permission_tree"), setting, result).expandAll(true);
+				},"json");
+			}
+			onClick: function(event, treeId, treeNode){},
+		    addHoverDom: function(treeId, treeNode) {
+		        if (treeNode.editNameFlag || $("#permission_addBtn_" + treeNode.id).length > 0)
+		           return;
+				var sObj = $("#" + treeNode.tId + "_span");
+				var addStr = "<span class=\"button add\" id='permission_addBtn_"+ treeNode.id + "' title='增加' onfocus='this.blur();'></span>" +
+		       				"<span class=\"button edit\" id='permission_editBtn_"+ treeNode.id + "' title='修改' onfocus='this.blur();'></span>";
+				sObj.append(addStr);
+				var addbtn = $("#permission_addBtn_" + treeNode.id);
+				if (addbtn) {
+		           addbtn.bind("click", function() {
+		               permission_add_dialog.open(treeNode);
+		           });
 				}
-				
-			});
-		};
-		function removeHoverDom(treeId, treeNode) {
-			$(".diyImg_add_"+treeNode.id).unbind().remove();
-			$(".diyImg_rename_"+treeNode.id).unbind().remove();
-			$(".diyImg_delete_"+treeNode.id).unbind().remove();
-		};
-
-		
-		function showRemoveBtn(treeId, treeNode) {
-			return !treeNode.isFirstNode;
+		       
+		       var editbtn = $("#permission_editBtn_" + treeNode.id);
+		       if (editbtn) {
+		           editbtn.bind("click", function() {
+		           		permission_up_dialog.open(treeNode);
+		           });
+		       }
+		    },
+		    removeHoverDom: function(treeId, treeNode) {
+		        $("#permission_addBtn_" + treeNode.id).unbind().remove();
+				$("#permission_editBtn_" + treeNode.id).unbind().remove();
+		    },
+		    beforeRemove: function(treeId, treeNode) {
+		        var zTree = $.fn.zTree.getZTreeObj(treeId);
+				zTree.selectNode(treeNode);
+				if(treeNode.isParent) {
+		           $.onecloud.warnShow("存在子权限！");
+		           return false;
+				}
+				if(confirm("确认删除《" + treeNode.name + "》吗？")) {
+		           var params = {"id": treeNode.id};
+		           $.post("/permission_del", params, function (data) {
+		               if (data.status == 0) {
+		                   $.onecloud.succShow(data.mess);
+		                   return true;
+		               } else if(data.status == 1) {
+		                   $.onecloud.errorShow(data.mess);
+		                   return false;
+		               }else{
+		                   $.onecloud.warnShow(data.mess);
+		                   return false;
+		               }
+		           });
+				}else{
+		           return false;
+				}
+		    },
+		    expAll: function(){
+			    if(permission_tree.exp) {
+			    	$.fn.zTree.getZTreeObj("permission_tree").expandAll(false);
+			        permission_tree.exp = false;
+			    } else {
+			    	$.fn.zTree.getZTreeObj("permission_tree").expandAll(true);
+			        permission_tree.exp = true;
+			    }
+		    },
+		    checkAll: function(){
+			    if(permission_tree.check) {
+			    	$.fn.zTree.getZTreeObj("permission_tree").checkAllNodes(false);
+			        permission_tree.check = false;
+			    } else {
+			    	$.fn.zTree.getZTreeObj("permission_tree").checkAllNodes(true);
+			        permission_tree.check = true;
+			    }
+		    },
 		}
-		
-		function showRenameBtn(treeId, treeNode) {
-			return !treeNode.isLastNode;
-		}
-		
 	</script>
 </html>

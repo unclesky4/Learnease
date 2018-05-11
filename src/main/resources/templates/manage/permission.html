@@ -9,7 +9,7 @@
 
 	<!-- Bootstrap -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
+	<link rel="stylesheet" href="/extensions/jquery-ui-1.12.0/jquery-ui.min.css" type="text/css">
 	<!-- jQuery UI -->
 	<!--<link href="plugins/jquery-ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />-->
 	<!--[if lt IE 9]>
@@ -36,7 +36,8 @@
 
 	<!--=== JavaScript ===-->
 
-	<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script>
+	<!-- <script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script> -->
+	<script type="text/javascript" src="/extensions/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
 
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
@@ -99,6 +100,7 @@
 	<style type="text/css">
 		strong {font-weight: 700;}
 		a {text-decoration: none;}
+		.dropdown-menu li {list-style:none}
 	</style>
 </head>
 
@@ -114,238 +116,380 @@
 	    <!-- /Sidebar -->
 	    
 		<div id="content">
-			<div class="container">
-				<div class="col-md-1"></div>
+			<div class="container" style="margin-left: 70px; margin-top:50px">
+				<button type="button" class="btn btn-primary" id="add_root">添加</button>
+				<button type="button" class="btn btn-primary" id="update_status">更新</button>
+				<button type="button" class="btn btn-primary" id="expandAll">展开</button>
+			</div>
+			<div class="container" style="margin-left: 50px;">
 				<div class="col-md-5">
 					<div class="content_wrap">
 						<div class="zpermission_manageBackground left">
-							<ul id="permission_manage" class="ztree"></ul>
+							<ul id="permission_tree" class="ztree"></ul>
 						</div>
+					</div>
+					
+					<!-- Dialog -->
+					<div id="add_root_permission" title="添加根权限" style="display:none;">
+					    <form>
+					    	<div class="row">
+							<div class="form-group">
+									<label class="col-md-3 control-label">权限名:</label>
+									<div class="col-md-8">
+										<input type="text" id="root_name" name="regular" class="form-control">
+									</div>
+							</div><br/><br/>
+							<div class="form-group">
+								<label class="col-md-3 control-label">类型:</label>
+								<div class="col-md-8">
+									<select class="form-control" id="root_isCatalog">
+										<option value="true">目录</option>
+										<option value="false">权限</option>
+									</select>
+								</div>
+							</div>
+							</div>
+						</form>
 					</div>
 					<div id="add_permission" title="添加权限" style="display:none;">
 					    <form>
-						    <fieldset>
-						      <label for="name">权限名</label>
-						      <input type="text" name="name" id="add_name" class="text ui-widget-content ui-corner-all"><br/>
-						      <label for="email">权限代码</label>
-						      <input type="text" name="code" id="add_code" class="text ui-widget-content ui-corner-all"><br/>
-						      <label for="text">目录</label>
-						      <select id="add_isCatalog">
-								  <option value ="true">true</option>
-								  <option value ="false">false</option>
-								</select><br/>
-						      <label for="email">菜单栏显示</label>
-						      <select id="add_isMenuShow">
-								  <option value ="true">true</option>
-								  <option value ="false">false</option>
-								</select><br/>
-						    </fieldset>
+					    	<div class="row">
+							<div class="form-group">
+									<label class="col-md-3 control-label">权限名:</label>
+									<div class="col-md-8">
+										<input type="text" id="add_name" name="regular" class="form-control">
+									</div>
+							</div><br/>
+							<div class="form-group">
+								<label class="col-md-3 control-label">权限代码:</label>
+								<div class="col-md-8">
+								<input type="text" id="add_code" name="regular" class="form-control">
+								</div>
+							</div><br/>
+							<div class="form-group">
+								<label class="col-md-3 control-label">类型:</label>
+								<div class="col-md-8">
+									<select class="form-control" id="add_isCatalog">
+										<option value="true" selected="selected">目录</option>
+										<option value="false">权限</option>
+									</select>
+								</div>
+							</div>
+							</div>
 						</form>
 					</div>
 					<div id="update_permission" title="修改权限" style="display:none;">
 					    <form>
-						    <fieldset>
-						      <label for="name">权限名</label>
-						      <input type="text" name="name" id="up_name" class="text ui-widget-content ui-corner-all"><br/>
-						      <label for="email">权限代码</label>
-						      <input type="text" name="code" id="up_code" class="text ui-widget-content ui-corner-all"><br/>
-						      <label for="text">目录</label>
-						      <select id="up_isCatalog">
-								  <option value ="true">true</option>
-								  <option value ="false">false</option>
-								</select><br/>
-						      <label for="text">菜单栏显示</label>
-						      <select id="up_isMenuShow">
-								  <option value ="true">true</option>
-								  <option value ="false">false</option>
-								</select><br/>
-						    </fieldset>
+					    	<div class="row">
+							<div class="form-group">
+									<label class="col-md-3 control-label">权限名:</label>
+									<div class="col-md-8">
+										<input type="text" id="up_name" name="regular" class="form-control">
+									</div>
+							</div><br/>
+							<div class="form-group">
+								<label class="col-md-3 control-label">权限代码:</label>
+								<div class="col-md-8">
+								<input type="text" id="up_code" name="regular" class="form-control">
+								</div>
+							</div><br/>
+							<div class="form-group">
+								<label class="col-md-3 control-label">类型:</label>
+								<div class="col-md-8">
+									<select class="form-control" id="up_isCatalog">
+										<option value="true">目录</option>
+										<option value="false">权限</option>
+									</select>
+								</div>
+							</div>
+							</div>
 						</form>
 					</div>
+					<!-- / Dialog -->
+					
 				</div>
 			</div>
 			<!-- /.container -->
 		</div>
 	</div>
 	<script type="text/javascript">
-		var setting = {
-			async: {
-				enable: true,
-				url:"ztree_data",
-				autoParam:["id","name", "level"],
-				otherParam:{"otherParam":"zTreeAsync"},
-				type: "get"
+		var permission_tree = {
+			expand: true,
+			init: function() {
+				$.get("permission_all",{},function(result) {
+					var setting = {
+						edit: {
+						   drag: {
+							   autoExpandTrigger: false,
+							   isCopy: false,
+							   isMove: true
+						   },
+						   enable: true,
+						   showRemoveBtn: true,
+						   showRenameBtn: false
+					   	},
+						check : {enable : true,nocheckInherit : true},
+						data: {simpleData: {enable: true}},
+						view: {
+							showIcon: true,
+							addHoverDom: permission_tree.addHoverDom,
+							removeHoverDom: permission_tree.removeHoverDom
+						},
+						callback: {
+							beforeRemove: permission_tree.beforeRemove,
+							onClick: permission_tree.onClick,
+							onDrop: zTreeOnDrop
+						}
+					};
+					$.fn.zTree.init($("#permission_tree"), setting, result).expandAll(true);
+				},"json");
 			},
-			check: {
-				enable: true
-			},
-			data: {
-				simpleData: {
-					enable: true
+			onClick: function(event, treeId, treeNode){},
+		    addHoverDom: function(treeId, treeNode) {
+		        if (treeNode.editNameFlag || $("#permission_addBtn_" + treeNode.id).length > 0)
+		           return;
+				var sObj = $("#" + treeNode.tId + "_span");
+				var addStr = "<span class='button add' id='permission_addBtn_"+ treeNode.id + "' title='增加' onfocus='this.blur();'>"+
+							"<img src='/extensions/zTree_v3/css/zTreeStyle/add_1.png' style='margin-bottom:-4px;'/></span>" +
+		       				"<span class='button edit' id='permission_editBtn_"+ treeNode.id + "' title='修改' onfocus='this.blur();'></span>";
+				sObj.append(addStr);
+				var addbtn = $("#permission_addBtn_" + treeNode.id);
+				if (addbtn) {
+		           addbtn.bind("click", function() {
+		               permission_add_dialog.open(treeNode);
+		           });
 				}
-			},
-			edit: {
-				enable: true,
-				editNameSelectAll: true,
-				showRemoveBtn: false,
-				showRenameBtn: false,
-				removeTitle: "remove",
-				renameTitle: "rename"
-			},
-			view: {
-				addHoverDom: addHoverDom,
-				removeHoverDom: removeHoverDom,
-				selectedMulti: false
-			},
-			callback: {
-				beforeRemove: beforeRemove,
-				onRemove: onRemove
-			}
+		       
+		       var editbtn = $("#permission_editBtn_" + treeNode.id);
+		       if (editbtn) {
+		           editbtn.bind("click", function() {
+		           		permission_up_dialog.open(treeNode);
+		           });
+		       }
+		    },
+		    removeHoverDom: function(treeId, treeNode) {
+		        $("#permission_addBtn_" + treeNode.id).unbind().remove();
+				$("#permission_editBtn_" + treeNode.id).unbind().remove();
+		    },
+		    beforeRemove: function(treeId, treeNode) {
+		        var zTree = $.fn.zTree.getZTreeObj(treeId);
+				zTree.selectNode(treeNode);
+				if(treeNode.isParent) {
+		           alert("存在子权限！");
+		           return false;
+				}
+				if(confirm("确认删除权限<" + treeNode.name + ">？")) {
+		           var params = {"id": treeNode.id};
+		           $.post("/permission/del", params, function (data) {
+		               if (data.status == 0) {
+		                   alert(data.msg);
+		                   return true;
+		               } else if(data.status == 1) {
+		            	   alert(data.msg);
+		                   return false;
+		               }else{
+		            	   alert(data.msg);
+		                   return false;
+		               }
+		           });
+				}else{
+		           return false;
+				}
+		    },
+		    expAll: function(){
+			    if(permission_tree.expand) {
+			    	$.fn.zTree.getZTreeObj("permission_tree").expandAll(false);
+			        permission_tree.expand = false;
+			    } else {
+			    	$.fn.zTree.getZTreeObj("permission_tree").expandAll(true);
+			        permission_tree.expand = true;
+			    }
+		    },
+		    checkAll: function(){
+			    if(permission_tree.check) {
+			    	$.fn.zTree.getZTreeObj("permission_tree").checkAllNodes(false);
+			        permission_tree.check = false;
+			    } else {
+			    	$.fn.zTree.getZTreeObj("permission_tree").checkAllNodes(true);
+			        permission_tree.check = true;
+			    }
+		    },
 		};
-		
-		
-		function beforeRemove(treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("permission_manage");
-			zTree.selectNode(treeNode);
-			return confirm("确认删除'+treeNode.name+'节点？");
-		}
-		function onRemove(e, treeId, treeNode) {
-			
-		}
-
-		$(document).ready(function(){
-			$.fn.zTree.init($("#permission_manage"), setting);
-		});
-		
-		//用于当鼠标移动到节点上时，显示用户自定义控件
-		function addHoverDom(treeId, treeNode) {
-			var aObj = $("#" + treeNode.tId + "_a");
-			if ($(".diyImg_add_"+treeNode.id).length>0) return;
-			if ($(".diyImg_rename_"+treeNode.id).length>0) return;
-			if ($(".diyImg_delete_"+treeNode.id).length>0) return;
-			
-			var addStr = "<img title='add' class='diyImg_add_"+treeNode.id+
-				" button' src='/extensions/zTree_v3/css/zTreeStyle/add_1.png' onfocus='this.blur();' style='margin-bottom:-4px;'/>";
-			aObj.append(addStr);
-			
-			var renameStr = "<img title='rename' class='diyImg_rename_"+treeNode.id+
-				" button' src='/extensions/zTree_v3/css/zTreeStyle/rename_1.png' onfocus='this.blur();' style='margin-bottom:-4px;'/>";
-			aObj.append(renameStr);
-		
-			var deleteStr = "<img class='diyImg_delete_"+treeNode.id+
-				" button' src='/extensions/zTree_v3/css/zTreeStyle/delete_1.png' onfocus='this.blur();' style='margin-bottom:-4px;'/>";    
-			aObj.append(deleteStr);
-			
-			//点击事件--弹出层
-			//save
- 			var add_btn = $(".diyImg_add_"+treeNode.id);
-			if (add_btn) add_btn.bind("click", function(){
-				var zTree = $.fn.zTree.getZTreeObj("permission_manage");
-				var add_dialog = $( "#add_permission" ).dialog({
-				      height: 300,
-				      width: 350,
+		var permission_add_root_dialog = {
+			open: function() {
+				$("#root_name").val("");
+				$("#root_code").val("");
+				var add_root_dialog = $( "#add_root_permission" ).dialog({
+				      height: 200,
+				      width: 450,
+				      resizable: false,
 				      buttons: {
-				    	  "save": function() {
-							var name = $("#add_name").val();
-							var code = $("#add_code").val();
-							var isCatalog = $('#add_isCatalog option:selected').val() == "true" ? true : false;
-							var isMenuShow = $('#add_isMenuShow option:selected').val() == "true" ? true : false;
+				    	  "添加": function() {
+							var name = $("#root_name").val();
+							var isCatalog = $('#root_isCatalog option:selected').val() == "true" ? true : false;
 							var params = {
 								"name": name,
-								"code": code,
-								"isCatalog": isCatalog,
-								"isMenuShow": isMenuShow,
-								"pid": treeNode.id
+								"isCatalog": isCatalog
 							};
-							$.post("permission_add",params,function(result){
+							$.post("permission/add",params,function(result){
 								if(result.success == "true" || result.success == true) {
-									add_dialog.dialog( "close" );
-									zTree.addNodes(treeNode, {"id":result.msg, "name":name, "isParent":isCatalog});
+									add_root_dialog.dialog( "close" );
+									$.fn.zTree.getZTreeObj("permission_tree").addNodes(null, -1, result.msg, true);
 								}else{
+									add_root_dialog.dialog( "close" );
 									alert(result.msg);
 								}
 								
 							},"json");
 				    	  },
-				          Cancel: function() {
+				          "取消": function() {
+				        	  add_root_dialog.dialog( "close" );
+				          }
+				        },
+				});
+			}
+		};
+		var permission_add_dialog = {
+			open: function(treeNode) {
+				$("#add_name").val("");
+				$("#add_code").val("");
+				var add_dialog = $( "#add_permission" ).dialog({
+				      height: 250,
+				      width: 450,
+				      resizable: false,
+				      buttons: {
+				    	  "添加": function() {
+							var name = $("#add_name").val();
+							var code = $("#add_code").val();
+							var isCatalog = $('#add_isCatalog option:selected').val() == "true" ? true : false;
+							var params = {
+								"name": name,
+								"code": code,
+								"isCatalog": isCatalog,
+								"pid": treeNode.id
+							};
+							$.post("permission/add",params,function(result){
+								if(result.success == "true" || result.success == true) {
+									add_dialog.dialog( "close" );
+									var index = treeNode.getIndex()+1;
+									$.fn.zTree.getZTreeObj("permission_tree").addNodes(treeNode, index, result.msg);
+								}else{
+									add_dialog.dialog( "close" );
+									alert(result.msg);
+								}
+								
+							},"json");
+				    	  },
+				          "取消": function() {
 				        	  add_dialog.dialog( "close" );
 				          }
 				        },
 				});
-			});
-			
-			//rename
-			var rename_btn = $(".diyImg_rename_"+treeNode.id);
-			if (rename_btn) rename_btn.bind("click", function(){
-				alert(JSON.stringify(treeNode));
-				var zTree = $.fn.zTree.getZTreeObj("permission_manage");
-				var add_dialog = $( "#update_permission" ).dialog({
-				      height: 300,
-				      width: 350,
+			}
+		};
+		var permission_up_dialog = {
+			open: function(treeNode) {
+				$("#up_name").val(treeNode.name);
+				$("#up_code").val(treeNode.code);
+				$("#up_isCatalog").find("option[value='"+treeNode.isCatalog+"']").attr("selected",true);
+				var up_dialog = $( "#update_permission" ).dialog({
+				      height: 250,
+				      width: 450,
+				      resizable: false,
 				      buttons: {
-				    	  "update": function() {
+				    	  "更新": function() {
 							var name = $("#up_name").val();
 							var code = $("#up_code").val();
 							var isCatalog = $('#up_isCatalog option:selected').val() == "true" ? true : false;
-							var isMenuShow = $('#up_isMenuShow option:selected').val() == "true" ? true : false;
 							var params = {
 								"id": treeNode.id,
 								"name": name,
 								"code": code,
 								"isCatalog": isCatalog,
-								"isMenuShow": isMenuShow,
 								"pid": treeNode.id
 							};
-							$.post("permission_up",params,function(result){
+							$.post("permission/update",params,function(result){
 								if(result.success == "true" || result.success == true) {
-									add_dialog.dialog( "close" );
-									zTree.updateNodes(treeNode, {"id":result.msg.id, "name":result.msg.name, "isParent":result.msg.isCatalog});
+									up_dialog.dialog( "close" );
+									treeNode.name = name;
+									treeNode.code = code;
+									$.fn.zTree.getZTreeObj("permission_tree").updateNode(treeNode, true);
 								}else{
+									up_dialog.dialog( "close" );
 									alert(result.msg);
 								}
 								
 							},"json");
 				    	  },
-				          Cancel: function() {
-				        	  add_dialog.dialog( "close" );
+				          "取消": function() {
+				        	  up_dialog.dialog( "close" );
 				          }
 				        },
 				});
+			}
+		};
+		$(function() {
+			permission_tree.init();
+			
+			//添加根节点
+			$("#add_root").click(function() {
+				permission_add_root_dialog.open();
 			});
 			
-			//delete
-			var delete_btn = $(".diyImg_delete_"+treeNode.id);
-			if (delete_btn) delete_btn.bind("click", function(){
-				var zTree = $.fn.zTree.getZTreeObj("permission_manage");
-				if(confirm("确认删除'+treeNode.name+'节点？")) {
-					$.post("permission_del",{"id":treeNode.id},function(result){
-						if(result.success == "true" || result.success == true) {
-							//true 表示执行此方法时触发 beforeRemove & onRemove 事件回调函数
-							zTree.removeNode(treeNode, false);
-						}else{
-							alert(result.msg);
-						}
-						
-					},"json");
-				}
-				
+			//更新启用状态
+			$("#update_status").click(function() {
+				var data = $.fn.zTree.getZTreeObj("permission_tree").getChangeCheckedNodes();
+				var upIds = new Array();
+				var downIds = new Array();
+				$.each(data, function(index, object) {
+					if(object.checked) {
+						upIds.push(object.id);
+					}else{
+						downIds.push(object.id);
+					}
+				});
+				var param = {
+					"upIds": upIds.join(","),
+					"downIds": downIds.join(",")
+				};
+				$.post("/permission/status/update", param, function(result) {
+					alert(result.msg);
+				}, "json");
 			});
+			
+			//展开、折叠
+			$("#expandAll").click(function() {
+				permission_tree.expAll();
+			});
+		});
+		
+		//拖拽回调函数
+		//isCopy  true：复制；false：移动
+		function zTreeOnDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
+			if(moveType == true) {
+				return ;
+			}
+			if(targetNode == null) {
+				return ;
+			}
+			if(moveType == null) {
+				return ;
+			}
+		    //alert(treeNodes.length + "," + (targetNode ? (targetNode.tId + ", " + targetNode.id) : "isRoot" ));
+			var tree = $.fn.zTree.getZTreeObj("permission_tree");
+		    var id = treeNodes[0].id;
+		    var targetId = targetNode.id;
+		    //alert(id+" "+targetId);
+		    var param  = {
+		    	"id": id,
+		    	"targetId": targetId
+		    };
+		    $.post("/permission/updatePid", param, function(result) {
+		    	if(result.success == false) {
+		    		alert(result.msg);
+		    	}
+		    }, "json");
 		};
-		function removeHoverDom(treeId, treeNode) {
-			$(".diyImg_add_"+treeNode.id).unbind().remove();
-			$(".diyImg_rename_"+treeNode.id).unbind().remove();
-			$(".diyImg_delete_"+treeNode.id).unbind().remove();
-		};
-
-		
-		function showRemoveBtn(treeId, treeNode) {
-			return !treeNode.isFirstNode;
-		}
-		
-		function showRenameBtn(treeId, treeNode) {
-			return !treeNode.isLastNode;
-		}
-		
 	</script>
 </body>
 </html>

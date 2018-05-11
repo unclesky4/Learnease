@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.transaction.Transactional;
-
 import org.jyu.web.dao.manage.AdministratorRepository;
 import org.jyu.web.dao.manage.RoleRepository;
 import org.jyu.web.dto.Result;
@@ -19,7 +17,9 @@ import org.jyu.web.service.manage.AdministratorService;
 import org.jyu.web.utils.DateUtil;
 import org.jyu.web.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AdministratorServiceImpl implements AdministratorService {
@@ -34,6 +34,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 	@Override
 	public Result save(String name, String pwd, String sex, String phone, String email, String roleIds) {
 		Administrator administrator = new Administrator();
+		if (administratorDao.findByName(name) != null) {
+			return new Result(false, "姓名已存在");
+		}
 		administrator.setName(name);
 		administrator.setPwd(MD5Util.MD5(pwd));
 		administrator.setSex(sex);
@@ -58,13 +61,16 @@ public class AdministratorServiceImpl implements AdministratorService {
 
 	@Transactional
 	@Override
-	public Result update(String id, String name, String pwd, String sex, String phone, String email, 
-			String roleIds, Boolean updatePassword) {
+	public Result update(String id, String name, String sex, String phone, String email, 
+			String roleIds) {
 		Administrator administrator = administratorDao.getOne(id);
-		if (name != null && name != "") {
+		if (name != null && name != "" && !administrator.getName().equals(name)) {
+			if (administratorDao.findByName(name) != null) {
+				return new Result(false, "姓名已存在");
+			}
 			administrator.setName(name);
 		}
-		if (sex != null && sex != "") {
+		if (sex != null && sex != "" && administrator.getSex() != sex) {
 			administrator.setSex(sex);
 		}
 		if (phone != null && phone != "") {
@@ -73,17 +79,47 @@ public class AdministratorServiceImpl implements AdministratorService {
 		if (email != null && email != "") {
 			administrator.setEmail(email);
 		}
-		if(updatePassword && pwd != null && pwd != "") {
-			administrator.setPwd(MD5Util.MD5(administrator.getPwd()));
-		}
 		if (roleIds != null && roleIds != "") {
 			administrator.getRoles().clear();
 			String[] roleId = roleIds.split(",");
-			
+			for (int j = 0; j < roleId.length; j++) {
+				Role role = roleDao.getOne(roleId[j]);
+				if (role != null) {
+					administrator.getRoles().add(role);
+				}
+			}
 		}
 		administratorDao.saveAndFlush(administrator);
 		return new Result(true, "修改成功");
 	}
+	
+	@Transactional
+	@Override
+	public Result updatePwd(String id, String oldPwd, String newPwd) {
+		Administrator administrator = administratorDao.getOne(id);
+		if (administrator == null) {
+			return new Result(false, "管理员不存在");
+		}
+		if (!administrator.getPwd().equals(MD5Util.MD5(oldPwd))) {
+			return new Result(false, "旧密码不正确");
+		}
+		administrator.setPwd(MD5Util.MD5(newPwd));
+		administratorDao.saveAndFlush(administrator);
+		return new Result(true, "修改成功");
+	}
+	
+	@Transactional
+	@Override
+	public Result updatePassword(String id, String password) {
+		Administrator administrator = administratorDao.getOne(id);
+		if (administrator == null) {
+			return new Result(false, "管理员不存在");
+		}
+		administrator.setPwd(MD5Util.MD5(password));
+		administratorDao.saveAndFlush(administrator);
+		return new Result(true, "修改成功");
+	}
+
 
 	@Transactional
 	@Override
@@ -125,5 +161,4 @@ public class AdministratorServiceImpl implements AdministratorService {
 	public Administrator findByName(String name) {
 		return administratorDao.findByName(name);
 	}
-
 }

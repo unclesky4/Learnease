@@ -11,14 +11,8 @@ public class PermissionJson {
 	//权限代码 or 页面跳转接口
 	private String code;
 	
-	//是否为根目录
-	private Boolean isRoot;
-	
-	//是否为目录
-	private Boolean isCatalog;
-	
-	//是否显示为菜单
-	private Boolean isMenuShow;
+	//启用状态
+	private Boolean status;
 	
 	//父权限主键
 	private String pid;
@@ -47,28 +41,12 @@ public class PermissionJson {
 		this.code = code;
 	}
 
-	public Boolean getIsRoot() {
-		return isRoot;
+	public Boolean getStatus() {
+		return status;
 	}
 
-	public void setIsRoot(Boolean isRoot) {
-		this.isRoot = isRoot;
-	}
-
-	public Boolean getIsCatalog() {
-		return isCatalog;
-	}
-
-	public void setIsCatalog(Boolean isCatalog) {
-		this.isCatalog = isCatalog;
-	}
-
-	public Boolean getIsMenuShow() {
-		return isMenuShow;
-	}
-
-	public void setIsMenuShow(Boolean isMenuShow) {
-		this.isMenuShow = isMenuShow;
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	public String getPid() {

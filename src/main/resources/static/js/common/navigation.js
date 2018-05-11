@@ -11,7 +11,7 @@ $.ajax({
 			$("#navbar-nav").prepend(li_content);
 		}else {
 			var content = new Array();
-			content.push("<a href='login_html' style='font-size: 15px;'><span id='user_login'>登陆</span>");
+			content.push("<a href='login_html' style='font-size: 14px;'><span id='user_login'>登陆</span>");
 			content.push("/");
 			content.push("<span>注册</span></a>");
 			$(".user").html(content.join(""));

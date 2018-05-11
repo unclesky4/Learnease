@@ -10,7 +10,11 @@ public interface AdministratorService {
 	
 	Result save(String name, String pwd, String sex, String phone, String email, String roleIds);
 	
-	Result update(String id, String name, String pwd, String sex, String phone, String email, String roleIds, Boolean updatePassword);
+	Result update(String id, String name, String sex, String phone, String email, String roleIds);
+	
+	Result updatePwd(String id, String oldPwd, String newPwd);
+	
+	Result updatePassword(String id, String password);
 	
 	Result deleteById(String id);
 	

@@ -15,7 +15,6 @@ import org.jyu.web.dto.ZtreeJson;
 import org.jyu.web.dto.manage.PermissionJson;
 import org.jyu.web.entity.manage.Permission;
 import org.jyu.web.service.manage.PermissionService;
-import org.jyu.web.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,70 +53,50 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
-	public List<ZtreeJson> findForZTree(String id) {
-		List<ZtreeJson> list = new ArrayList<>();
-		
-		List<Permission> permissions = new ArrayList<>();
-		//zTree初始化时不传id,name,level -- 获取权限根结点
-		if(id == null) {
-			permissions = permissionDao.findByIsRootAndIsMenuShow(true, true);
-			for (Permission permission : permissions) {
-				ZtreeJson tmp = new ZtreeJson();
-				tmp.setId(permission.getId());
-				tmp.setName(permission.getName());
-				if(permission.getIsCatalog()) {
-					tmp.setIsParent(true);
-				}else{
-					tmp.setIsParent(false);
-				}
-				list.add(tmp);
-			}
-			return list;
-		}
-		
-		//获取权限节点的子节点权限
-		Permission pid = permissionDao.getOne(id);
-		permissions = permissionDao.findByPid(pid);
-		for (Permission permission : permissions) {
-			if(permission.getPid().getId().equals(id)) {
-				ZtreeJson tmp = new ZtreeJson();
-				tmp.setId(permission.getId());
-				tmp.setName(permission.getName());
-				if(permission.getIsCatalog()) {
-					tmp.setIsParent(true);
-				}else{
-					tmp.setIsParent(false);
-				}
-				list.add(tmp);
-			}
-		}
-		
-		return list;
+	public List<ZtreeJson> findForZTree() {
+		List<Permission> permissions = permissionDao.findAll();
+		return convertData(permissions);
 	}
 
 	@Transactional
 	@Override
-	public Result save(String name, String code, Boolean isRoot, Boolean isCatalog, Boolean isMenuShow, String pid) {
+	public Result save(String name, String code, Boolean isCatalog, Boolean status, String pid) {
+		/*if (isCatalog == false && code == null) {
+			return new Result(false, "请输入权限代码");
+		}*/
+		
 		Permission permission = new Permission();
 		permission.setName(name);
 		permission.setCode(code);
-		permission.setIsRoot(isRoot);
 		permission.setIsCatalog(isCatalog);
-		if (isRoot) {
-			permission.setIsCatalog(true);
-		}
-		permission.setIsMenuShow(isMenuShow);
+		permission.setStatus(status);
 		if(pid != "" && pid != null) {
 			permission.setPid(permissionDao.getOne(pid));
 		}
+		/*if (permission.getPid() != null && !permission.getPid().getIsCatalog()) {
+			return new Result(false, "类型为权限时不能添加子节点");
+		}*/
 		
 		Permission permission2 = permissionDao.saveAndFlush(permission);
-		return new Result(true, permission2.getId());
+		
+		ZtreeJson json = new ZtreeJson();
+		json.setId(permission2.getId());
+		json.setName(permission2.getName());
+		if (permission2.getPid() != null) {
+			json.setpId(permission2.getPid().getId());
+		}else {
+			json.setpId("0");
+		}
+		json.setChecked(permission2.getStatus());
+		json.setCode(permission2.getCode());
+		json.setIsCatalog(permission2.getIsCatalog());
+		
+		return new Result(true, json);
 	}
 
 	@Transactional
 	@Override
-	public Result update(String id, String name, String code, Boolean isRoot, Boolean isCatalog, Boolean isMenuShow) {
+	public Result update(String id, String name, String code, Boolean isCatalog, Boolean status) {
 		Permission permission = permissionDao.getOne(id);
 		if(permission == null) {
 			return new Result(false, "对象不存在");
@@ -125,38 +104,56 @@ public class PermissionServiceImpl implements PermissionService {
 		if(name != null && name != "") {
 			permission.setName(name);
 		}
-		
+		if (isCatalog != null) {
+			permission.setIsCatalog(isCatalog);
+		}
 		if(code != null) {
 			permission.setCode(code);	
 		}
-		
-		if(isRoot != null) {
-			permission.setIsRoot(isRoot);
+		if (isCatalog == false && code == null) {
+			return new Result(false, "请输入权限代码");
 		}
-		
-		if(isCatalog != null) {
-			permission.setIsCatalog(isCatalog);
-		}
-		if (isRoot) {
-			permission.setIsCatalog(true);
-		}
-		
-		if(isMenuShow != null) {
-			permission.setIsMenuShow(isMenuShow);
+
+		if(status != null) {
+			permission.setStatus(status);
 		}
 		
 		Permission permission2 = permissionDao.saveAndFlush(permission);
-		return new Result(true, JsonUtil.toJson(permission2));
+		
+		ZtreeJson json = new ZtreeJson();
+		json.setId(permission2.getId());
+		json.setChecked(permission2.getStatus());
+		json.setName(permission2.getName());
+		if (permission2.getPid() != null) {
+			json.setpId(permission2.getPid().getId());
+		}else{
+			json.setpId("0");
+		}
+		json.setCode(permission2.getCode());
+		json.setIsCatalog(permission2.getIsCatalog());
+		return new Result(true, json);
+	}
+	
+	@Override
+	public Result update(String id, String targetId) {
+		Permission permission = permissionDao.getOne(id);
+		Permission permission2 = permissionDao.getOne(targetId);
+		if (permission == null) {
+			return new Result(false, "对象不存在");
+		}
+		permission.setPid(permission2);
+		permissionDao.save(permission);
+		return new Result(true, "操作成功");
 	}
 
 	@Override
 	public Map<String, List<PermissionJson>> findForSideBar() {
-		List<Permission> permissions = permissionDao.findByIsMenuShowAndIsCatalog(true, true);
+		List<Permission> permissions = permissionDao.findByIsCatalogAndStatus(true, true);
 		
 		Map<String, List<PermissionJson>> map = new HashMap<>();
 		
 		for (Permission permission : permissions) {
-			if (permission.getIsRoot()) {
+			if (permission.getPid() == null) {
 				List<PermissionJson> list = new ArrayList<>();
 				for (Permission permission1 : permissions) {
 					if (permission1.getPid() != null && permission.getId().equals(permission1.getPid().getId())) {
@@ -173,6 +170,65 @@ public class PermissionServiceImpl implements PermissionService {
 		
 		return map;
 	}
+
+	@Override
+	public Result updateStatus(String upIds, String downIds) {
+		String[] upId = upIds.split(",");
+		String[] downId = downIds.split(",");
+		
+		List<Permission> list = new ArrayList<>();
+		int size = upId.length;
+		for (int i = 0; i < size; i++) {
+			if (upId[i] == "") {
+				continue;
+			}
+			Permission permission = permissionDao.getOne(upId[i]);
+			if (permission != null) {
+				permission.setStatus(true);
+				list.add(permission);
+			}
+		}
+		size = downId.length;
+		for (int i = 0; i < size; i++) {
+			if (downId[i] == "") {
+				continue;
+			}
+			Permission permission = permissionDao.getOne(downId[i]);
+			if (permission != null) {
+				permission.setStatus(false);
+				list.add(permission);
+			}
+		}
+		permissionDao.saveAll(list);
+		return new Result(true, "操作成功");
+	}
+	
+
+	/**
+	 * List<Permission> --> List<ZtreeJson>
+	 * @param permissions
+	 * @return
+	 */
+	List<ZtreeJson> convertData(List<Permission> permissions) {
+		List<ZtreeJson> list = new ArrayList<>();
+		for (Permission permission : permissions) {
+			ZtreeJson json = new ZtreeJson();
+			json.setId(permission.getId());
+			json.setName(permission.getName());
+			if (permission.getPid() != null) {
+				json.setpId(permission.getPid().getId());
+			}else {
+				json.setpId("0");
+			}
+			if (permission.getStatus()) {
+				json.setChecked(true);
+			}
+			json.setCode(permission.getCode());
+			json.setIsCatalog(permission.getIsCatalog());
+			list.add(json);
+		}
+		return list;
+	}
 	
 	/**
 	 * Permission --> PermissionJson
@@ -183,9 +239,6 @@ public class PermissionServiceImpl implements PermissionService {
 		PermissionJson json = new PermissionJson();
 		json.setCode(permission.getCode());
 		json.setId(permission.getId());
-		json.setIsCatalog(permission.getIsCatalog());
-		json.setIsMenuShow(permission.getIsMenuShow());
-		json.setIsRoot(permission.getIsRoot());
 		json.setName(permission.getName());
 		if (permission.getPid() != null) {
 			json.setPid(permission.getPid().getId());
@@ -204,9 +257,7 @@ public class PermissionServiceImpl implements PermissionService {
 			PermissionJson json = new PermissionJson();
 			json.setCode(permission.getCode());
 			json.setId(permission.getId());
-			json.setIsCatalog(permission.getIsCatalog());
-			json.setIsMenuShow(permission.getIsMenuShow());
-			json.setIsRoot(permission.getIsRoot());
+			json.setStatus(permission.getStatus());
 			json.setName(permission.getName());
 			if (permission.getPid() != null) {
 				json.setPid(permission.getPid().getId());
@@ -215,5 +266,4 @@ public class PermissionServiceImpl implements PermissionService {
 		}
 		return list;
 	}
-
 }

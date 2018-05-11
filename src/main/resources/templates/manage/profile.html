@@ -89,7 +89,6 @@
 
 	<!-- Demo JS -->
 	<script type="text/javascript" src="assets/js/custom.js"></script>
-	<!-- <script type="text/javascript" src="assets/js/demo/charts/chart_filled_blue.js"></script> -->
 </head>
 
 <body>
@@ -118,6 +117,7 @@
 							<div class="tab-content row">
 								<!--=== Overview ===-->
 								<div class="tab-pane active" id="tab_overview">
+									<span style="display:none;" th:text="${adminId}" id="adminId"></span>
 									<form class="form-horizontal" action="#">
 										<div class="col-md-12">
 											<div class="widget">
@@ -128,12 +128,12 @@
 														<div class="col-md-12">
 															<div class="form-group">
 																<label class="col-md-2 control-label">姓名:</label>
-																<div class="col-md-7"><input type="text" id="adminName" name="regular" class="form-control" value="John"></div>
+																<div class="col-md-7"><input type="text" id="adminName" name="regular" class="form-control"></div>
 															</div>
 
 															<div class="form-group">
 																<label class="col-md-2 control-label">电话:</label>
-																<div class="col-md-7"><input type="text" id="phone" name="regular" class="form-control" value="Doe"></div>
+																<div class="col-md-7"><input type="text" id="phone" name="regular" class="form-control"></div>
 															</div>
 														</div>
 													</div> <!-- /.row -->
@@ -151,7 +151,7 @@
 
 															<div class="form-group">
 																<label class="col-md-2 control-label">邮箱:</label>
-																<div class="col-md-7"><input type="text" id="email" name="regular" class="form-control" value="28"></div>
+																<div class="col-md-7"><input type="email" id="email" name="regular" class="form-control"></div>
 															</div>
 														</div>
 													</div> <!-- /.row -->
@@ -159,7 +159,7 @@
 														<div class="col-md-12">
 															<div class="form-group">
 																<label class="col-md-2 control-label">创建时间:</label>
-																<div class="col-md-7"><input type="text" name="regular" disabled="disabled" class="form-control" value="28"></div>
+																<div class="col-md-7"><input type="text" id="createTime" name="regular" disabled="disabled" class="form-control"></div>
 															</div>
 														</div>
 													</div> <!-- /.row -->
@@ -167,7 +167,8 @@
 												</div> <!-- /.widget-content -->
 											</div> <!-- /.widget -->
 											<div class="form-actions">
-												<input type="button" value="修改信息" class="btn btn-primary pull-right">
+												<span id="show_1"></span>
+												<input type="button" value="修改信息" id="update_info" class="btn btn-primary pull-right">
 											</div>
 										</div> <!-- /.col-md-12 -->
 									</form>
@@ -205,7 +206,8 @@
 											</div> <!-- /.widget -->
 
 											<div class="form-actions">
-												<input type="button" value="修改密码" class="btn btn-primary pull-right">
+												<span id="show_2"></span>
+												<input type="button" value="修改密码" id="update_password" class="btn btn-primary pull-right">
 											</div>
 										</div> <!-- /.col-md-12 -->
 									</form>
@@ -222,6 +224,55 @@
 
 		</div>
 	</div>
-
+	<script type="text/javascript">
+		$(function() {
+			var adminId = $("#adminId").text();
+			$.get("/admin/findById", {"id": adminId}, function(result) {
+				$("#adminName").val(result.name);
+				$("#phone").val(result.phone);
+				$("#email").val(result.email);
+				$("#createTime").val(result.createTime);
+				$("#sex").find("option[value='"+result.sex+"']").attr("selected",true);
+			}, "json");
+		});
+		
+		$("#update_info").click(function() {
+			var adminId = $("#adminId").text();
+			var name = $("#adminName").val();
+			var phone = $("#phone").val();
+			var email = $("#email").val();
+			var sex = $("#sex").val();
+			var param = {
+				"id": adminId,
+				"name": name,
+				"phone": phone,
+				"eamil": email,
+				"sex": sex
+			};
+			$.post("/admin/update", param, function(result) {
+				$("#show_1").hide();
+				$("#show_1").html(result.msg);
+				$("#show_1").show();
+			}, "json");
+		});
+		
+		$("#update_password").click(function() {
+			var adminId = $("#adminId").text();
+			var oldPwd = $("#old_password").val();
+			var newPwd = $("#new_password").val();
+			var repeat_newPwd = $("#new_password_repeat").val();
+			var param = {
+				"id": adminId,
+				"oldPwd": oldPwd,
+				"newPwd": newPwd,
+				"newPwd_repeat": repeat_newPwd,
+			};
+			$.post("/admin/pwd/update", param, function(result) {
+				$("#show_2").hide();
+				$("#show_2").html(result.msg);
+				$("#show_2").show();
+			}, "json");
+		});
+	</script>
 </body>
 </html>

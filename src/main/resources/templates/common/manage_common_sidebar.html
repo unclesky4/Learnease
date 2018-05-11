@@ -15,11 +15,11 @@
                        <span th:text="${mapStat.current.key}"></span>
                        <span class="label label-info pull-right"></span>
                    </a>
-                   <ul class="sub-menu" th:each="permission : ${mapStat.current.value}">
-                       <li>
-                           <a th:href="${permission.code}">
+                   <ul class="sub-menu">
+                       <li th:each="permission, permissionStat: ${mapStat.current.value}">
+                           <a th:href="${permissionStat.current.code}">
                                <i class="icon-angle-right"></i>
-                               <span th:text="${permission.name}"></span>
+                               <span th:text="${permissionStat.current.name}"></span>
                            </a>
                        </li>
                    </ul>

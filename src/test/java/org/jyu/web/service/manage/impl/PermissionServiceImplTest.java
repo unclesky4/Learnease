@@ -40,8 +40,8 @@ public class PermissionServiceImplTest {
 
 	@Test
 	public void testSave() {
-		Result result = permissionService.save("sdf", "permission_html", true, true, true, null);
-		System.out.println(result.getMsg());
+//		Result result = permissionService.save("sdf", "permission_html", true, true, true, null);
+//		System.out.println(result.getMsg());
 	}
 
 	@Test

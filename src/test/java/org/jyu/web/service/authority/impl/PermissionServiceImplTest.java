@@ -42,15 +42,15 @@ public class PermissionServiceImplTest {
 
 	@Test
 	public void testFindForZTree() {
-		List<ZtreeJson> list = service.findForZTree("ff8080816279a7ad016279a7c8d80000");
+		List<ZtreeJson> list = service.findForZTree();
 		System.out.println(list.size());
 		System.out.println(JsonUtil.toJson(list));
 	}
 
 	@Test
 	public void testSave() {
-		Result result = service.save("用户查询", "user_html", false, true, true, "ff8080816279a7ad016279a7c8d80000");
-		System.out.println(result.getSuccess());
+//		Result result = service.save("用户查询", "user_html", false, true, true, "ff8080816279a7ad016279a7c8d80000");
+//		System.out.println(result.getSuccess());
 	}
 
 	@Test

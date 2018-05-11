@@ -38,14 +38,11 @@ public class Permission implements Serializable {
 	@Column(nullable=true, length=50)
 	private String code;
 	
-	//是否为根目录
-	private Boolean isRoot;
-	
 	//是否为目录
 	private Boolean isCatalog;
 	
-	//是否显示为菜单
-	private Boolean isMenuShow;
+	//启用状态
+	private Boolean status;
 	
 	//父权限
 	@OneToOne(cascade={CascadeType.MERGE,CascadeType.REMOVE})
@@ -75,14 +72,6 @@ public class Permission implements Serializable {
 		this.code = code;
 	}
 
-	public Boolean getIsRoot() {
-		return isRoot;
-	}
-
-	public void setIsRoot(Boolean isRoot) {
-		this.isRoot = isRoot;
-	}
-
 	public Boolean getIsCatalog() {
 		return isCatalog;
 	}
@@ -91,12 +80,12 @@ public class Permission implements Serializable {
 		this.isCatalog = isCatalog;
 	}
 
-	public Boolean getIsMenuShow() {
-		return isMenuShow;
+	public Boolean getStatus() {
+		return status;
 	}
 
-	public void setIsMenuShow(Boolean isMenuShow) {
-		this.isMenuShow = isMenuShow;
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	public Permission getPid() {
