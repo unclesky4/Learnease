@@ -35,8 +35,6 @@ public class RoleServiceImplTest {
 
 	@Test
 	public void testSave() {
-		Result result = roleService.save("来宾", "guest");
-		System.out.println(result.getMsg());
 	}
 
 	@Test

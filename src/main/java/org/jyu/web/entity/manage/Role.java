@@ -39,6 +39,13 @@ public class Role implements Serializable {
 	@Column(length=20, nullable=false, unique=true)
 	private String code;
 	
+	//描述
+	@Column(length=100, nullable=false)
+	private String description;
+	
+	//创建时间
+	private String createTime;
+	
 	//权限
 	@ManyToMany(fetch=FetchType.LAZY)
 	private List<Permission> permissions;
@@ -79,6 +86,22 @@ public class Role implements Serializable {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 
 	public List<Permission> getPermissions() {

@@ -76,6 +76,7 @@ public class ManageViewController {
 	public ModelAndView role_html(ModelAndView mv) {
 		mv.setViewName("/manage/role_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
+		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
 	}
 	
@@ -88,6 +89,7 @@ public class ManageViewController {
 	public ModelAndView admin_manage(ModelAndView mv) {
 		mv.setViewName("/manage/admin_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
+		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
 	}
 	
@@ -100,6 +102,7 @@ public class ManageViewController {
 	public ModelAndView teacher_apply_html(ModelAndView mv) {
 		mv.setViewName("/manage/teacher_apply_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
+		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
 	}
 	
@@ -112,6 +115,7 @@ public class ManageViewController {
 	public ModelAndView student_apply_html(ModelAndView mv) {
 		mv.setViewName("/manage/student_apply_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
+		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
 	}
 	
@@ -125,6 +129,7 @@ public class ManageViewController {
 	public ModelAndView user_html(ModelAndView mv) {
 		mv.setViewName("/manage/user_all.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
+		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
 	}
 	
@@ -137,6 +142,7 @@ public class ManageViewController {
 	public ModelAndView qustionlabel_html(ModelAndView mv) {
 		mv.setViewName("/manage/questionlabel_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
+		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
 	}
 	
@@ -149,6 +155,7 @@ public class ManageViewController {
 	public ModelAndView paperlabel_html(ModelAndView mv) {
 		mv.setViewName("/manage/paperlabel_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
+		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
 	}
 

@@ -40,14 +40,23 @@ public class PermissionController {
 	}
 	
 	/**
-	 * zTree插件获取权限数据
+	 * zTree插件获取所有权限数据
 	 * @param id  权限主键（null表示根节点）
 	 * @return
 	 */
-	@RequestMapping(value="/permission_all", method=RequestMethod.GET)
+	@RequestMapping(value="/permission/all", method=RequestMethod.GET)
 	public List<ZtreeJson> getRootNodeForZtree(){
 		List<ZtreeJson> list = permissionService.findForZTree();
 		return list;
+	}
+	
+	/**
+	 * 获取已启用的权限
+	 * @return
+	 */
+	@GetMapping(value="/permission/valid")
+	public List<ZtreeJson> getValidPermission() {
+		return permissionService.findValidPermission();
 	}
 	
 	/**

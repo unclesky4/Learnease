@@ -16,4 +16,11 @@ public interface PermissionRepository extends JpaRepository<Permission, String>{
 	 * @return
 	 */
 	List<Permission> findByIsCatalogAndStatus(Boolean isCatalog, Boolean status);
+	
+	/**
+	 * 查询已启用的权限
+	 * @param status
+	 * @return
+	 */
+	List<Permission> findByStatus(Boolean status);
 }

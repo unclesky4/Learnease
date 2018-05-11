@@ -10,10 +10,24 @@ import org.jyu.web.entity.manage.Permission;
 
 public interface PermissionService {
 	
+	/**
+	 * 通过主键查询
+	 * @param id  权限主键
+	 * @return
+	 */
 	Permission findById(String id);
 	
+	/**
+	 * 查询所有权限
+	 * @return
+	 */
 	Map<String, Object> findAll();
 	
+	/**
+	 * 批量删除
+	 * @param ids  主键（逗号分割）
+	 * @return
+	 */
 	Result delete(List<String> ids);
 	
 	/**
@@ -47,13 +61,16 @@ public interface PermissionService {
 	Result update(String id, String targetId);
 	
 	/**
-	 * 
-	 * @Description: 获取所有权限数据，方便zTree插件处理数据
-	 * @return: List<ZtreeJson>
-	 * @throws
-	 *
+	 * 获取所有权限数据，方便zTree插件处理数据
+	 * @return
 	 */
 	 List<ZtreeJson> findForZTree();
+	 
+	 /**
+	  * 获取已启用的权限
+	  * @return
+	  */
+	 List<ZtreeJson> findValidPermission();
 	 
 	 /**
 	  * 获取权限信息 - 针对管理界面侧边栏

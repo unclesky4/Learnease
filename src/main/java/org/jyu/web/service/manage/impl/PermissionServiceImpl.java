@@ -57,6 +57,13 @@ public class PermissionServiceImpl implements PermissionService {
 		List<Permission> permissions = permissionDao.findAll();
 		return convertData(permissions);
 	}
+	
+	@Override
+	public List<ZtreeJson> findValidPermission() {
+		List<Permission> list = permissionDao.findByStatus(true);
+		return convertData(list);
+	}
+	
 
 	@Transactional
 	@Override
@@ -266,4 +273,5 @@ public class PermissionServiceImpl implements PermissionService {
 		}
 		return list;
 	}
+
 }
