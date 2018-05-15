@@ -13,8 +13,8 @@ import javax.transaction.Transactional;
 import org.jyu.web.dao.manage.PermissionRepository;
 import org.jyu.web.dao.manage.RoleRepository;
 import org.jyu.web.dto.Result;
-import org.jyu.web.dto.ZtreeJson;
 import org.jyu.web.dto.manage.RoleJson;
+import org.jyu.web.dto.manage.ZtreePermission;
 import org.jyu.web.entity.manage.Permission;
 import org.jyu.web.entity.manage.Role;
 import org.jyu.web.service.manage.RoleService;
@@ -61,6 +61,10 @@ public class RoleServiceImpl implements RoleService {
 	@Transactional
 	@Override
 	public Result save(String name, String code, String description) {
+		Role tmp = roleDao.findByCode(code);
+		if (tmp != null) {
+			return new Result(false, "角色代码已存在");
+		}
 		Role role = new Role();
 		role.setCode(code);
 		role.setName(name);
@@ -143,8 +147,8 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public List<ZtreeJson> findRolePermissions(String id) {
-		List<ZtreeJson> list = new ArrayList<>();
+	public List<ZtreePermission> findRolePermissions(String id) {
+		List<ZtreePermission> list = new ArrayList<>();
 		
 		Role role = roleDao.getOne(id);
 		if (role == null || role.getPermissions() == null) {
@@ -156,7 +160,7 @@ public class RoleServiceImpl implements RoleService {
 			if (!permission.getStatus()) {
 				continue;
 			}
-			ZtreeJson json = new ZtreeJson();
+			ZtreePermission json = new ZtreePermission();
 			json.setChecked(permission.getStatus());
 			json.setCode(permission.getCode());
 			json.setId(permission.getId());

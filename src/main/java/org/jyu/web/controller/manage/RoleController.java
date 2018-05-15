@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.jyu.web.dto.Result;
-import org.jyu.web.dto.ZtreeJson;
+import org.jyu.web.dto.manage.RoleJson;
+import org.jyu.web.dto.manage.ZtreePermission;
 import org.jyu.web.entity.manage.Permission;
 import org.jyu.web.entity.manage.Role;
 import org.jyu.web.service.manage.RoleService;
@@ -92,7 +93,16 @@ public class RoleController {
 	 * @return
 	 */
 	@GetMapping(value="/role/permissions")
-	public List<ZtreeJson> getRolePermissions(String id) {
+	public List<ZtreePermission> getRolePermissions(String id) {
 		return roleService.findRolePermissions(id);
+	}
+	
+	/**
+	 * 获取所有角色信息
+	 * @return
+	 */
+	@GetMapping(value="/role/all")
+	public List<RoleJson> all() {
+		return roleService.list();
 	}
 }

@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jyu.web.SpringBootStart;
 import org.jyu.web.dto.Result;
-import org.jyu.web.dto.ZtreeJson;
+import org.jyu.web.dto.manage.ZtreePermission;
 import org.jyu.web.service.manage.PermissionService;
 import org.jyu.web.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class PermissionServiceImplTest {
 
 	@Test
 	public void testFindForZTree() {
-		List<ZtreeJson> list = service.findForZTree();
+		List<ZtreePermission> list = service.findForZTree();
 		System.out.println(list.size());
 		System.out.println(JsonUtil.toJson(list));
 	}

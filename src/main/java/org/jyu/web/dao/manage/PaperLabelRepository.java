@@ -1,4 +1,4 @@
-package org.jyu.web.dao.paper;
+package org.jyu.web.dao.manage;
 
 import org.jyu.web.entity.paper.PaperLabel;
 import org.springframework.data.domain.Page;

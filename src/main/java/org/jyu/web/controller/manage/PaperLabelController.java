@@ -1,4 +1,4 @@
-package org.jyu.web.controller.paper;
+package org.jyu.web.controller.manage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.jyu.web.dto.Result;
 import org.jyu.web.entity.paper.PaperLabel;
-import org.jyu.web.service.paper.PaperLabelService;
+import org.jyu.web.service.manage.PaperLabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +39,7 @@ public class PaperLabelController {
 	
 	/**
 	 * 保存试卷标签
-	 * @param name
+	 * @param name  标签名
 	 * @return
 	 */
 	@PostMapping(value="/paperLabel/add")
@@ -49,8 +49,8 @@ public class PaperLabelController {
 	
 	/**
 	 * 更新试卷标签
-	 * @param id
-	 * @param name
+	 * @param id   主键
+	 * @param name  标签名
 	 * @return
 	 */
 	@PostMapping(value="/paperLabel/update")
@@ -60,12 +60,24 @@ public class PaperLabelController {
 	
 	/**
 	 * 删除试卷标签
-	 * @param id
+	 * @param id   主键
 	 * @return
 	 */
-	@PostMapping(value="/paperLabel/deleteById")
+	@PostMapping(value="/paperLabel/delete")
 	public Result deleteById(String id) {
 		return service.deleteByid(id);
+	}
+	
+	/**
+	 * 分页查询
+	 * @param pageNumber   页码
+	 * @param pageSize    每页显示条数
+	 * @param sortOrder   排序
+	 * @return
+	 */
+	@GetMapping(value="paperLabel/page_json")
+	public Map<String, Object> pageJson(Integer pageNumber, Integer pageSize, String sortOrder) {
+		return  service.pageJson(pageNumber, pageSize, sortOrder);
 	}
 
 }

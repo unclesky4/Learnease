@@ -3,21 +3,24 @@ package org.jyu.web.service.manage.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.jyu.web.dao.manage.AdministratorRepository;
 import org.jyu.web.dao.manage.RoleRepository;
 import org.jyu.web.dto.Result;
+import org.jyu.web.dto.manage.AdministratorJson;
 import org.jyu.web.entity.manage.Administrator;
 import org.jyu.web.entity.manage.Role;
 import org.jyu.web.service.manage.AdministratorService;
 import org.jyu.web.utils.DateUtil;
 import org.jyu.web.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,11 +50,13 @@ public class AdministratorServiceImpl implements AdministratorService {
 		if (administrator.getRoles() == null) {
 			administrator.setRoles(new ArrayList<>());
 		}
-		String[] roleId = roleIds.split(",");
-		for (int i = 0; i < roleId.length; i++) {
-			Role role = roleDao.getOne(roleId[i]);
-			if (role != null) {
-				administrator.getRoles().add(role);
+		if (roleIds != null && roleIds != "") {
+			String[] roleId = roleIds.split(",");
+			for (int i = 0; i < roleId.length; i++) {
+				Role role = roleDao.getOne(roleId[i]);
+				if (role != null) {
+					administrator.getRoles().add(role);
+				}
 			}
 		}
 		
@@ -61,8 +66,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 
 	@Transactional
 	@Override
-	public Result update(String id, String name, String sex, String phone, String email, 
-			String roleIds) {
+	public Result update(String id, String name, String sex, String phone, String email, String roleIds) {
 		Administrator administrator = administratorDao.getOne(id);
 		if (name != null && name != "" && !administrator.getName().equals(name)) {
 			if (administratorDao.findByName(name) != null) {
@@ -128,37 +132,43 @@ public class AdministratorServiceImpl implements AdministratorService {
 		return new Result(true, "删除成功");
 	}
 
-	@Transactional
-	@Override
-	public Result delete(List<String> ids) {
-		Set<Administrator> administrators = new HashSet<>();
-		for (String id : ids) {
-			Administrator administrator = administratorDao.getOne(id);
-			if(administrator != null) {
-				administrators.add(administrator);
-			}
-		}
-		administratorDao.deleteInBatch(administrators);
-		return new Result(true, "删除成功");
-		
-	}
-
 	@Override
 	public Administrator findById(String id) {
 		return administratorDao.getOne(id);
 	}
 
 	@Override
-	public Map<String, Object> finAll() {
-		List<Administrator> list = administratorDao.findAll();
+	public Map<String, Object> finAll(Integer pageNumber, Integer pageSize) {
+		Sort sort = new Sort(Direction.DESC, "createTime");
+		Pageable pageable = new PageRequest(pageNumber-1, pageSize, sort);
+		
+		Page<Administrator> page = administratorDao.findAll(pageable);
 		Map<String, Object> map = new HashMap<>();
-		map.put("total", list.size());
-		map.put("rows", list);
+		map.put("total", page.getTotalElements());
+		map.put("rows", convertList(page.getContent()));
 		return map;
 	}
 
 	@Override
 	public Administrator findByName(String name) {
 		return administratorDao.findByName(name);
+	}
+	
+	List<AdministratorJson> convertList(List<Administrator> administrators) {
+		List<AdministratorJson> list = new ArrayList<>();
+		if (administrators == null) {
+			return list;
+		}
+		for (Administrator administrator : administrators) {
+			AdministratorJson json = new AdministratorJson();
+			json.setCreateTime(administrator.getCreateTime());
+			json.setEmail(administrator.getEmail());
+			json.setId(administrator.getId());
+			json.setName(administrator.getName());
+			json.setPhone(administrator.getPhone());
+			json.setSex(administrator.getSex());
+			list.add(json);
+		}
+		return list;
 	}
 }

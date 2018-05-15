@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.jyu.web.dao.authority.UserRepository;
-import org.jyu.web.dao.question.QuestionLabelRepository;
+import org.jyu.web.dao.manage.QuestionLabelRepository;
 import org.jyu.web.dao.question.QuestionSimpleRepository;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.question.QuestionSimpleJson;

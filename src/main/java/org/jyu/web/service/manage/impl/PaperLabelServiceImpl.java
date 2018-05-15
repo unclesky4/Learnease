@@ -1,13 +1,17 @@
-package org.jyu.web.service.paper.impl;
+package org.jyu.web.service.manage.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jyu.web.dao.paper.PaperLabelRepository;
+import org.jyu.web.dao.manage.PaperLabelRepository;
 import org.jyu.web.dto.Result;
+import org.jyu.web.dto.manage.LabelJson;
 import org.jyu.web.entity.paper.PaperLabel;
-import org.jyu.web.service.paper.PaperLabelService;
+import org.jyu.web.service.manage.PaperLabelService;
+import org.jyu.web.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +35,7 @@ public class PaperLabelServiceImpl implements PaperLabelService {
 		}
 		PaperLabel label = new PaperLabel();
 		label.setName(name);
+		label.setCreateTime(DateUtil.DateToString(DateUtil.YMDHMS, new Date()));
 		paperLabelDao.saveAndFlush(label);
 		return new Result(true, "保存成功");
 	}
@@ -53,7 +58,7 @@ public class PaperLabelServiceImpl implements PaperLabelService {
 
 	@Override
 	public Map<String, Object> pageJson(Integer pageNumber, Integer pageSize, String sortOrder) {
-		Sort sort = new Sort(Direction.DESC, "createDate");
+		Sort sort = new Sort(Direction.DESC, "createTime");
 		if (sortOrder.toLowerCase().equals("asc")) {
 			sort = new Sort(Direction.ASC, "createDate");
 		}
@@ -65,13 +70,28 @@ public class PaperLabelServiceImpl implements PaperLabelService {
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("total", page.getTotalElements());
-		map.put("rows", page.getContent());
+		map.put("rows", convertList(page.getContent()));
 		return map;
 	}
 
 	@Override
 	public List<PaperLabel> list() {
 		return paperLabelDao.findAll();
+	}
+	
+	List<LabelJson> convertList(List<PaperLabel> paperLabels) {
+		List<LabelJson> list = new ArrayList<>();
+		if (paperLabels == null) {
+			return list;
+		}
+		for (PaperLabel paperLabel : paperLabels) {
+			LabelJson json = new LabelJson();
+			json.setId(paperLabel.getId());
+			json.setCreateTime(paperLabel.getCreateTime());
+			json.setName(paperLabel.getName());
+			list.add(json);
+		}
+		return list;
 	}
 
 }

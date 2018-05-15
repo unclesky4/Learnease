@@ -131,9 +131,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> findUserByPage(Integer pageNumber, Integer pageSize, String sortOrder, String searchText) {
 		sortOrder = sortOrder.toLowerCase();
-		Sort sort = new Sort(Direction.DESC, "createTime");
+		Sort sort = new Sort(Direction.DESC, "registerTime");
 		if(sortOrder.equals("asc")) {
-			sort = new Sort(Direction.ASC, "createTime");
+			sort = new Sort(Direction.ASC, "registerTime");
 		}
 		Pageable pageable = new PageRequest(pageNumber-1, pageSize,sort);
 		Specification<User> specification = new Specification<User>() {

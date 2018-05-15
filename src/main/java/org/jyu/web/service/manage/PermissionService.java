@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.jyu.web.dto.Result;
-import org.jyu.web.dto.ZtreeJson;
 import org.jyu.web.dto.manage.PermissionJson;
+import org.jyu.web.dto.manage.ZtreePermission;
 import org.jyu.web.entity.manage.Permission;
 
 public interface PermissionService {
@@ -64,13 +64,13 @@ public interface PermissionService {
 	 * 获取所有权限数据，方便zTree插件处理数据
 	 * @return
 	 */
-	 List<ZtreeJson> findForZTree();
+	 List<ZtreePermission> findForZTree();
 	 
 	 /**
 	  * 获取已启用的权限
 	  * @return
 	  */
-	 List<ZtreeJson> findValidPermission();
+	 List<ZtreePermission> findValidPermission();
 	 
 	 /**
 	  * 获取权限信息 - 针对管理界面侧边栏

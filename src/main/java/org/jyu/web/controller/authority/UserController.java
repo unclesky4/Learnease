@@ -114,14 +114,14 @@ public class UserController {
 	}
 	
 	/**
-	 * 查询所有用户信息
+	 * 分页查询
 	 * @param pageNumber
 	 * @param pageSize
 	 * @param sortOrder
 	 * @param searchText
 	 * @return
 	 */
-	@RequestMapping(value="/user/getAllUser", method=RequestMethod.GET)
+	@RequestMapping(value="/user/page_json", method=RequestMethod.GET)
 	public Map<String,Object> getAllUser(int pageNumber, int pageSize, String sortOrder, String searchText) {
 		return userService.findUserByPage(pageNumber, pageSize, sortOrder, searchText);
 	}

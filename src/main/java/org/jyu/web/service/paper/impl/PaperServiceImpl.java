@@ -12,7 +12,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jyu.web.dao.authority.UserRepository;
-import org.jyu.web.dao.paper.PaperLabelRepository;
+import org.jyu.web.dao.manage.PaperLabelRepository;
 import org.jyu.web.dao.paper.PaperRepository;
 import org.jyu.web.dao.question.QuestionRepository;
 import org.jyu.web.dto.Result;

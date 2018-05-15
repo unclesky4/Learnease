@@ -31,6 +31,9 @@ public class PaperLabel implements Serializable {
 	//试卷标签名称
 	@Column(nullable=false, length=20, unique=true)
 	private String name;
+	
+	@Column(nullable=false, length=20, updatable=false)
+	private String createTime;
 
 	//关联试卷
 	@ManyToMany(mappedBy="paperLabels")
@@ -50,6 +53,14 @@ public class PaperLabel implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 
 	public List<Paper> getPapers() {

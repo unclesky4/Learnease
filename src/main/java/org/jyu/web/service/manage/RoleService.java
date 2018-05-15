@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.jyu.web.dto.Result;
-import org.jyu.web.dto.ZtreeJson;
 import org.jyu.web.dto.manage.RoleJson;
+import org.jyu.web.dto.manage.ZtreePermission;
 import org.jyu.web.entity.manage.Role;
 
 public interface RoleService {
@@ -70,5 +70,5 @@ public interface RoleService {
 	 * @param id   角色主键
 	 * @return
 	 */
-	List<ZtreeJson> findRolePermissions(String id);
+	List<ZtreePermission> findRolePermissions(String id);
 }

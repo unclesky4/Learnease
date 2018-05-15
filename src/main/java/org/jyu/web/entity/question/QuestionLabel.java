@@ -33,6 +33,9 @@ public class QuestionLabel implements Serializable {
 	@Column(nullable=false, length=20, unique=true)
 	private String name;  //标签名
 	
+	@Column(nullable=false, length=20, updatable=false)
+	private String createTime;
+	
 	@ManyToMany(mappedBy="questionLabels", fetch=FetchType.LAZY)
 	private List<Question> questions;
 
@@ -50,5 +53,21 @@ public class QuestionLabel implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
 	}
 }

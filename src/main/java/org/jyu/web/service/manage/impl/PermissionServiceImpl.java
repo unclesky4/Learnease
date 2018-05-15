@@ -11,8 +11,8 @@ import javax.transaction.Transactional;
 
 import org.jyu.web.dao.manage.PermissionRepository;
 import org.jyu.web.dto.Result;
-import org.jyu.web.dto.ZtreeJson;
 import org.jyu.web.dto.manage.PermissionJson;
+import org.jyu.web.dto.manage.ZtreePermission;
 import org.jyu.web.entity.manage.Permission;
 import org.jyu.web.service.manage.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,13 +53,13 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
-	public List<ZtreeJson> findForZTree() {
+	public List<ZtreePermission> findForZTree() {
 		List<Permission> permissions = permissionDao.findAll();
 		return convertData(permissions);
 	}
 	
 	@Override
-	public List<ZtreeJson> findValidPermission() {
+	public List<ZtreePermission> findValidPermission() {
 		List<Permission> list = permissionDao.findByStatus(true);
 		return convertData(list);
 	}
@@ -86,7 +86,7 @@ public class PermissionServiceImpl implements PermissionService {
 		
 		Permission permission2 = permissionDao.saveAndFlush(permission);
 		
-		ZtreeJson json = new ZtreeJson();
+		ZtreePermission json = new ZtreePermission();
 		json.setId(permission2.getId());
 		json.setName(permission2.getName());
 		if (permission2.getPid() != null) {
@@ -127,7 +127,7 @@ public class PermissionServiceImpl implements PermissionService {
 		
 		Permission permission2 = permissionDao.saveAndFlush(permission);
 		
-		ZtreeJson json = new ZtreeJson();
+		ZtreePermission json = new ZtreePermission();
 		json.setId(permission2.getId());
 		json.setChecked(permission2.getStatus());
 		json.setName(permission2.getName());
@@ -216,10 +216,10 @@ public class PermissionServiceImpl implements PermissionService {
 	 * @param permissions
 	 * @return
 	 */
-	List<ZtreeJson> convertData(List<Permission> permissions) {
-		List<ZtreeJson> list = new ArrayList<>();
+	List<ZtreePermission> convertData(List<Permission> permissions) {
+		List<ZtreePermission> list = new ArrayList<>();
 		for (Permission permission : permissions) {
-			ZtreeJson json = new ZtreeJson();
+			ZtreePermission json = new ZtreePermission();
 			json.setId(permission.getId());
 			json.setName(permission.getName());
 			if (permission.getPid() != null) {

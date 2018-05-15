@@ -12,7 +12,7 @@ public class UserJson implements Serializable{
 	
 	private String email;    //邮箱帐号
 	
-	private String validation;    //邮箱是否已验证   1：已验证   0：未验证
+	private String validation;    //邮箱验证状态
 	
 	private String registerTime; //注册时间
 

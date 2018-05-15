@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
+<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 	<title>LearnEase</title>
 
@@ -9,7 +9,7 @@
 
 	<!-- Bootstrap -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
+	<link rel="stylesheet" href="/extensions/jquery-ui-1.12.0/jquery-ui.min.css" type="text/css">
 	<!-- jQuery UI -->
 	<!--<link href="plugins/jquery-ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />-->
 	<!--[if lt IE 9]>
@@ -30,10 +30,11 @@
 	<!--[if IE 8]>
 		<link href="assets/css/ie8.css" rel="stylesheet" type="text/css" />
 	<![endif]-->
-
+	
 	<!--=== JavaScript ===-->
 
-	<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script>
+	<!-- <script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js"></script> -->
+	<script type="text/javascript" src="/extensions/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
 
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
@@ -89,10 +90,20 @@
 
 	<!-- Demo JS -->
 	<script type="text/javascript" src="assets/js/custom.js"></script>
+	
+	<!-- BootstrapTable -->
+    <link rel="stylesheet" href="extensions/BootstrapTable/dist/bootstrap-table.min.css">
+    <script type="text/javascript" src="extensions/BootstrapTable/dist/bootstrap-table.min.js"></script>
+	
+	<style type="text/css">
+		strong {font-weight: 700;}
+		a {text-decoration: none;}
+		.dropdown-menu li {list-style:none}
+	</style>
 </head>
 
 <body>
-	<header class="header navbar navbar-fixed-top" role="banner" th:include="/common/common_navigation :: manage-common-navidation">
+	<header class="header navbar navbar-fixed-top" admin="banner" th:include="/common/common_navigation :: manage-common-navidation">
 	</header>
 	<!-- /.header -->
 
@@ -112,8 +123,118 @@
 				<table id="admin_table"></table>
 			</div>
 			<!-- /.container -->
-
 		</div>
+		
+		<!-- Dialog -->
+		<div id="add_admin" title="添加管理员" style="display:none;">
+		    <form>
+		    	<div class="row">
+					<div class="form-group">
+							<label class="col-md-3 control-label">姓名:</label>
+							<div class="col-md-8">
+								<input type="text" id="add_admin_name" name="regular" class="form-control">
+							</div>
+					</div><br/><br/>
+					<div class="form-group">
+						<label class="col-md-3 control-label">性别:</label>
+						<div class="col-md-8">
+							<select class="form-control" id="add_admin_sex">
+								<option value="男">男</option>
+								<option value="女">女</option>
+							</select>
+						</div>
+					</div><br/><br/>
+					<div class="form-group">
+						<label class="col-md-3 control-label">电话:</label>
+						<div class="col-md-8">
+						<input type="text" id="add_admin_phone" name="regular" class="form-control">
+						</div>
+					</div><br/><br/>
+					<div class="form-group">
+						<label class="col-md-3 control-label">邮箱:</label>
+						<div class="col-md-8">
+							<input type="email" id="add_admin_email" name="regular" class="form-control">
+						</div>
+					</div><br/><br/>
+					<div class="form-group">
+						<label class="col-md-3 control-label">密码:</label>
+						<div class="col-md-8">
+							<input type="password" id="add_admin_pwd" name="regular" class="form-control">
+						</div>
+					</div><br/><br/>
+					<div class="form-group">
+						<label class="col-md-3 control-label">确认密码:</label>
+						<div class="col-md-8">
+							<input type="password" id="add_admin_repeatPwd" name="regular" class="form-control">
+						</div>
+					</div><br/>
+				</div>
+			</form>
+		</div>
+		
+		<div id="update_admin" title="修改管理员信息" style="display:none;">
+		    <form>
+		    	<div class="row">
+		    		<br/>
+					<div class="form-group">
+							<label class="col-md-3 control-label">姓名:</label>
+							<div class="col-md-8">
+								<input type="text" id="update_admin_name" name="regular" class="form-control">
+							</div>
+					</div><br/><br/>
+					<div class="form-group">
+						<label class="col-md-3 control-label">性别:</label>
+						<div class="col-md-8">
+							<select class="form-control" id="update_admin_sex">
+								<option value="男">男</option>
+								<option value="女">女</option>
+							</select>
+						</div>
+					</div><br/><br/>
+					<div class="form-group">
+						<label class="col-md-3 control-label">电话:</label>
+						<div class="col-md-8">
+						<input type="text" id="update_admin_phone" name="regular" class="form-control">
+						</div>
+					</div><br/><br/>
+					<div class="form-group">
+						<label class="col-md-3 control-label">邮箱:</label>
+						<div class="col-md-8">
+							<input type="email" id="update_admin_email" name="regular" class="form-control">
+						</div>
+					</div><br/>
+				</div>
+			</form>
+		</div>
+		
+		<div id="pwd_update" title="重置管理员密码" style="display:none;">
+		    <form>
+		    	<div class="row">
+		    		<br/>
+					<div class="form-group">
+							<label class="col-md-3 control-label">密码:</label>
+							<div class="col-md-8">
+								<input type="password" id="update_pwd" name="regular" class="form-control">
+							</div>
+					</div><br/><br/>
+					<div class="form-group">
+						<label class="col-md-3 control-label">确认密码:</label>
+						<div class="col-md-8">
+							<input type="password" id="update_pwd_repeat" name="regular" class="form-control">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<div id="role_admin" title="指派角色" style="display:none;">
+		    <div class="col-md-10" id="role_list">
+				<label class="checkbox">
+					<input type="checkbox" value=""> Checkbox 1
+				</label>
+			</div>
+		</div>
+		<!-- Dialog -->
 	</div>
 	<script type="text/javascript" src="js/manage/admin_manage.js"></script>
 </body>

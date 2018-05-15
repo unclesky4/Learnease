@@ -1,4 +1,4 @@
-package org.jyu.web.service.paper;
+package org.jyu.web.service.manage;
 
 import java.util.List;
 import java.util.Map;

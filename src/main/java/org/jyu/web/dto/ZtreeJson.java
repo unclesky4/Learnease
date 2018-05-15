@@ -1,11 +1,5 @@
 package org.jyu.web.dto;
 
-/**
- * @ClassName: ZtreeJson 
- * @Description:  权限信息 - 针对ZTree
- * @author: unclesky4
- * @date: May 10, 2018 7:27:19 PM
- */
 public class ZtreeJson {
 	
 	private String id;    //主键
@@ -15,18 +9,6 @@ public class ZtreeJson {
 	private String pId;   //父节点
 	
 	private Boolean checked; //是否选中
-	
-	private Boolean isCatalog; //是否为目录
-	
-	private String code;   //权限代码
-	
-	public ZtreeJson() {}
-
-	public ZtreeJson(String id, String name, Boolean isParent) {
-		this.id = id;
-		this.name = name;
-		//this.isParent = isParent;
-	}
 
 	public String getId() {
 		return id;
@@ -60,19 +42,4 @@ public class ZtreeJson {
 		this.checked = checked;
 	}
 
-	public Boolean getIsCatalog() {
-		return isCatalog;
-	}
-
-	public void setIsCatalog(Boolean isCatalog) {
-		this.isCatalog = isCatalog;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
 }

@@ -16,7 +16,7 @@ import org.jyu.web.enums.RoleEnum;
 /**
  * 
  * @ClassName: Student  
- * @Description: 管理员
+ * @Description: 学生
  * @author unclesky4 
  * @date Mar 25, 2018 10:02:14 AM 
  *

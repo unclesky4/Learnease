@@ -103,7 +103,7 @@
 </head>
 
 <body>
-	<header class="header navbar navbar-fixed-top" role="banner" th:include="/common/common_navigation :: manage-common-navidation">
+	<header class="header navbar navbar-fixed-top" questionLabel="banner" th:include="/common/common_navigation :: manage-common-navidation">
 	</header>
 	<!-- /.header -->
 
@@ -116,15 +116,47 @@
 		<div id="content">
 			<!-- .container -->
 			<div class="container">
-				<div id="role-custom-toolbar">
-				    <a id="role_add" class="btn btn-sm btn-primary" href="#"><i class="icon-plus icon-large"></i> 增加</a>
-				    <a id="role_refresh" class="btn btn-sm btn-primary" href="#"><i class="icon-plus icon-large"></i> 刷新</a>
+				<div id="questionLabel-custom-toolbar">
+				    <a id="questionLabel_add" class="btn btn-sm btn-primary" href="#"><i class="icon-plus icon-large"></i> 增加</a>
+				    <a id="questionLabel_refresh" class="btn btn-sm btn-primary" href="#"><i class="icon-plus icon-large"></i> 刷新</a>
 				</div>
-				<table id="questionlabel_table"></table>
+				<table id="questionLabel_table"></table>
 			</div>
 			<!-- /.container -->
 		</div>
+		
+		<!-- Dialog -->
+		<div id="add_questionLabel" title="添加问题标签" style="display:none;">
+		    <form>
+		    	<br/>
+		    	<br/>
+		    	<div class="row">
+					<div class="form-group">
+							<label class="col-md-3 control-label">标签名:</label>
+							<div class="col-md-8">
+								<input type="text" id="add_questionLabel_name" name="regular" class="form-control">
+							</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<div id="update_questionLabel" title="修改问题标签" style="display:none;">
+		    <form>
+			    <br/>
+			    <br/>
+		    	<div class="row">
+					<div class="form-group">
+							<label class="col-md-3 control-label">标签名:</label>
+							<div class="col-md-8">
+								<input type="text" id="update_questionLabel_name" name="regular" class="form-control">
+							</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- Dialog -->
 	</div>
 </body>
-<script type="text/javascript" src="js/manage/questionlabel_manage.js"></script>
+<script type="text/javascript" src="js/manage/questionLabel_manage.js"></script>
 </html>

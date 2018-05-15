@@ -13,8 +13,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jyu.web.dao.authority.UserRepository;
+import org.jyu.web.dao.manage.QuestionLabelRepository;
 import org.jyu.web.dao.question.QuestionBlankRepository;
-import org.jyu.web.dao.question.QuestionLabelRepository;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.question.QuestionBlankJson;
 import org.jyu.web.entity.authority.User;

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.jyu.web.dto.Result;
-import org.jyu.web.dto.ZtreeJson;
 import org.jyu.web.dto.manage.PermissionJson;
+import org.jyu.web.dto.manage.ZtreePermission;
 import org.jyu.web.service.manage.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,8 +45,8 @@ public class PermissionController {
 	 * @return
 	 */
 	@RequestMapping(value="/permission/all", method=RequestMethod.GET)
-	public List<ZtreeJson> getRootNodeForZtree(){
-		List<ZtreeJson> list = permissionService.findForZTree();
+	public List<ZtreePermission> getRootNodeForZtree(){
+		List<ZtreePermission> list = permissionService.findForZTree();
 		return list;
 	}
 	
@@ -55,7 +55,7 @@ public class PermissionController {
 	 * @return
 	 */
 	@GetMapping(value="/permission/valid")
-	public List<ZtreeJson> getValidPermission() {
+	public List<ZtreePermission> getValidPermission() {
 		return permissionService.findValidPermission();
 	}
 	

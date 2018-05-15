@@ -8,5 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RoleRepository extends JpaRepository<Role, String>{
 	
 	Page<Role> findAll(Pageable pageable);
+	
+	Role findByCode(String code);
 
 }

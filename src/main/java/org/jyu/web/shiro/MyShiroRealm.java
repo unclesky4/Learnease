@@ -17,6 +17,7 @@ import org.jyu.web.entity.authority.User;
 import org.jyu.web.entity.manage.Administrator;
 import org.jyu.web.entity.manage.Permission;
 import org.jyu.web.entity.manage.Role;
+import org.jyu.web.exception.EmailNotValidateException;
 import org.jyu.web.service.authority.UserService;
 import org.jyu.web.service.manage.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +94,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 
 	//用户认证 -- 验证用户输入的账号是否存在
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws EmailNotValidateException,AuthenticationException {
         UsernamePasswordToken utoken = (UsernamePasswordToken) token;
 
         String username = utoken.getUsername();
@@ -101,6 +102,10 @@ public class MyShiroRealm extends AuthorizingRealm{
         User user = userService.findByEmail(username);
         
         if(user != null) {
+        	//判断是否验证
+        	if (user.getValidation() == 0) {
+				throw new EmailNotValidateException("邮箱未验证");
+			}
         	//放入shiro.调用CredentialsMatcher检验密码
             SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username, user.getPwd(), getName());
             return simpleAuthenticationInfo;

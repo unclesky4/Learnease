@@ -49,7 +49,7 @@ questionlabel_table.bootstrapTable({
     dataType:'json',
     width: "100%",
     contentType: "application/json",
-    striped: false,   //是否显示行间隔色
+    striped: true,   //是否显示行间隔色
     cache: false,
     search: false,        //查找输入框
     showColumns: false,      //True to show the columns drop down list

@@ -2,8 +2,9 @@ package org.jyu.web.conf;
 
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.jyu.web.dto.Result;
-import org.jyu.web.exception.MyException;
+import org.jyu.web.exception.EmailNotValidateException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -50,14 +51,15 @@ public class GlobalExceptionAdvice {
 //    }
     
     /**
-     * 拦截捕捉自定义异常 MyException.class
-     * @param ex
+     * 拦截捕捉自定义异常 EmailNotValidateException.class
+     * @param ex 
      * @return
      */
     @ResponseBody
-    @ExceptionHandler(value = MyException.class)
-    public Result myErrorHandler(MyException ex) {
+    @ExceptionHandler(value = EmailNotValidateException.class)
+    public Result myErrorHandler(EmailNotValidateException ex) {
         Result result = new Result(false, ex.getMessage());
+        ex.printStackTrace();
         return result;
     }
     
@@ -78,6 +80,7 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(value = IncorrectCredentialsException.class)
     public Result IncorrectCredentialsException(IncorrectCredentialsException ex) {
     	Result result = new Result(false, "密码错误");
+    	ex.printStackTrace();
     	return result;
     }
     
@@ -85,6 +88,15 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(value = UnknownAccountException.class)
     public Result UnknownAccountException(UnknownAccountException ex) {
     	Result result = new Result(false, "用户名不存在");
+    	ex.printStackTrace();
+    	return result;
+    }
+    
+    @ResponseBody
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    public Result ConstraintViolationException( ConstraintViolationException ex ) {
+    	Result result = new Result(false, "有关联关系，禁止该操作");
+    	ex.printStackTrace();
     	return result;
     }
 }

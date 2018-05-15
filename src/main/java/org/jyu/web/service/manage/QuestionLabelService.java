@@ -1,8 +1,10 @@
-package org.jyu.web.service.question;
+package org.jyu.web.service.manage;
 
 import java.util.List;
+import java.util.Map;
 
 import org.jyu.web.dto.Result;
+import org.jyu.web.dto.manage.LabelJson;
 import org.jyu.web.entity.question.QuestionLabel;
 
 public interface QuestionLabelService {
@@ -15,8 +17,8 @@ public interface QuestionLabelService {
 	
 	QuestionLabel findById(String id);
 	
-	List<QuestionLabel> findByName(String name);
+	List<LabelJson> list();
 	
-	List<QuestionLabel> list();
+	Map<String, Object> pageJson(Integer pageNumber, Integer pageSize);
 
 }
