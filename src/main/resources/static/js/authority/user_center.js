@@ -7,7 +7,7 @@ $.ajax({
 	type: 'get',
 	success: function(data) {
 		if (data.success==true || data.success=="true") {
-			$(".apply_student").attr('disabled',true);
+			//$(".apply_student").attr('disabled',true);
 			$("#stu_status").val(data.msg.status);
 			$("#stu_name").val(data.msg.stuName);
 			$("#stu_academy").val(data.msg.stuAcademy);
@@ -39,7 +39,7 @@ $.ajax({
 	success: function(data) {
 		//alert(JSON.stringify(data));
 		if (data.success == true || data.success=="true") {
-			$(".apply_teacher").attr('disabled',true);
+			//$(".apply_teacher").attr('disabled',true);
 			$("#teacher_status").val(data.msg.status);
 			$("#teacher_phone").val(data.msg.phone);
 			$("#teacher_idCard").val(data.msg.idCard);
@@ -76,11 +76,7 @@ $.ajax({
 			$("#user_email").val(data.msg.email);
 			$("#user_name").val(data.msg.name);
 			$("#register_time").val(data.msg.registerTime);
-			if(data.msg.validation == 1) {
-				$("#user_status").val("已验证");
-			}else {
-				$("#user_status").val("未验证");
-			}
+			$("#user_status").val(data.msg.validation);
 		}
 	},
 	error: function() {
@@ -236,6 +232,7 @@ function addStudent() {
 		}
 	});
 }
+
 //添加教师角色
 function addTeacher() {
 	var name = $.trim($("#_teacherName").val());
@@ -246,29 +243,30 @@ function addTeacher() {
 	if(name == "" || name.length > 12) {
 		$("#addTeacher_result").hide();
 		$("#addTeacher_result").html("姓名不能为空且长度须小于12");
-		$("#addTeacher_result").fadeIn("fast");
-		return;
+		$("#addTeacher_result").show();
+		return false;
 	}
 	var z = /^\d{1,}$/;
-	if(!z.test(idCard)) {
-		$("#addStudent_result").hide();
-		$("#addStudent_result").html("教师职工号必须填整数");
-		$("#addStudent_result").fadeIn("fast");
-		return;
+	if(idCard=="" || !z.test(idCard)) {
+		$("#addTeacher_result").hide();
+		$("#addTeacher_result").html("教师职工号必须填整数");
+		$("#addTeacher_result").show();
+		return false;
 	}
 	if(subject == "" || subject.length > 20) {
 		$("#addTeacher_result").hide();
 		$("#addTeacher_result").html("学科不能为空且长度须小于20");
-		$("#addTeacher_result").fadeIn("fast");
-		return;
+		$("#addTeacher_result").show();
+		return false;
 	}
 	var a = /^1[3|4|5|7|8][0-9]{9}$/;
 	if(!a.test(phone)) {
 		$("#addTeacher_result").hide();
 		$("#addTeacher_result").html("请输入正确的手机号");
-		$("#addTeacher_result").fadeIn("fast");
-		return;
+		$("#addTeacher_result").show();
+		return false;
 	}
+	
 	$.ajax({
 		url: "/teacher/save",
 		dataType: 'json',
@@ -284,7 +282,7 @@ function addTeacher() {
 		success: function(result) {
 			$("#addTeacher_result").hide();
 			$("#addTeacher_result").html(result.msg);
-			$("#addTeacher_result").fadeIn("fast");
+			$("#addTeacher_result").show("fast");
 		},
 		error: function() {
 			alert("error");

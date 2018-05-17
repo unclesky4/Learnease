@@ -24,8 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,15 +60,22 @@ public class TeacherServiceImpl implements TeacherService {
 		teacherDao.deleteInBatch(teachers);
 		return new Result(true, "删除成功");
 	}
+	
+	@Transactional
+	@Override
+	public Result deleteById(String id) {
+		teacherDao.deleteById(id);
+		return new Result(true, "删除成功");
+	}
 
 	@Override
 	public Map<String, Object> findTeacherByPage(Integer pageNumber, Integer pageSize, String sortOrder, String searchText) {
-		Sort sort = new Sort(Direction.DESC, "idCard");
+		/*Sort sort = new Sort(Direction.DESC, "idCard");
 		if(sortOrder.toLowerCase().equals("asc")) {
 			sort = new Sort(Direction.ASC);
-		}
+		}*/
 		@SuppressWarnings("deprecation")
-		Pageable pageable = new PageRequest(pageNumber-1, pageSize, sort);
+		Pageable pageable = new PageRequest(pageNumber-1, pageSize);
 		
 		Specification<Teacher> specification = new Specification<Teacher>() {
 
@@ -78,11 +83,11 @@ public class TeacherServiceImpl implements TeacherService {
 
 			@Override
 			public Predicate toPredicate(Root<Teacher> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				Predicate predicate = cb.conjunction();
+				Predicate predicate = null;
 				if (searchText != "" && searchText != null) {
-					Predicate p1 = cb.like(root.get("idCard"), "'%"+searchText+"%'");
-					Predicate p2 = cb.like(root.get("name"), "'%"+searchText+"%'");
-					predicate = cb.or(predicate, p1, p2);
+					Predicate p1 = cb.like(root.get("idCard"), "%'"+searchText+"'%");
+					Predicate p2 = cb.like(root.get("name"), "%'"+searchText+"'%");
+					predicate = cb.or(p1, p2);
 				}
 				return predicate;
 			}
@@ -110,6 +115,9 @@ public class TeacherServiceImpl implements TeacherService {
 		User user = userDao.getOne(userId);
 		if (user == null) {
 			return new Result(false, "用户对象不存在");
+		}
+		if (user.getTeacher() != null && user.getTeacher().getStatus() == 1) {
+			return new Result(false, "教师角色已存在");
 		}
 		teacher.setUser(user);
 		teacherDao.saveAndFlush(teacher);
@@ -143,6 +151,28 @@ public class TeacherServiceImpl implements TeacherService {
 		return new Result(true, "修改成功");
 	}
 	
+	@Override
+	public Map<String, Object> getNeedToVerify(Integer pageNumber, Integer pageSize) {
+		Pageable pageable = new PageRequest(pageNumber-1, pageSize);
+		
+		Specification<Teacher> specification = new Specification<Teacher>() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Predicate toPredicate(Root<Teacher> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				Predicate predicate = cb.equal(root.get("status"), 0);
+				return predicate;
+			}
+		};
+		Page<Teacher> page = teacherDao.findAll(specification, pageable);
+		Map<String, Object> map = new HashMap<>();
+		map.put("total", page.getTotalElements());
+		map.put("rows", convertData(page.getContent()));
+		return map;
+	}
+	
+	
 	TeacherJson convert(Teacher teacher) {
 		if (teacher == null) {
 			return null;
@@ -152,8 +182,20 @@ public class TeacherServiceImpl implements TeacherService {
 		json.setName(teacher.getName());
 		json.setPhone(teacher.getPhone());
 		json.setSex(teacher.getSex());
-		json.setStatus_code(teacher.getStatus());
-		json.setStatus(teacher.getStatus() == 0 ? "未审核" : "已审核");
+		switch (teacher.getStatus()) {
+		case 0:
+			json.setStatus("待审核");
+			break;
+		case 1:
+			json.setStatus("审核通过");
+			break;
+		case 2:
+			json.setStatus("审核不通过");
+			break;
+
+		default:
+			break;
+		}
 		json.setSubject(teacher.getSubject());
 		json.setTid(teacher.getTid());
 		json.setUserEmail(teacher.getUser().getEmail());
@@ -171,8 +213,21 @@ public class TeacherServiceImpl implements TeacherService {
 			json.setName(teacher.getName());
 			json.setPhone(teacher.getPhone());
 			json.setSex(teacher.getSex());
-			json.setStatus_code(teacher.getStatus());
-			json.setStatus(teacher.getStatus() == 0 ? "未审核" : "已审核");
+			switch (teacher.getStatus()) {
+			case 0:
+				json.setStatus("待审核");
+				break;
+			case 1:
+				json.setStatus("审核通过");
+				break;
+			case 2:
+				json.setStatus("审核不通过");
+				break;
+
+			default:
+				break;
+			}
+			
 			json.setSubject(teacher.getSubject());
 			json.setTid(teacher.getTid());
 			json.setUserEmail(teacher.getUser().getEmail());

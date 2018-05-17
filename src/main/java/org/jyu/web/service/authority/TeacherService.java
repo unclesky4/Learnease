@@ -59,6 +59,13 @@ public interface TeacherService {
 	Result delete(List<String> ids);
 	
 	/**
+	 * 通过主键删除
+	 * @param id   主键
+	 * @return
+	 */
+	Result deleteById(String id);
+	
+	/**
 	 * 
 	 * @Description: 分页查询
 	 * @param pageNumber
@@ -70,4 +77,10 @@ public interface TeacherService {
 	 *
 	 */
 	Map<String, Object> findTeacherByPage(Integer pageNumber, Integer pageSize, String sortOrder, String searchText);
+	
+	/**
+	 * 查询待审核的教师信息
+	 * @return
+	 */
+	Map<String, Object> getNeedToVerify(Integer pageNumber, Integer pageSize);
 }

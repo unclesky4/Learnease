@@ -18,9 +18,7 @@ public class TeacherJson implements Serializable{
 	
 	private String phone;   //电话
 	
-	private Integer status_code; //状态码
-	
-	private String status;   //状态 0:未审核   1:已审核  2: 审核通过
+	private String status;   //审核状态 0:待审核   1:审核通过  2: 审核不通过
 	
 	private String userId;   //用户主键
 	
@@ -74,14 +72,6 @@ public class TeacherJson implements Serializable{
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public Integer getStatus_code() {
-		return status_code;
-	}
-
-	public void setStatus_code(Integer status_code) {
-		this.status_code = status_code;
 	}
 
 	public String getStatus() {

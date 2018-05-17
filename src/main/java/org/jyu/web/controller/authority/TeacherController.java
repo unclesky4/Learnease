@@ -9,6 +9,8 @@ import org.jyu.web.dto.Result;
 import org.jyu.web.dto.authority.TeacherJson;
 import org.jyu.web.service.authority.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,16 +67,16 @@ public class TeacherController {
 	}
 	
 	/**
-	 * 获取所有教师信息
+	 * 分页查询
 	 * @param pageNumber
 	 * @param pageSize
 	 * @param sortOrder
-	 * @param searchText
+	 * @param search
 	 * @return
 	 */
-	@RequestMapping(value="/teacher/getAllTeacher", method=RequestMethod.GET)
-	public Map<String, Object> getAllTeacher(int pageNumber, int pageSize, String sortOrder, String searchText) {
-		return service.findTeacherByPage(pageNumber, pageSize, sortOrder, searchText);
+	@RequestMapping(value="/teacher/page_json", method=RequestMethod.GET)
+	public Map<String, Object> getAllTeacher(int pageNumber, int pageSize, String sortOrder, String search) {
+		return service.findTeacherByPage(pageNumber, pageSize, sortOrder, search);
 	}
 	
 	/**
@@ -84,6 +86,35 @@ public class TeacherController {
 	@RequestMapping(value="/teacher/update", method=RequestMethod.POST)
 	public Result updateTeacher(String tid, String name, String sex, String idCard, String subject, String phone) {
 		return service.update(tid, name, sex, idCard, subject, phone, null);
+	}
+	
+	/**
+	 * 修改教师审核状态
+	 * @param id   主键
+	 * @param status   审核状态
+	 * @return
+	 */
+	@PostMapping(value="/teacher/status/update")
+	public Result updateStatus(String id, Integer status) {
+		return service.update(id, null, null, null, null, null, status);
+	}
+	
+	/**
+	 * 删除教师
+	 * @param id 主键
+	 * @return
+	 */
+	public Result deleteById(String id) {
+		return service.deleteById(id);
+	}
+	
+	/**
+	 * 查询待审核的教师
+	 * @return
+	 */
+	@GetMapping(value="/teacher/verification")
+	public Map<String, Object> geTeacherByVerification(Integer pageNumber, Integer pageSize) {
+		return service.getNeedToVerify(pageNumber, pageSize);
 	}
 	
 }

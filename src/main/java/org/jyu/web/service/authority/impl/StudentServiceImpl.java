@@ -54,6 +54,9 @@ public class StudentServiceImpl implements StudentService {
 		if (user == null) {
 			return new Result(false, "用户不存在");
 		}
+		if (user.getStudent() != null && user.getStudent().getStatus() == 1) {
+			return new Result(false, "学生角色已存在");
+		}
 		student.setUser(user);
 		student.setRole(RoleEnum.Student);
 		student.setStatus(0);
@@ -104,6 +107,13 @@ public class StudentServiceImpl implements StudentService {
 		studentDao.deleteInBatch(set);
 		return new Result(true, "删除成功");
 	}
+	
+	@Transactional
+	@Override
+	public Result delete(String id) {
+		studentDao.deleteById(id);
+		return new Result(true, "删除成功");
+	}
 
 	@Override
 	public StudentJson findById(String id) {
@@ -138,12 +148,34 @@ public class StudentServiceImpl implements StudentService {
 
 			@Override
 			public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				Predicate predicate = cb.conjunction();
+				Predicate predicate = null;
 				if (searchText != "" && searchText != null) {
 					Predicate p1 = cb.like(root.get("idCard"), "'%"+searchText+"%'");
 					Predicate p2 = cb.like(root.get("stuName"), "'%"+searchText+"%'");
-					predicate = cb.or(predicate, p1, p2);
+					predicate = cb.or(p1, p2);
 				}
+				return predicate;
+			}
+		};
+		Page<Student> page = studentDao.findAll(specification, pageable);
+		Map<String, Object> map = new HashMap<>();
+		map.put("total", page.getTotalElements());
+		map.put("rows", convertList(page.getContent()));
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> getNeedToVerify(Integer pageNumber, Integer pageSize) {
+		
+		Pageable pageable = new PageRequest(pageNumber-1, pageSize);
+		
+		Specification<Student> specification = new Specification<Student>() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				Predicate predicate = cb.equal(root.get("status"), 0);
 				return predicate;
 			}
 		};
@@ -157,19 +189,29 @@ public class StudentServiceImpl implements StudentService {
 	
 	public StudentJson convertData(Student student) {
 		StudentJson json = new StudentJson();
+		if (student == null) {
+			return null;
+		}
 		json.setStuAcademy(student.getStuAcademy());
 		json.setIdCard(student.getIdCard());
-		if (student.getStatus() == 0) {
-			json.setStatus("未审核");
-		}
-		if (student.getStatus() == 1) {
-			json.setStatus("已审核");
+		switch (student.getStatus()) {
+		case 0:
+			json.setStatus("待审核");
+			break;
+		case 1:
+			json.setStatus("审核通过");
+			break;
+		case 2:
+			json.setStatus("审核不通过");
+			break;
+
+		default:
+			break;
 		}
 		json.setStuClass(student.getStuClass());
 		json.setStuEntranceTime(student.getStuEntranceTime());
 		json.setStuId(student.getStuId());
 		json.setStuName(student.getStuName());
-		json.setStatus_code(student.getStatus());
 		json.setStuSex(student.getStuSex());
 		json.setUserEmail(student.getUser().getEmail());
 		json.setUserId(student.getUser().getUid());
@@ -180,6 +222,9 @@ public class StudentServiceImpl implements StudentService {
 	public List<StudentJson> convertList(List<Student> students) {
 		List<StudentJson> list = new ArrayList<>();
 		for (Student student : students) {
+			if (student == null) {
+				continue;
+			}
 			list.add(convertData(student));
 		}
 		return list;

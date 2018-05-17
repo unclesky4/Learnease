@@ -1,11 +1,11 @@
-var questionlable_table = $("#user_table");
+var user_table = $("#user_table");
 
 //刷新表格
 $("#user_refresh").click(function() {
 	$('#user_table').bootstrapTable('refresh', {});
 });
 
-questionlable_table.bootstrapTable({
+user_table.bootstrapTable({
 	url: "/user/page_json",
 	method:'get',
 	sortOrder: 'desc',
@@ -28,7 +28,7 @@ questionlable_table.bootstrapTable({
 	columns: [
 		{
 	        field: 'name',
-	        title: '题目标签名称',
+	        title: '用户名称',
 	        align: 'left'
 	    }, {
 	        field: 'email',

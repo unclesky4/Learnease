@@ -99,4 +99,13 @@ public class GlobalExceptionAdvice {
     	ex.printStackTrace();
     	return result;
     }
+    
+    @ResponseBody
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public Result IllegalArgumentException( IllegalArgumentException ex ) {
+    	Result result = new Result(false, "出现非法参数");
+    	ex.printStackTrace();
+    	return result;
+    }
+    
 }

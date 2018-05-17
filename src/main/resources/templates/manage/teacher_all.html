@@ -89,6 +89,10 @@
 
 	<!-- Demo JS -->
 	<script type="text/javascript" src="assets/js/custom.js"></script>
+	
+	<!-- BootstrapTable -->
+    <link rel="stylesheet" href="extensions/BootstrapTable/dist/bootstrap-table.min.css">
+    <script type="text/javascript" src="extensions/BootstrapTable/dist/bootstrap-table.min.js"></script>
 </head>
 
 <body>
@@ -104,12 +108,22 @@
 	    
 		<div id="content">
 			<div class="container">
-
+				<div id="teacher-custom-toolbar">
+					<div class="form-group">
+						<div>
+							<input id="searchText" class="form-control input-width-xlarge" type="text" placeholder="查询字段" style="margin-top: 3px;">
+						</div>
+						<div>
+							<a id="teacher_search" class="btn btn-sm btn-primary" href="#" style="margin-top: 6px;"><i class="icon-search icon-large"></i> 搜索</a>
+						</div>
+					</div>
+					
+				</div>
+				<table id="teacher_table"></table>
 			</div>
 			<!-- /.container -->
-
 		</div>
 	</div>
-
+	<script type="text/javascript" src="js/manage/teacher_all.js"></script>
 </body>
 </html>

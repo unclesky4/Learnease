@@ -7,6 +7,8 @@ import org.jyu.web.dto.Result;
 import org.jyu.web.dto.authority.StudentJson;
 import org.jyu.web.service.authority.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,12 +64,12 @@ public class StudentController {
 	 * @param pageNumber
 	 * @param pageSize
 	 * @param sortOrder
-	 * @param searchText
+	 * @param search
 	 * @return
 	 */
-	@RequestMapping(value="/student/getAllStudent", method=RequestMethod.GET)
-	public Map<String, Object> getAllStudent(Integer pageNumber, Integer pageSize, String sortOrder, String searchText) {
-		return service.findStudentByPage(pageNumber, pageSize, sortOrder, searchText);
+	@RequestMapping(value="/student/page_json", method=RequestMethod.GET)
+	public Map<String, Object> getAllStudent(Integer pageNumber, Integer pageSize, String sortOrder, String search) {
+		return service.findStudentByPage(pageNumber, pageSize, sortOrder, search);
 	}
 	
 	/**
@@ -93,12 +95,31 @@ public class StudentController {
 	 * @param status
 	 * @return
 	 */
-	@RequestMapping(value="/student/updateStudentStatus", method=RequestMethod.POST)
+	@RequestMapping(value="/student/status/update", method=RequestMethod.POST)
 	public Result updateStudentStatus(String stuId, Integer status) {
 		StudentJson json = service.findById(stuId);
 		if (json == null) {
 			return new Result(false, "对象不存在");
 		}
 		return service.update(stuId, null, null, null, null, null, null, status);
+	}
+	
+	/**
+	 * 删除学生
+	 * @param id   主键
+	 * @return
+	 */
+	@PostMapping(value="/student/delete")
+	public Result delete(String id) {
+		return service.delete(id);
+	}
+	
+	/**
+	 * 获取待审核的学生信息
+	 * @return
+	 */
+	@GetMapping(value="/student/verification")
+	public Map<String, Object> geStudentByVerification(Integer pageNumber, Integer pageSize) {
+		return service.getNeedToVerify(pageNumber, pageSize);
 	}
 }

@@ -125,8 +125,8 @@ public class ManageViewController {
 	 * @param mv  ModelAndView
 	 * @return ModelAndView
 	 */
-	@GetMapping(value="/user_html")
-	public ModelAndView user_html(ModelAndView mv) {
+	@GetMapping(value="/user_all")
+	public ModelAndView user_all(ModelAndView mv) {
 		mv.setViewName("/manage/user_all.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
@@ -154,6 +154,33 @@ public class ManageViewController {
 	@GetMapping(value="/paperlabel_html")
 	public ModelAndView paperlabel_html(ModelAndView mv) {
 		mv.setViewName("/manage/paperlabel_manage.html");
+		mv.addObject("permissions", permissionService.findForSideBar());
+		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
+		return mv;
+	}
+	
+	
+	/**
+	 * 教师信息界面
+	 * @param mv  ModelAndView
+	 * @return ModelAndView
+	 */
+	@GetMapping(value="/teacher_all")
+	public ModelAndView teacher_all(ModelAndView mv) {
+		mv.setViewName("/manage/teacher_all.html");
+		mv.addObject("permissions", permissionService.findForSideBar());
+		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
+		return mv;
+	}
+	
+	/**
+	 * 学生信息界面
+	 * @param mv  ModelAndView
+	 * @return ModelAndView
+	 */
+	@GetMapping(value="/student_all")
+	public ModelAndView student_all(ModelAndView mv) {
+		mv.setViewName("/manage/student_all.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;

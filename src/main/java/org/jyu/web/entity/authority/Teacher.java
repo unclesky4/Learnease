@@ -44,7 +44,7 @@ public class Teacher implements Serializable {
 	private String phone;   //电话
 	
 	@Column(nullable=false)
-	private Integer status;   //状态 0:未审核   1:已审核  2: 审核通过
+	private Integer status;   //状态 0:未审核   1:审核通过  2: 不通过
 	
 	@Column(nullable=true, length = 20)
 	@Enumerated(EnumType.STRING)
