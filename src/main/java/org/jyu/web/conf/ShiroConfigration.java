@@ -45,4 +45,14 @@ public class ShiroConfigration {
     public Subject subject() {
         return SecurityUtils.getSubject();
     }
+
+    //开启注解
+    @Bean
+    public static DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator(){
+
+        DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator=new DefaultAdvisorAutoProxyCreator();
+        defaultAdvisorAutoProxyCreator.setUsePrefix(true);
+
+        return defaultAdvisorAutoProxyCreator;
+    }
 }
