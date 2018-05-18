@@ -2,7 +2,11 @@ package org.jyu.web.controller.authority;
 
 import java.util.Map;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import org.apache.shiro.SecurityUtils;
+import org.hibernate.validator.constraints.Length;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.authority.StudentJson;
 import org.jyu.web.service.authority.StudentService;
@@ -21,17 +25,21 @@ public class StudentController {
 	
 	/**
 	 * 申请学生角色
-	 * @param idCard
-	 * @param stuName
-	 * @param stuSex
-	 * @param stuAcademy
-	 * @param stuClass
-	 * @param stuEntranceTime
+	 * @param idCard   学号
+	 * @param stuName   姓名
+	 * @param stuSex   性别
+	 * @param stuAcademy   学院
+	 * @param stuClass   班级
+	 * @param stuEntranceTime   入学年份
 	 * @return
 	 */
 	@RequestMapping(value="/student/save", method=RequestMethod.POST)
-	public Result saveStudent(String idCard,String stuName,String stuSex,String stuAcademy,String stuClass,
-			Integer stuEntranceTime){
+	public Result saveStudent(@Length(min=1, max=10, message="学号长度为1-10位")String idCard, 
+			@Length(min=1, max=10, message="姓名长度为1-20位")String stuName,
+			@NotBlank(message="性别不能为空")String stuSex,
+			@Length(min=1, max=10, message="学院长度为1-100位")String stuAcademy,
+			@Length(min=1, max=10, message="班级长度为1-10位")String stuClass,
+			@Size(min=2000, max=3000, message="请正确输入入学年份")Integer stuEntranceTime){
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
 		if (userId  == null) {
 			return new Result(false, "请登陆");
@@ -41,7 +49,7 @@ public class StudentController {
 	
 	/**
 	 * 通过学号查询学生信息
-	 * @param idCard
+	 * @param idCard   学号
 	 * @return
 	 */
 	@RequestMapping(value="/student/findStudentByIdCard", method=RequestMethod.GET)
@@ -51,7 +59,7 @@ public class StudentController {
 	
 	/**
 	 * 通过主键查找学生信息
-	 * @param stuId
+	 * @param stuId   主键
 	 * @return
 	 */
 	@RequestMapping(value="/student/findStudentById", method=RequestMethod.GET)
@@ -61,10 +69,10 @@ public class StudentController {
 
 	/**
 	 * 分页查询
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @param search
+	 * @param pageNumber   页码
+	 * @param pageSize   每页显示条数
+	 * @param sortOrder   排序
+	 * @param search   查询字段
 	 * @return
 	 */
 	@RequestMapping(value="/student/page_json", method=RequestMethod.GET)
@@ -74,19 +82,19 @@ public class StudentController {
 	
 	/**
 	 * 修改学生信息
-	 * @param stuId
-	 * @param idCard
-	 * @param stuName
-	 * @param stuSex
-	 * @param academyId
-	 * @param stuClass
-	 * @param stuEntranceTime
+	 * @param stuId  主键
+	 * @param idCard  学号
+	 * @param stuName  姓名
+	 * @param stuSex   性别
+	 * @param academy   学院
+	 * @param stuClass   班级
+	 * @param stuEntranceTime   入学年份
 	 * @return
 	 */
 	@RequestMapping(value="/student/updateStudent", method=RequestMethod.POST)
-	public Result updateStudent(String stuId, String idCard,String stuName,String stuSex,String academyId,String stuClass,
+	public Result updateStudent(String stuId, String idCard,String stuName,String stuSex,String academy,String stuClass,
 			Integer stuEntranceTime) {
-		return service.update(stuId, idCard, stuName, stuSex, academyId, stuClass, stuEntranceTime, null);
+		return service.update(stuId, idCard, stuName, stuSex, academy, stuClass, stuEntranceTime, null);
 	}
 	
 	/**

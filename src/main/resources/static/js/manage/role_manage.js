@@ -21,12 +21,15 @@ $("#role_add").click(function() {
 					"description": description
 				};
 				$.post("/role/add",params,function(result){
+					$("#add_role").dialog( "close" );
 					if(result.success == "true" || result.success == true) {
-						$("#add_role").dialog( "close" );
 						$('#role_table').bootstrapTable('refresh', {});
 					}else{
-						$("#add_role").dialog( "close" );
-						alert(result.msg);
+						if (result.status == 404) {
+							alert("没有权限");
+						}else{
+							alert(result.msg);
+						}
 					}
 				},"json");
 			},
@@ -120,7 +123,11 @@ questionlabel_table.bootstrapTable({
 	        					$.post("/role/update/permission", param, function(result) {
 	        						$("#permission_role").dialog("close");
 	        						if (!result.success) {
-	        							alert(result.msg);
+	        							if (result.status == 404) {
+	        								alert("没有权限");
+	        							}else{
+	        								alert(result.msg);
+	        							}
 									}
 	        					}, "json");
 	        				},
@@ -151,12 +158,15 @@ questionlabel_table.bootstrapTable({
 		        					"description": description
 		        				};
 		        				$.post("/role/update",params,function(result){
+		        					$("#update_role").dialog( "close" );
 		        					if(result.success == "true" || result.success == true) {
-		        						$("#update_role").dialog( "close" );
 		        						$('#role_table').bootstrapTable('refresh', {});
 		        					}else{
-		        						$("#update_role").dialog( "close" );
-		        						alert(result.msg);
+		        						if (result.status == 404) {
+		        							alert("没有权限");
+		        						}else{
+		        							alert(result.msg);
+		        						}
 		        					}
 		        				},"json");
 		        			},
@@ -174,7 +184,11 @@ questionlabel_table.bootstrapTable({
 		        		if (result.success == true || result == "true") {
 		        			$('#role_table').bootstrapTable('refresh', {});
 						}else{
-							alert(result.msg);
+							if (result.status == 404) {
+								alert("没有权限");
+							}else{
+								alert(result.msg);
+							}
 						}
 		        	}, "json");
 		        }

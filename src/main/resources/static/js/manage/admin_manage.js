@@ -29,12 +29,20 @@ $("#admin_add").click(function() {
 					"repeatPwd": repeatPwd
 				};
 				$.post("/admin/add",params,function(result){
+					if (result.status == 404) {
+						alert("没有权限");
+						return;
+					}
 					if(result.success == "true" || result.success == true) {
 						$("#add_admin").dialog( "close" );
 						$('#admin_table').bootstrapTable('refresh', {});
 					}else{
 						$("#add_admin").dialog( "close" );
-						alert(result.msg);
+						if (result.status == 404) {
+							alert("没有权限");
+						}else{
+							alert(result.msg);
+						}
 					}
 				},"json");
 			},
@@ -134,6 +142,10 @@ admin_table.bootstrapTable({
 	        					};
 	        					$.post("/admin/role/update", param, function(result) {
 	        						$("#role_admin").dialog("close");
+	        						if (result.status == 404) {
+	        							alert("没有权限");
+	        							return;
+	        						}
 	        						if (!result.success) {
 	        							alert(result.msg);
 									}
@@ -174,7 +186,11 @@ admin_table.bootstrapTable({
 		        						$('#admin_table').bootstrapTable('refresh', {});
 		        					}else{
 		        						$("#update_admin").dialog( "close" );
-		        						alert(result.msg);
+		        						if (result.status == 404) {
+		        							alert("没有权限");
+		        						}else{
+		        							alert(result.msg);
+		        						}
 		        					}
 		        				},"json");
 		        			},
@@ -203,6 +219,11 @@ admin_table.bootstrapTable({
 		        					"repeatPwd": pwd_repeat
 		        				};
 		        				$.post("/admin/password/update",params,function(result){
+		        					if (result.status == 404) {
+		        						$("#pwd_update").dialog( "close" );
+		    							alert("没有权限");
+		    							return false;
+		    						}
 		        					if(result.success == "true" || result.success == true) {
 		        						$("#pwd_update").dialog( "close" );
 		        						alert(result.msg);
@@ -226,7 +247,11 @@ admin_table.bootstrapTable({
 		        		if (result.success == true || result == "true") {
 		        			$('#admin_table').bootstrapTable('refresh', {});
 						}else{
-							alert(result.msg);
+							if (result.status == 404) {
+								alert("没有权限");
+							}else{
+								alert(result.msg);
+							}
 						}
 		        	}, "json");
 		        }

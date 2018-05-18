@@ -174,4 +174,9 @@ public class RoleServiceImpl implements RoleService {
 		return list;
 	}
 
+	@Override
+	public Role findByCode(String code) {
+		return roleDao.findByCode(code);
+	}
+
 }

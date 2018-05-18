@@ -4,24 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.constraints.NotBlank;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
-import org.hibernate.sql.Delete;
+import org.hibernate.validator.constraints.Length;
 import org.jyu.web.dto.Result;
-import org.jyu.web.dto.ZtreeJson;
 import org.jyu.web.dto.manage.AdministratorJson;
 import org.jyu.web.dto.manage.RoleJson;
 import org.jyu.web.entity.manage.Administrator;
 import org.jyu.web.entity.manage.Role;
 import org.jyu.web.service.manage.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Validated
 @RestController
 public class AdministratorController {
 	
@@ -34,7 +40,7 @@ public class AdministratorController {
 	 * @param password
 	 * @return
 	 */
-	@PostMapping(value="/admin/login")
+	@RequestMapping(value="/admin/login",method=RequestMethod.POST)
 	public Result login(String name, String password, @RequestParam(required=false, defaultValue="false")Boolean rememberMe) {
 		UsernamePasswordToken token = new UsernamePasswordToken(name, password);  
 	    token.setRememberMe(rememberMe);
@@ -58,8 +64,14 @@ public class AdministratorController {
 	 * @param roldIds  角色主键（逗号分割）
 	 * @return  Result
 	 */
-	@PostMapping(value="/admin/update")
-	public Result update(String id, String name, String phone, String sex, String email, String roldIds) {
+	@RequiresPermissions(value={"admin:update"})
+	@RequestMapping(value="/admin/update",method=RequestMethod.POST)
+	public Result update(@NotBlank(message="主键不能为空") String id, 
+			String name, 
+			String phone, 
+			String sex, 
+			String email, 
+			String roldIds) {
 		return adminService.update(id, name, sex, phone, email, roldIds);
 	}
 	
@@ -71,6 +83,7 @@ public class AdministratorController {
 	 * @param newPwd_repeat  确认新密码
 	 * @return
 	 */
+	@RequiresAuthentication
 	@PostMapping(value="/admin/pwd/update")
 	public Result updatePwd(String id, String oldPwd, String newPwd, String newPwd_repeat) {
 		if (newPwd.equals("") || newPwd_repeat.equals("")) {
@@ -87,8 +100,10 @@ public class AdministratorController {
 	 * @param id   管理员主键
 	 * @return AdministratorJson
 	 */
+	@RequiresPermissions(value={"admin:query"})
 	@GetMapping(value="/admin/findById")
 	public AdministratorJson findById(String id) {
+		System.out.println(id);
 		Administrator administrator = adminService.findById(id);
 		
 		AdministratorJson json = new AdministratorJson();
@@ -117,11 +132,16 @@ public class AdministratorController {
 	 * @param repeatPwd   确认密码
 	 * @return
 	 */
+	@RequiresPermissions(value={"admin:add"})
 	@PostMapping(value="/admin/add")
-	public Result save(String name, String sex, String phone, String email, String pwd, String repeatPwd) {
+	public Result save(@Length(min=1, max=20, message="姓名长度为1-20位")String name, String sex, String phone,String email, 
+			@NotBlank(message="请输入密码")String pwd, 
+			@NotBlank(message="请输入确认密码")String repeatPwd) {
+		
 		if (!pwd.equals(repeatPwd)) {
 			return new Result(false, "两次密码不一致");
 		}
+		
 		return adminService.save(name, pwd, sex, phone, email, null);
 	}
 	
@@ -131,6 +151,7 @@ public class AdministratorController {
 	 * @param roleIds   角色主键（逗号分割）
 	 * @return
 	 */
+	@RequiresPermissions(value={"admin:update"})
 	@PostMapping(value="/admin/role/update")
 	public Result updateRole(String id, String roleIds) {
 		if (roleIds == null || roleIds == "") {
@@ -151,6 +172,7 @@ public class AdministratorController {
 	 * @param pageSize   每页显示条数
 	 * @return
 	 */
+	@RequiresPermissions(value={"admin:query"})
 	@GetMapping(value="/admin/page_json")
 	public Map<String, Object> pageJson(Integer pageNumber, Integer pageSize) {
 		return adminService.finAll(pageNumber, pageSize);
@@ -163,8 +185,11 @@ public class AdministratorController {
 	 * @param repeatPwd   确认密码
 	 * @return
 	 */
+	@RequiresPermissions(value={"admin:update"})
 	@PostMapping(value="/admin/password/update")
-	public Result updatePwd(String id, String newPwd, String repeatPwd) {
+	public Result updatePwd(@NotBlank(message="管理员主键不能为空") String id, 
+			@NotBlank(message="请输入密码") String newPwd, 
+			@NotBlank(message="请输入确认密码") String repeatPwd) {
 		if (!newPwd.equals(repeatPwd)) {
 			return new Result(false, "两次密码不一致");
 		}
@@ -176,6 +201,7 @@ public class AdministratorController {
 	 * @param id    主键
 	 * @return
 	 */
+	@RequiresPermissions(value={"admin:delete"})
 	@PostMapping(value="/admin/delete")
 	public Result delete(String id) {
 		return adminService.deleteById(id);
@@ -186,6 +212,7 @@ public class AdministratorController {
 	 * @param id   管理员主键
 	 * @return
 	 */
+	@RequiresPermissions(value={"admin:query"})
 	@GetMapping(value="/admin/roles")
 	public List<RoleJson> findRoleByAdmin(String id) {
 		List<RoleJson> list = new ArrayList<>();

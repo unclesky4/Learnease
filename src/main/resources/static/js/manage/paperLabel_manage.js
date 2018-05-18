@@ -24,7 +24,11 @@ $("#paperLabel_add").click(function() {
 						$('#paperLabel_table').bootstrapTable('refresh', {});
 					}else{
 						$("#add_paperLabel").dialog( "close" );
-						alert(result.msg);
+						if (result.status == 404) {
+							alert("没有权限");
+						}else{
+							alert(result.msg);
+						}
 					}
 				},"json");
 			},
@@ -99,7 +103,11 @@ questionlable_table.bootstrapTable({
 		        						$('#paperLabel_table').bootstrapTable('refresh', {});
 		        					}else{
 		        						$("#update_paperLabel").dialog( "close" );
-		        						alert(result.msg);
+		        						if (result.status == 404) {
+		        							alert("没有权限");
+		        						}else{
+		        							alert(result.msg);
+		        						}
 		        					}
 		        				},"json");
 		        			},
@@ -117,7 +125,11 @@ questionlable_table.bootstrapTable({
 		        		if (result.success == true || result == "true") {
 		        			$('#paperLabel_table').bootstrapTable('refresh', {});
 						}else{
-							alert(result.msg);
+							if (result.status == 404) {
+								alert("没有权限");
+							}else{
+								alert(result.msg);
+							}
 						}
 		        	}, "json");
 		        }

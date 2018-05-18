@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.question.AnswerJson;
 import org.jyu.web.dto.question.QuestionJudgementJson;
@@ -39,6 +41,7 @@ public class QuestionJudgementController {
 	 * @param id   判断题主键
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="judgement_up_html", method=RequestMethod.GET)
 	public ModelAndView judgement_up_html(ModelAndView mv, String id) {
 		mv.setViewName("/question/teacher/judgement_up.html");
@@ -55,6 +58,7 @@ public class QuestionJudgementController {
 	 * @param analyse
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:add"})
 	@RequestMapping(value="/judgement/save", method=RequestMethod.POST)
 	public Result save(String shortName, String content, Integer difficulty, String labelIds, String answerContent, String analyse) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
@@ -74,6 +78,7 @@ public class QuestionJudgementController {
 	 * @param id
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:delete"})
 	@RequestMapping(value="/judgement/delete", method=RequestMethod.POST)
 	public Result deleteById(String id) {
 		return service.deleteById(id);
@@ -91,6 +96,7 @@ public class QuestionJudgementController {
 	 * @param analyse
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:update"})
 	@RequestMapping(value="/judgement/update", method=RequestMethod.POST)
 	public Result update(String id, String shortName, String content, Integer difficulty, String labelIds, String options,
 			String answerContent, String analyse) {
@@ -109,6 +115,7 @@ public class QuestionJudgementController {
 	 * 通过主键查找判断题
 	 * @param id
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/judgement/getById", method=RequestMethod.GET)
 	public QuestionJudgementJson getById(String id) {
 		return convert(service.findById(id));
@@ -121,16 +128,19 @@ public class QuestionJudgementController {
 	 * @param sortOrder
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:query"})
 	@RequestMapping(value="/judgement/all", method=RequestMethod.GET)
 	public Map<String, Object> list(int pageNumber, int pageSize, String sortOrder) {
 		return service.list(pageNumber, pageSize, sortOrder);
 	}
+	
 	/**
 	 * 判断用户提交的答案是否正确
 	 * @param qid
 	 * @param answercontent
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/judgement/judge",method=RequestMethod.POST)
 	public Result judgeAnswer(String qid, String answercontent) {
 		return null;
@@ -143,6 +153,7 @@ public class QuestionJudgementController {
 	 * @param sortOrder
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/judgement/own", method=RequestMethod.GET)
 	public Map<String, Object> getOwnQuestionProgram(int pageNumber, int pageSize, String sortOrder) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
@@ -159,6 +170,7 @@ public class QuestionJudgementController {
 	 * @param id
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/judgement/answer", method=RequestMethod.GET)
 	public AnswerJson getAnswer(String id) {
 		Answer answer = service.findById(id).getAnswer();

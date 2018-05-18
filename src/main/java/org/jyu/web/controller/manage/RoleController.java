@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.hibernate.validator.constraints.Length;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.manage.RoleJson;
 import org.jyu.web.dto.manage.ZtreePermission;
-import org.jyu.web.entity.manage.Permission;
-import org.jyu.web.entity.manage.Role;
 import org.jyu.web.service.manage.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +28,10 @@ public class RoleController {
 	 * @param description 描述
 	 * @return  Result
 	 */
+	@RequiresPermissions({"role:add"})
 	@PostMapping(value="/role/add")
-	public Result save(String name, String code, String description) {
+	public Result save(@Length(min=1, max=20, message="角色名长度为1-20位")String name, 
+			@Length(min=1, max=20, message="角色代码长度为1-20位")String code, String description) {
 		return roleService.save(name, code, description);
 	}
 	
@@ -41,6 +43,7 @@ public class RoleController {
 	 * @param description 描述
 	 * @return
 	 */
+	@RequiresPermissions({"role:update"})
 	@PostMapping(value="/role/update")
 	public Result update(String id, String name, String code, String description) {
 		return roleService.update(id, name, code, description, null);
@@ -52,6 +55,7 @@ public class RoleController {
 	 * @param permissionIds   权限主键（逗号分割）
 	 * @return
 	 */
+	@RequiresPermissions({"role:update"})
 	@PostMapping(value="/role/update/permission")
 	public Result update(String id, String permissionIds) {
 		String[] permissionId = permissionIds.split(",");
@@ -71,6 +75,7 @@ public class RoleController {
 	 * @param id   主键
 	 * @return
 	 */
+	@RequiresPermissions({"role:delete"})
 	@PostMapping(value="/role/delete")
 	public Result deleteById(String id) {
 		return roleService.deleteById(id);
@@ -82,6 +87,7 @@ public class RoleController {
 	 * @param pageSize    显示条数
 	 * @return
 	 */
+	@RequiresPermissions({"role:query"})
 	@GetMapping(value="/role/page_json")
 	public Map<String, Object> getAll(Integer pageNumber, Integer pageSize) {
 		return roleService.findAll(pageNumber, pageSize);
@@ -92,6 +98,7 @@ public class RoleController {
 	 * @param id   角色主键
 	 * @return
 	 */
+	@RequiresPermissions({"role:query"})
 	@GetMapping(value="/role/permissions")
 	public List<ZtreePermission> getRolePermissions(String id) {
 		return roleService.findRolePermissions(id);
@@ -101,6 +108,7 @@ public class RoleController {
 	 * 获取所有角色信息
 	 * @return
 	 */
+	@RequiresPermissions({"role:query"})
 	@GetMapping(value="/role/all")
 	public List<RoleJson> all() {
 		return roleService.list();

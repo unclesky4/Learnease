@@ -27,10 +27,10 @@ public class Answer implements Serializable{
 	@Column(length=32)
 	private String id;
 	
-	@Column(nullable=false, length=512)
+	@Column(nullable=true, length=4096)
 	private String content;
 	
-	@Column(nullable=true, length=512)
+	@Column(nullable=true, length=2048)
 	private String analyse;        //分析
 
 	public Answer() {

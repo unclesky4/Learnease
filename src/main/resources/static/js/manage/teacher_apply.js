@@ -70,7 +70,11 @@ $("#teacher_table").bootstrapTable({
 	        					$.post("/teacher/status/update", param, function(result) {
 	        						$("#teacher_verify_dialog").dialog("close");
 	        						if (!result.success) {
-	        							alert(result.msg);
+	        							if (result.status == 404) {
+	        								alert("没有权限");
+	        							}else{
+	        								alert(result.msg);
+	        							}
 									}else{
 										$('#teacher_table').bootstrapTable('refresh', {});
 									}

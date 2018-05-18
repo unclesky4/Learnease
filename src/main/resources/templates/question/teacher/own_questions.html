@@ -250,7 +250,11 @@
 						                values: [row.id]
 						            });
 				        		}else{
-				        			alert(result.msg);
+				        			if (result.status == 404) {
+				        				alert("没有权限");
+				        			}else{
+				        				alert("error");
+				        			}
 				        		}
 				        	}, "json");
 				        }

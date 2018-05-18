@@ -167,21 +167,15 @@
 			        field: 'operate',
 			        title: '操作',
 			        align: 'center',
-			        events: {
-			        	'click .info': function (e, value, row, index) {
-				            //alert('You click like action, row: ' + JSON.stringify(row));
-				            window.location.href="questionmultiple.html?id="+row.id;
-				        }
-			        },
 			        formatter: operateFormatter
 			    }]
 			});
 			function operateFormatter(value, row, index) {
-		        return [
-		            '<a class="info" href="javascript:void(0)" title="Info">',
-		            '<i class="glyphicon glyphicon-info-sign"></i>',
-		            '</a>  '
-		        ].join('');       //数组转成字符串
+				var array = new Array();
+				array.push("<a class='info' href='multiple_info_html?id="+row.id+"' target='_blank' title='详情'>");
+				array.push("<i class='glyphicon glyphicon-info-sign'></i></a>");
+				array.push()
+		        return array.join('');       //数组转成字符串
 		    }
 		});
 	</script>

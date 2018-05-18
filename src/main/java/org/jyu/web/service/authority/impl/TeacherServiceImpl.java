@@ -182,6 +182,7 @@ public class TeacherServiceImpl implements TeacherService {
 		json.setName(teacher.getName());
 		json.setPhone(teacher.getPhone());
 		json.setSex(teacher.getSex());
+		json.setStatusCode(teacher.getStatus());
 		switch (teacher.getStatus()) {
 		case 0:
 			json.setStatus("待审核");
@@ -208,32 +209,7 @@ public class TeacherServiceImpl implements TeacherService {
 	List<TeacherJson> convertData(List<Teacher> teachers) {
 		List<TeacherJson> list = new ArrayList<>();
 		for (Teacher teacher : teachers) {
-			TeacherJson json = new TeacherJson();
-			json.setIdCard(teacher.getIdCard());
-			json.setName(teacher.getName());
-			json.setPhone(teacher.getPhone());
-			json.setSex(teacher.getSex());
-			switch (teacher.getStatus()) {
-			case 0:
-				json.setStatus("待审核");
-				break;
-			case 1:
-				json.setStatus("审核通过");
-				break;
-			case 2:
-				json.setStatus("审核不通过");
-				break;
-
-			default:
-				break;
-			}
-			
-			json.setSubject(teacher.getSubject());
-			json.setTid(teacher.getTid());
-			json.setUserEmail(teacher.getUser().getEmail());
-			json.setUserName(teacher.getUser().getName());
-			json.setUserId(teacher.getUser().getUid());
-			list.add(json);
+			list.add(convert(teacher));
 		}
 		return list;
 	}

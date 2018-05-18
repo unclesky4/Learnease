@@ -11,8 +11,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.jyu.web.entity.authority.Student;
-import org.jyu.web.entity.authority.Teacher;
 import org.jyu.web.entity.authority.User;
 import org.jyu.web.entity.manage.Administrator;
 import org.jyu.web.entity.manage.Permission;
@@ -20,6 +18,7 @@ import org.jyu.web.entity.manage.Role;
 import org.jyu.web.exception.EmailNotValidateException;
 import org.jyu.web.service.authority.UserService;
 import org.jyu.web.service.manage.AdministratorService;
+import org.jyu.web.service.manage.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -43,6 +42,9 @@ public class MyShiroRealm extends AuthorizingRealm{
 	private UserService userService;
 	
 	@Autowired
+	private RoleService roleService;
+	
+	@Autowired
 	private AdministratorService adminService;
 	
 	//角色和对应权限添加 - 例中该方法的调用时机为需授权资源被访问时
@@ -56,21 +58,35 @@ public class MyShiroRealm extends AuthorizingRealm{
 		
 		User user = userService.findByEmail(name);
 		if(user != null) {
-			//添加角色和权限
-			Student student = user.getStudent();
-			if(student != null && student.getStatus() == 1) {
-				simpleAuthorizationInfo.addRole(student.getRole().getCode());
-				for (String permission : student.getRole().getPermissions()) {
-					//System.out.println(permission);
-					simpleAuthorizationInfo.addStringPermission(permission);
+			
+			Role role = null;
+			if (user.getTeacher() != null && user.getTeacher().getStatus() == 1) {
+				role = roleService.findByCode("teacher");
+				if (role != null) {
+					List<Permission> permissions = role.getPermissions();
+					simpleAuthorizationInfo.addRole(role.getCode());
+					
+					for (Permission permission : permissions) {
+						if (permission.getCode() == null || permission.getCode().trim().length() == 0 || 
+								!permission.getStatus()) {
+							continue;
+						}
+						simpleAuthorizationInfo.addStringPermission(permission.getCode().trim());
+					}
 				}
 			}
-			Teacher teacher = user.getTeacher();
-			if(teacher != null && teacher.getStatus() == 1) {
-				simpleAuthorizationInfo.addRole(teacher.getRole().getCode());
-				for (String permission : teacher.getRole().getPermissions()) {
-					//System.out.println(permission);
-					simpleAuthorizationInfo.addStringPermission(permission);
+			if (user.getStudent() != null && user.getStudent().getStatus() == 1) {
+				role = roleService.findByCode("student");
+				if (role != null) {
+					List<Permission> permissions = role.getPermissions();
+					simpleAuthorizationInfo.addRole(role.getCode().trim());
+					for (Permission permission : permissions) {
+						if (permission.getCode() == null || permission.getCode().trim().length() == 0  || 
+								!permission.getStatus()) {
+							continue;
+						}
+						simpleAuthorizationInfo.addStringPermission(permission.getCode().trim());
+					}
 				}
 			}
 			return simpleAuthorizationInfo;
@@ -81,10 +97,15 @@ public class MyShiroRealm extends AuthorizingRealm{
 			//添加角色和权限
 			List<Role> roles = administrator.getRoles();
 			for (Role role : roles) {
-				simpleAuthorizationInfo.addRole(role.getCode());
+				simpleAuthorizationInfo.addRole(role.getCode().trim());
 				List<Permission> permissions = role.getPermissions();
 				for (Permission permission : permissions) {
-					simpleAuthorizationInfo.addStringPermission(permission.getCode());
+					if (permission.getCode() == null || permission.getCode().trim().length() == 0 || 
+							!permission.getStatus()) {
+						continue;
+					}
+					simpleAuthorizationInfo.addStringPermission(permission.getCode().trim());
+					System.out.println(permission.getCode());
 				}
 			}
 			return simpleAuthorizationInfo;
@@ -119,5 +140,4 @@ public class MyShiroRealm extends AuthorizingRealm{
 		}
         return null;
 	}
-
 }

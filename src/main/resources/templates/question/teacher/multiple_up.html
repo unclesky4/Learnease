@@ -293,8 +293,12 @@
 					i++;
 				});
 			},
-			error: function() {
-				alert("error");
+			error: function(info) {
+				if (info.status == 404) {
+					alert("没有权限");
+				}else{
+					alert("error");
+				}
 			}
 		});
 		
@@ -372,8 +376,12 @@
 	        success: function(result){
 	            alert(result.msg);
 	        },
-	        error: function(xhr,textStatus) {
-	            console.log('错误'+" "+xhr+" "+textStatus);
+	        error: function(info) {
+	        	if (info.status == 404) {
+					alert("没有权限");
+				}else{
+					alert("error");
+				}
 	        }
 	    });
 	}
@@ -399,8 +407,12 @@
 	        success: function(result){
 	            alert(result.msg);
 	        },
-	        error: function(xhr,textStatus) {
-	            console.log('错误'+" "+xhr+" "+textStatus);
+	        error: function(info) {
+	        	if (info.status == 404) {
+					alert("没有权限");
+				}else{
+					alert("error");
+				}
 	        }
 	    });
     }

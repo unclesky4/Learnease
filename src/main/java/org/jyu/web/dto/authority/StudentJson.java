@@ -18,6 +18,8 @@ public class StudentJson implements Serializable{
 	
 	private Integer stuEntranceTime;    //入学年份
 	
+	private Integer statusCode;   //审核状态码
+	
 	private String status;   //审核状态
 	
 	private String stuAcademy;  //学院名称
@@ -74,6 +76,14 @@ public class StudentJson implements Serializable{
 
 	public void setStuEntranceTime(Integer stuEntranceTime) {
 		this.stuEntranceTime = stuEntranceTime;
+	}
+
+	public Integer getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(Integer statusCode) {
+		this.statusCode = statusCode;
 	}
 
 	public String getStatus() {

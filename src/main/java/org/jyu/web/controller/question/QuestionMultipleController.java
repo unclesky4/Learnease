@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.question.AnswerJson;
 import org.jyu.web.dto.question.QuestionMultipleJson;
@@ -16,10 +18,13 @@ import org.jyu.web.entity.question.QuestionLabel;
 import org.jyu.web.entity.question.QuestionMultiple;
 import org.jyu.web.service.question.QuestionMultipleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.druid.sql.visitor.functions.Trim;
 
 @RestController
 public class QuestionMultipleController {
@@ -44,6 +49,18 @@ public class QuestionMultipleController {
 		mv.setViewName("/question/teacher/multiple_up.html");
 		return mv;
 	}
+	
+	/**
+	 * 多选题详情页
+	 * @param mv   ModelAndView
+	 * @param id   多选题主键
+	 * @return
+	 */
+	@RequestMapping(value="multiple_info_html", method=RequestMethod.GET)
+	public ModelAndView multiple_info_html(ModelAndView mv, String id) {
+		mv.setViewName("/question/student/multiple_info.html");
+		return mv;
+	}
 
 	/**
 	 * 保存多选题
@@ -56,6 +73,7 @@ public class QuestionMultipleController {
 	 * @param analyse   答案分析
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:add"})
 	@RequestMapping(value="/multiple/save", method=RequestMethod.POST)
 	public Result save(String shortName, String content, Integer difficulty, String labelIds, String options,
 			String answerContent, String analyse) {
@@ -78,6 +96,7 @@ public class QuestionMultipleController {
 	 * @param id
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:delete"})
 	@RequestMapping(value="/multiple/delete", method=RequestMethod.POST)
 	public Result deleteById(String id) {
 		return multipleService.delete(id);
@@ -95,6 +114,7 @@ public class QuestionMultipleController {
 	 * @param analyse
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:add"})
 	@RequestMapping(value="/multiple/update",  method=RequestMethod.POST)
 	public Result update(String id, String shortName, String content, Integer difficulty, String labelIds, String options,
 			String answerContent, String analyse) {
@@ -113,7 +133,8 @@ public class QuestionMultipleController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/multiple/getById",  method=RequestMethod.GET)
+	@RequiresAuthentication
+	@RequestMapping(value="/multiple/findById",  method=RequestMethod.GET)
 	public QuestionMultipleJson getById(String id) {
 		return convert(multipleService.findById(id));
 	}
@@ -125,6 +146,7 @@ public class QuestionMultipleController {
 	 * @param sortOrder
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:query"})
 	@RequestMapping(value="/multiple/all",  method=RequestMethod.GET)
 	public Map<String, Object> getPageJson(int pageNumber, int pageSize, String sortOrder) {
 		return multipleService.list(pageNumber, pageSize, sortOrder);
@@ -137,6 +159,7 @@ public class QuestionMultipleController {
 	 * @param sortOrder
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/multiple/own", method=RequestMethod.GET)
 	public Map<String, Object> getOwnQuestionProgram(int pageNumber, int pageSize, String sortOrder) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
@@ -153,6 +176,7 @@ public class QuestionMultipleController {
 	 * @param id
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/multiple/answer", method=RequestMethod.GET)
 	public AnswerJson getAnswer(String id) {
 		Answer answer = multipleService.findById(id).getAnswer();
@@ -161,6 +185,40 @@ public class QuestionMultipleController {
 		json.setAnalyse(answer.getAnalyse());
 		json.setContent(answer.getContent());
 		return json;
+	}
+	
+	/**
+	 * 判断用户提交的答案
+	 * @param qid    多选题主键
+	 * @param answer   答案
+	 * @return
+	 */
+	@GetMapping(value="/multiple/judge")
+	public Result judge(String qid, String answer) {
+		QuestionMultiple multiple = multipleService.findById(qid);
+		if (multiple == null) {
+			return new Result(false, "题目不存在");
+		}
+		if (multiple.getAnswer() == null || multiple.getAnswer().getContent() == null) {
+			return new Result(false, "参考答案不存在");
+		}
+		String answerContent = multiple.getAnswer().getContent();
+		
+		String[] tmp = answer.split(",");
+		String[] answers = answerContent.split(",");
+		for (int i = 0; i < tmp.length; i++) {
+			if (tmp[i].trim().length() == 0) {
+				continue;
+			}
+			boolean a = true;
+			for(int j = 0; j < answers.length; j++) {
+				if(answers[i].equals(tmp[i])) {
+					a = false;
+				}
+			}
+			return new Result(false, multiple.getAnswer().getAnalyse());
+		}
+		return new Result(true, multiple.getAnswer().getAnalyse());
 	}
 	
 	

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jyu.web.dto.Result;
 import org.jyu.web.service.paper.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class PaperController {
 	 * @param labels   试卷标签主键（逗号分割）
 	 * @return
 	 */
+	@RequiresPermissions({"paper:add"})
 	@PostMapping(value="/paper/add")
 	public Result save(String name, String questions, Integer status, String scores, String labels) {
 		
@@ -59,7 +61,17 @@ public class PaperController {
 		return paperService.save(name, status, userId, questions, questionScore, labels);
 	}
 	
-	
+	/**
+	 * 更新试卷
+	 * @param id   试卷主键
+	 * @param name  姓名
+	 * @param questions  试题主键
+	 * @param status   状态
+	 * @param scores   题目分值
+	 * @param labels  试卷标签
+	 * @return
+	 */
+	@RequiresPermissions({"paper:update"})
 	@PostMapping(value="/paper/update")
 	public Result update(String id, String name, String questions, Integer status, String scores, String labels) {
 		return null;

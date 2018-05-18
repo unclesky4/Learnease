@@ -13,9 +13,15 @@ public class AnswerController {
 	@Autowired
 	private AnswerService service;
 	
+	/**
+	 * 更新参考答案
+	 * @param id    主键
+	 * @param answerContent    答案
+	 * @param analyse  分析
+	 * @return
+	 */
 	@RequestMapping(value="/answer/update", method=RequestMethod.POST)
 	public Result update(String id, String answerContent, String analyse) {
 		return service.update(id, answerContent, analyse);
 	}
-
 }

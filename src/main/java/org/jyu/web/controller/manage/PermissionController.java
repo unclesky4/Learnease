@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.hibernate.validator.constraints.Length;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.manage.PermissionJson;
 import org.jyu.web.dto.manage.ZtreePermission;
@@ -30,9 +33,9 @@ public class PermissionController {
 	 * @param pid    父权限
 	 * @return
 	 */
-	//@RequiresPermissions({"permission:add"})
+	@RequiresPermissions({"permission:add"})
 	@RequestMapping(value="/permission/add", method=RequestMethod.POST)
-	public Result save(@RequestParam(value="name", required=true)String name, 
+	public Result save(@Length(min=1, max=20, message="权限名长度为1-20位")String name, 
 			@RequestParam(value="code", required=false)String code,
 			@RequestParam(value="isCatalog", required=true)Boolean isCatalog,
 			@RequestParam(value="pid", required=false)String pid) {
@@ -44,6 +47,7 @@ public class PermissionController {
 	 * @param id  权限主键（null表示根节点）
 	 * @return
 	 */
+	@RequiresPermissions({"permission:query"})
 	@RequestMapping(value="/permission/all", method=RequestMethod.GET)
 	public List<ZtreePermission> getRootNodeForZtree(){
 		List<ZtreePermission> list = permissionService.findForZTree();
@@ -54,6 +58,7 @@ public class PermissionController {
 	 * 获取已启用的权限
 	 * @return
 	 */
+	@RequiresPermissions({"permission:query"})
 	@GetMapping(value="/permission/valid")
 	public List<ZtreePermission> getValidPermission() {
 		return permissionService.findValidPermission();
@@ -68,6 +73,7 @@ public class PermissionController {
 	 * @param status   启用状态
 	 * @return Result
 	 */
+	@RequiresPermissions({"permission:update"})
 	@RequestMapping(value="/permission/update", method=RequestMethod.POST)
 	public Result updatePermission(String id, String name, String code, Boolean isCatalog, Boolean status) {
 		return permissionService.update(id, name, code, isCatalog, status);
@@ -79,6 +85,7 @@ public class PermissionController {
 	 * @param targetId   父权限主键
 	 * @return Result
 	 */
+	@RequiresPermissions({"permission:update"})
 	@PostMapping(value="/permission/updatePid")
 	public Result updatePid(String id, String targetId) {
 		return permissionService.update(id, targetId);
@@ -89,6 +96,7 @@ public class PermissionController {
 	 * @param ids   权限主键（逗号分割）
 	 * @return Result
 	 */
+	@RequiresPermissions({"permission:update"})
 	@RequestMapping(value="/permission/status/update", method=RequestMethod.POST)
 	public Result updateStatus(String upIds, String downIds) {
 		return permissionService.updateStatus(upIds, downIds);
@@ -99,6 +107,7 @@ public class PermissionController {
 	 * @param id  主键
 	 * @return Result
 	 */
+	@RequiresPermissions({"permission:delete"})
 	@RequestMapping(value="/permission/del", method=RequestMethod.POST)
 	public Result delete(String id) {
 		List<String> list = new ArrayList<>();
@@ -110,6 +119,7 @@ public class PermissionController {
 	 * 获取用于侧边栏的权限
 	 * @return
 	 */
+	@RequiresAuthentication
 	@GetMapping(value="/permission/sidebar")
 	Map<String, List<PermissionJson>> findForSideBar() {
 		return permissionService.findForSideBar();

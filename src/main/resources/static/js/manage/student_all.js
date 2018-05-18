@@ -78,7 +78,11 @@ $("#student_table").bootstrapTable({
 	        					$.post("/student/status/update", param, function(result) {
 	        						$("#student_verify_dialog").dialog("close");
 	        						if (!result.success) {
-	        							alert(result.msg);
+	        							if (result.status == 404) {
+	        								alert("没有权限");
+	        							}else{
+	        								alert(result.msg);
+	        							}
 									}else{
 										$('#student_table').bootstrapTable('refresh', {});
 									}
@@ -98,7 +102,11 @@ $("#student_table").bootstrapTable({
 		        		if (result.success) {
 		        			$("#student_table").bootstrapTable('refresh');
 						}else{
-							alert(result.msg);
+							if (result.status == 404) {
+								alert("没有权限");
+							}else{
+								alert(result.msg);
+							}
 						}
 		        	}, "json");
 		        }

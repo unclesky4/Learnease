@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.hibernate.validator.constraints.Length;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.manage.LabelJson;
 import org.jyu.web.service.manage.QuestionLabelService;
@@ -25,6 +28,7 @@ public class QuestionLabelController {
 	 * 获取符合select2的所有问题标签
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/questionLabel/label_select2", method=RequestMethod.GET)
 	public List<Map<String, String>> label_select2() {
 		List<Map<String, String>> data = new ArrayList<>();
@@ -44,8 +48,9 @@ public class QuestionLabelController {
 	 * @param name   标签名
 	 * @return
 	 */
+	@RequiresPermissions({"questionlabel:add"})
 	@PostMapping(value="/questionLabel/add")
-	public Result save(String name) {
+	public Result save(@Length(min=1, max=20, message="标签名长度为1-20位")String name) {
 		return service.save(name);
 	}
 	
@@ -55,8 +60,9 @@ public class QuestionLabelController {
 	 * @param name   标签名
 	 * @return
 	 */
+	@RequiresPermissions({"questionlabel:update"})
 	@PostMapping(value="/questionLabel/update")
-	public Result update(String id, String name) {
+	public Result update(String id, @Length(min=1, max=20, message="标签名长度为1-20位")String name) {
 		return service.update(id, name);
 	}
 	
@@ -65,6 +71,7 @@ public class QuestionLabelController {
 	 * @param id   主键
 	 * @return
 	 */
+	@RequiresPermissions({"questionlabel:delete"})
 	@PostMapping(value="/questionLabel/delete")
 	public Result deleteById(String id) {
 		return service.deleteById(id);
@@ -76,6 +83,7 @@ public class QuestionLabelController {
 	 * @param pageSize     每页显示条数
 	 * @return
 	 */
+	@RequiresPermissions({"questionlabel:query"})
 	@GetMapping(value="/questionLabel/page_json")
 	public Map<String, Object> getPageJson(Integer pageNumber, Integer pageSize) {
 		return service.pageJson(pageNumber, pageSize);

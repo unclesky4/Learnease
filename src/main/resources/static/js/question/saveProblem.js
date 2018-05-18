@@ -65,8 +65,12 @@ function saveQuestionSimple() {
         success: function(result){
             alert(result.msg);
         },
-        error: function(xhr,textStatus) {
-            console.log('错误'+" "+xhr+" "+textStatus);
+        error: function(info) {
+        	if (info.status == 404) {
+				alert("没有权限");
+			}else{
+				alert("error");
+			}
         }
     });
 }
@@ -144,8 +148,12 @@ function saveQuestionMultiple() {
         success:function (data){
             alert(data.msg);
         },
-        error:function (xhr,textStatus) {
-            console.log('错误'+" "+xhr+" "+textStatus);
+        error:function (info) {
+        	if (info.status == 404) {
+				alert("没有权限");
+			}else{
+				alert("error");
+			}
         }
 
     });
@@ -203,8 +211,12 @@ function saveQuestionJudgement() {
         success: function (result) {
             alert(result.msg);
         },
-        error: function (xhr, textStatus) {
-            console.log('错误' + " " + xhr + " " + textStatus);
+        error: function (info) {
+        	if (info.status == 404) {
+				alert("没有权限");
+			}else{
+				alert("error");
+			}
         }
     });
 
@@ -259,8 +271,12 @@ function saveQuestionBlank() {
         success: function (result) {
             alert(result.msg);
         },
-        error: function (xhr, textStatus) {
-            console.log('错误' + " " + xhr + " " + textStatus);
+        error: function (info) {
+        	if (info.status == 404) {
+				alert("没有权限");
+			}else{
+				alert("error");
+			}
         }
     });
 }
@@ -289,7 +305,7 @@ function saveQuestionProgram() {
 		return false;
 	}
 	if(questionName == "" || questionName.length > 256) {
-		alert('题目不能为空且长度须小于256');
+		alert('题目不能为空且长度须小于4096');
 	    return false;
 	}
 	if(description =="" || description.length > 256){
@@ -297,7 +313,7 @@ function saveQuestionProgram() {
 	    return false;
 	}
 	if(analyse == "" || analyse.length > 512) {
-		alert('答案分析不能为空且长度须小于512');
+		alert('答案分析不能为空且长度须小于4096');
 	    return false;
 	}
 	if(labelIds.length == 0)  {
@@ -332,8 +348,12 @@ function saveQuestionProgram() {
         success: function (result) {
             alert(result.msg);
         },
-        error: function (xhr, textStatus) {
-            console.log('错误' + " " + xhr + " " + textStatus);
+        error: function (info) {
+        	if (info.status == 404) {
+				alert("没有权限");
+			}else{
+				alert("error");
+			}
         }
     });
 }

@@ -71,4 +71,11 @@ public interface RoleService {
 	 * @return
 	 */
 	List<ZtreePermission> findRolePermissions(String id);
+	
+	/**
+	 * 通过角色代码查询
+	 * @param code   角色代码
+	 * @return
+	 */
+	Role findByCode(String code);
 }

@@ -40,7 +40,7 @@ public class Question implements Serializable {
 	@Column(length=20, nullable=false)
 	private String shortName;  //题目简述
 	
-	@Column(length=1024, nullable=false)
+	@Column(length=4096, nullable=false)
 	private String content;   //问题主干
 	
 	@Column(length=1, nullable=false)

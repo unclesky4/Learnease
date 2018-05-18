@@ -54,8 +54,8 @@ public class UserServiceImpl implements UserService {
 		user.setPwd(MD5Util.MD5(pwd));
 		user.setValidation(0);
 		userDao.saveAndFlush(user);
-		MailUtil.sendMail(email, code);
-		return new Result(true, "注册成功，请登陆邮箱验证");
+		
+		return new Result(true, code);
 	}
 
 	@Transactional

@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 import org.apache.shiro.SecurityUtils;
+import org.hibernate.validator.constraints.Length;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.authority.TeacherJson;
 import org.jyu.web.service.authority.TeacherService;
@@ -23,10 +27,19 @@ public class TeacherController {
 	
 	/**
 	 * 申请教师角色
+	 * @param name  姓名
+	 * @param sex  性别
+	 * @param idCard   职工号
+	 * @param subject  学科
+	 * @param phone  手机电话
 	 * @return
 	 */
 	@RequestMapping(value="/teacher/save", method=RequestMethod.POST)
-	public Result saveTeacher(String name, String sex, String idCard, String subject, String phone) {
+	public Result saveTeacher(@Length(min=1, max=20, message="姓名长度为1-20位")String name, 
+			@NotBlank(message="性别不能为空")String sex, 
+			@Length(min=1, max=20, message="职工号长度为1-10位")String idCard, 
+			@Length(min=1, max=20, message="学科长度为1-30位")String subject, 
+			@Pattern(regexp="^1[3|4|5|7|8][0-9]{9}$", message="请输入正确的手机格式")String phone) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
 		if (userId == null) {
 			return new Result(false, "请登陆");
@@ -48,7 +61,7 @@ public class TeacherController {
 	
 	/**
 	 * 通过主键查询教师信息
-	 * @param tid
+	 * @param tid    主键
 	 * @return
 	 */
 	@RequestMapping(value="/teacher/findTeacherById", method=RequestMethod.GET)
@@ -81,10 +94,20 @@ public class TeacherController {
 	
 	/**
 	 * 修改教师信息
+	 * @param tid    主键
+	 * @param name  姓名
+	 * @param sex  性别
+	 * @param idCard   职工号
+	 * @param subject  学科
+	 * @param phone  手机电话
 	 * @return
 	 */
 	@RequestMapping(value="/teacher/update", method=RequestMethod.POST)
-	public Result updateTeacher(String tid, String name, String sex, String idCard, String subject, String phone) {
+	public Result updateTeacher(String tid, @Length(min=1, max=20, message="姓名长度为1-20位")String name, 
+			@NotBlank(message="性别不能为空")String sex, 
+			@Length(min=1, max=20, message="职工号长度为1-10位")String idCard, 
+			@Length(min=1, max=20, message="学科长度为1-30位")String subject, 
+			@Pattern(regexp="^1[3|4|5|7|8][0-9]{9}$", message="请输入正确的手机格式")String phone) {
 		return service.update(tid, name, sex, idCard, subject, phone, null);
 	}
 	

@@ -2,6 +2,7 @@ package org.jyu.web.conf;
 
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authz.AuthorizationException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.jyu.web.dto.Result;
 import org.jyu.web.exception.EmailNotValidateException;
@@ -71,7 +72,7 @@ public class GlobalExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(value = NullPointerException.class)
     public Result NullPointerException(NullPointerException ex) {
-    	Result result = new Result(false, "操作失败");
+    	Result result = new Result(false, "出现空值");
     	ex.printStackTrace();
         return result;
     }
@@ -88,7 +89,7 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(value = UnknownAccountException.class)
     public Result UnknownAccountException(UnknownAccountException ex) {
     	Result result = new Result(false, "用户名不存在");
-    	ex.printStackTrace();
+    	//ex.printStackTrace();
     	return result;
     }
     
@@ -108,4 +109,28 @@ public class GlobalExceptionAdvice {
     	return result;
     }
     
+    @ResponseBody
+    @ExceptionHandler(value = AuthorizationException.class)
+    public Result AuthorizationException(AuthorizationException ex) {
+    	Result result = new Result(false, "没有权限");
+    	ex.printStackTrace();
+    	return result;
+    }
+    
+    @ResponseBody
+    @ExceptionHandler(value = javax.validation.ConstraintViolationException.class)
+    public Result ConstraintViolationException1(javax.validation.ConstraintViolationException ex) {
+    	
+    	/*save.arg4: 请输入密码, save.arg5: 请输入确认密码, save.arg0: 姓名长度为1-20位*/
+    	
+    	String message = ex.getMessage();
+    	//System.out.println(message);
+    	String[] info = message.split(",");
+    	int index = info[0].indexOf(":");
+    	message = info[0].substring(index+1);
+    	
+    	Result result = new Result(false, message);
+    	//ex.printStackTrace();
+    	return result;
+    }
 }

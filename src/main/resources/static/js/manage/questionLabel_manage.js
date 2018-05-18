@@ -19,12 +19,15 @@ $("#questionLabel_add").click(function() {
 					"code": code
 				};
 				$.post("/questionLabel/add",params,function(result){
+					$("#add_questionLabel").dialog( "close" );
 					if(result.success == "true" || result.success == true) {
-						$("#add_questionLabel").dialog( "close" );
 						$('#questionLabel_table').bootstrapTable('refresh', {});
 					}else{
-						$("#add_questionLabel").dialog( "close" );
-						alert(result.msg);
+						if (result.status == 404) {
+							alert("没有权限");
+						}else{
+							alert(result.msg);
+						}
 					}
 				},"json");
 			},
@@ -94,12 +97,15 @@ questionlable_table.bootstrapTable({
 		        					"name": name
 		        				};
 		        				$.post("/questionLabel/update",params,function(result){
+		        					$("#update_questionLabel").dialog( "close" );
 		        					if(result.success == "true" || result.success == true) {
-		        						$("#update_questionLabel").dialog( "close" );
 		        						$('#questionLabel_table').bootstrapTable('refresh', {});
 		        					}else{
-		        						$("#update_questionLabel").dialog( "close" );
-		        						alert(result.msg);
+		        						if (result.status == 404) {
+		        							alert("没有权限");
+		        						}else{
+		        							alert(result.msg);
+		        						}
 		        					}
 		        				},"json");
 		        			},
@@ -117,7 +123,11 @@ questionlable_table.bootstrapTable({
 		        		if (result.success == true || result == "true") {
 		        			$('#questionLabel_table').bootstrapTable('refresh', {});
 						}else{
-							alert(result.msg);
+							if (result.status == 404) {
+								alert("没有权限");
+							}else{
+								alert(result.msg);
+							}
 						}
 		        	}, "json");
 		        }

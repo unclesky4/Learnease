@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.hibernate.validator.constraints.Length;
 import org.jyu.web.dto.Result;
 import org.jyu.web.entity.paper.PaperLabel;
 import org.jyu.web.service.manage.PaperLabelService;
@@ -23,6 +26,7 @@ public class PaperLabelController {
 	 * 获取符合select2格式的所有试卷标签
 	 * @return
 	 */
+	@RequiresAuthentication
 	@GetMapping(value="/paperLabel/label_select2")
 	public List<Map<String, String>> label_select2() {
 		List<Map<String, String>> data = new ArrayList<>();
@@ -42,8 +46,9 @@ public class PaperLabelController {
 	 * @param name  标签名
 	 * @return
 	 */
+	@RequiresPermissions(value={"paperlabel:add"})
 	@PostMapping(value="/paperLabel/add")
-	public Result save(String name) {
+	public Result save(@Length(min=1, max=20, message="标签名长度为1-20位")String name) {
 		return service.save(name);
 	}
 	
@@ -53,8 +58,9 @@ public class PaperLabelController {
 	 * @param name  标签名
 	 * @return
 	 */
+	@RequiresPermissions(value={"paperlabel:update"})
 	@PostMapping(value="/paperLabel/update")
-	public Result update(String id, String name) {
+	public Result update(String id, @Length(min=1, max=20, message="标签名长度为1-20位")String name) {
 		return service.update(id, name);
 	}
 	
@@ -63,6 +69,7 @@ public class PaperLabelController {
 	 * @param id   主键
 	 * @return
 	 */
+	@RequiresPermissions(value={"paperlabel:delete"})
 	@PostMapping(value="/paperLabel/delete")
 	public Result deleteById(String id) {
 		return service.deleteByid(id);
@@ -75,6 +82,7 @@ public class PaperLabelController {
 	 * @param sortOrder   排序
 	 * @return
 	 */
+	@RequiresPermissions(value={"paperlabel:query"})
 	@GetMapping(value="paperLabel/page_json")
 	public Map<String, Object> pageJson(Integer pageNumber, Integer pageSize, String sortOrder) {
 		return  service.pageJson(pageNumber, pageSize, sortOrder);

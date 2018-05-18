@@ -194,6 +194,7 @@ public class StudentServiceImpl implements StudentService {
 		}
 		json.setStuAcademy(student.getStuAcademy());
 		json.setIdCard(student.getIdCard());
+		json.setStatusCode(student.getStatus());
 		switch (student.getStatus()) {
 		case 0:
 			json.setStatus("待审核");

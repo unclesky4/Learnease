@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.question.AnswerJson;
 import org.jyu.web.dto.question.QuestionSimpleJson;
@@ -74,6 +76,7 @@ public class QuestionSimpleController {
 	 * @param analyse
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:add"})
 	@RequestMapping(value="/simple/save", method=RequestMethod.POST)
 	public Result save(String shortName, String content, Integer difficulty, String options, String labelIds, 
 			String answerContent, String analyse) {
@@ -112,6 +115,7 @@ public class QuestionSimpleController {
 	 * @param analyse
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:update"})
 	@RequestMapping(value="/simple/update", method=RequestMethod.POST)
 	public Result update(String id, String shortName, String content, Integer difficulty, String options, String labelIds, 
 			String answerContent, String analyse) {
@@ -140,9 +144,10 @@ public class QuestionSimpleController {
 	
 	/**
 	 * 删除
-	 * @param id
+	 * @param id  主键
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:delete"})
 	@RequestMapping(value="/simple/delete", method=RequestMethod.POST)
 	public Result delete(String id) {
 		return questionSimpleService.deleteById(id);
@@ -153,7 +158,8 @@ public class QuestionSimpleController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/simple/getById", method=RequestMethod.GET)
+	//@RequiresAuthentication
+	@RequestMapping(value="/simple/findById", method=RequestMethod.GET)
 	public QuestionSimpleJson getById(String id) {
 		return convert(questionSimpleService.findById(id));
 	}
@@ -165,6 +171,7 @@ public class QuestionSimpleController {
 	 * @param sortOrder
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:query"})
 	@RequestMapping(value="/simple/all", method=RequestMethod.GET)
 	public Map<String, Object> getPageJson(int pageNumber, int pageSize, String sortOrder) {
 		return questionSimpleService.list(pageNumber, pageSize, sortOrder);
@@ -174,11 +181,22 @@ public class QuestionSimpleController {
 	 * 判断用户提交的答案
 	 * @param qid
 	 * @param answercontent
-	 * @return
+	 * @return   返回判断结果及参考答案分析
 	 */
-	@RequestMapping(value="/simple/judge",method=RequestMethod.POST)
+	@RequiresAuthentication
+	@RequestMapping(value="/simple/judge",method=RequestMethod.GET)
 	public Result judgeAnswer(String qid, String answercontent) {
-		return null;
+		QuestionSimple simple = questionSimpleService.findById(qid);
+		if (simple == null) {
+			return new Result(false, "题目不存在");
+		}
+		if (simple.getSimpleAnswer() == null) {
+			return new Result(false, "参考答案不存在");
+		}
+		if (simple.getSimpleAnswer().getContent().equals(answercontent)) {
+			return new Result(true, simple.getSimpleAnswer().getAnalyse());
+		}
+		return new Result(false, simple.getSimpleAnswer().getAnalyse());
 	}
 	
 	/**
@@ -188,6 +206,7 @@ public class QuestionSimpleController {
 	 * @param sortOrder
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/simple/own", method=RequestMethod.GET)
 	public Map<String, Object> getOwnQuestionSimple(int pageNumber, int pageSize, String sortOrder) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
@@ -204,6 +223,7 @@ public class QuestionSimpleController {
 	 * @param id
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/simple/answer", method=RequestMethod.GET)
 	public AnswerJson getAnswer(String id) {
 		Answer answer = questionSimpleService.findById(id).getSimpleAnswer();

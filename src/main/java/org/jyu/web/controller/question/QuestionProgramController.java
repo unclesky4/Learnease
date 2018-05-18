@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jyu.web.dto.Result;
 import org.jyu.web.dto.question.AnswerJson;
 import org.jyu.web.dto.question.QuestionProgramJson;
@@ -38,7 +40,7 @@ public class QuestionProgramController {
 	}
 	
 	/**
-	 * 编程题列表  -- study
+	 * 编程题信息
 	 * @param mv
 	 * @return
 	 */
@@ -76,6 +78,7 @@ public class QuestionProgramController {
 	 * @param labelIds  标签（逗号分割）
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:add"})
 	@RequestMapping(value="/program/save", method=RequestMethod.POST)
 	public Result save(String shortName, String content, Integer difficulty, String description, 
 			String input, String output, String exampleInput, String exampleOutput, String hint, 
@@ -96,6 +99,7 @@ public class QuestionProgramController {
 	 * 删除编程题
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:delete"})
 	@RequestMapping(value="/program/delete", method=RequestMethod.POST)
 	public Result delete(String id) {
 		return questionProgramService.delete(id);
@@ -118,6 +122,7 @@ public class QuestionProgramController {
 	 * @param labelIds  标签（逗号分割）
 	 * @return
 	 */
+	@RequiresPermissions(value={"question:update"})
 	@RequestMapping(value="/program/update", method=RequestMethod.POST)
 	public Result update(String id, String shortName, String content, Integer difficulty,
 			String description, String input, String output, String exampleInput, String exampleOutput, 
@@ -138,6 +143,7 @@ public class QuestionProgramController {
 	 * @param id
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/program/getById", method=RequestMethod.GET)
 	public QuestionProgramJson getById(String id) {
 		return convert(questionProgramService.findById(id));
@@ -150,11 +156,11 @@ public class QuestionProgramController {
 	 * @param sortOrder  排序
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/program/all", method=RequestMethod.GET)
-	public Map<String, Object> getAllQuestionBlank(int pageNumber, int pageSize, String sortOrder) {
+	public Map<String, Object> getAllQuestionProgram(int pageNumber, int pageSize, String sortOrder) {
 		return questionProgramService.list(pageNumber, pageSize, sortOrder);
 	}
-	
 	
 	/**
 	 * 分页查询登陆用户提交的编程题
@@ -163,6 +169,7 @@ public class QuestionProgramController {
 	 * @param sortOrder
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/program/own", method=RequestMethod.GET)
 	public Map<String, Object> getOwnQuestionProgram(int pageNumber, int pageSize, String sortOrder) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
@@ -179,6 +186,7 @@ public class QuestionProgramController {
 	 * @param id
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value="/program/answer", method=RequestMethod.GET)
 	public AnswerJson getAnswer(String id) {
 		Answer answer = questionProgramService.findById(id).getAnswer();

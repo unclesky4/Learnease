@@ -112,7 +112,6 @@ public class QuestionProgramServiceImpl implements QuestionProgramService {
 						FileUtil.writeFile(judgesAnswerFile, OtherUtil.delHTMLTag(questionProgram.getExampleOutput()));
 					}
 				}
-				
 				InitPC2.getAdmin_serverConnection().addProblem(content, shortName, judgesDataFile, judgesAnswerFile, false, problemProperties);
 			}
 		}

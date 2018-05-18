@@ -66,12 +66,15 @@ var permission_tree = {
 		if(confirm("确认删除权限<" + treeNode.name + ">？")) {
            var params = {"id": treeNode.id};
            $.post("/permission/del", params, function (result) {
-               if (result.success == true) {
-                   return true;
-               }else{
-            	   alert(result.msg);
-                   return false;
-               }
+				if (result.success == true) {
+					return true;
+				}
+				if(result.status == 404) {
+					alert("没有权限");
+				}else{
+					alert(result.msg);
+				}
+				return false;
            });
 		}else{
            return false;
@@ -118,7 +121,11 @@ var permission_add_root_dialog = {
 							$.fn.zTree.getZTreeObj("permission_tree").addNodes(null, -1, result.msg, true);
 						}else{
 							add_root_dialog.dialog( "close" );
-							alert(result.msg);
+							if (result.status == 404) {
+								alert("没有权限");
+							}else{
+								alert(result.msg);
+							}
 						}
 						
 					},"json");
@@ -149,14 +156,18 @@ var permission_add_dialog = {
 						"isCatalog": isCatalog,
 						"pid": treeNode.id
 					};
-					$.post("permission/add",params,function(result){
+					$.post("/permission/add",params,function(result){
 						if(result.success == "true" || result.success == true) {
 							add_dialog.dialog( "close" );
 							var index = treeNode.getIndex()+1;
 							$.fn.zTree.getZTreeObj("permission_tree").addNodes(treeNode, index, result.msg);
 						}else{
 							add_dialog.dialog( "close" );
-							alert(result.msg);
+							if (result.status == 404) {
+								alert("没有权限");
+							}else{
+								alert(result.msg);
+							}
 						}
 						
 					},"json");
@@ -190,14 +201,17 @@ var permission_up_dialog = {
 						"pid": treeNode.id
 					};
 					$.post("permission/update",params,function(result){
+						up_dialog.dialog( "close" );
 						if(result.success == "true" || result.success == true) {
-							up_dialog.dialog( "close" );
 							treeNode.name = name;
 							treeNode.code = code;
 							$.fn.zTree.getZTreeObj("permission_tree").updateNode(treeNode, true);
 						}else{
-							up_dialog.dialog( "close" );
-							alert(result.msg);
+							if (result.status == 404) {
+								alert("没有权限");
+							}else{
+								alert(result.msg);
+							}
 						}
 						
 					},"json");
@@ -234,7 +248,11 @@ $(function() {
 			"downIds": downIds.join(",")
 		};
 		$.post("/permission/status/update", param, function(result) {
-			alert(result.msg);
+			if (result.status == 404) {
+				alert("没有权限");
+			}else{
+				alert(result.msg);
+			}
 		}, "json");
 	});
 	
@@ -267,7 +285,11 @@ function zTreeOnDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
     };
     $.post("/permission/updatePid", param, function(result) {
     	if(result.success == false) {
-    		alert(result.msg);
+    		if (result.status == 404) {
+				alert("没有权限");
+			}else{
+				alert(result.msg);
+			}
     	}
     }, "json");
 };

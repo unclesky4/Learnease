@@ -281,8 +281,12 @@
 				var labels = $.trim(result.labels.replace("\[", "").replace("\]","")).split(",");
 			    $("#questionprogram_labels").val(labels);
 			},
-			error: function() {
-				alert("error");
+			error: function(info) {
+				if (info.status == 404) {
+					alert("没有权限");
+				}else{
+					alert("error");
+				}
 			}
 		});
 		
@@ -297,8 +301,12 @@
 				$("#questionprogram_answerContent").val(result.content);
 				$("#questionprogram_analyse").val(result.analyse);
 			},
-			error: function() {
-				alert("error");
+			error: function(info) {
+				if (info.status == 404) {
+					alert("没有权限");
+				}else{
+					alert("error");
+				}
 			}
 		});
 	});
@@ -358,8 +366,12 @@
 	        success: function(result){
 	            alert(result.msg);
 	        },
-	        error: function(xhr,textStatus) {
-	            console.log('错误'+" "+xhr+" "+textStatus);
+	        error: function(info) {
+	        	if (info.status == 404) {
+					alert("没有权限");
+				}else{
+					alert("error");
+				}
 	        }
 	    });
 	}
@@ -386,8 +398,12 @@
 	        success: function(result){
 	            alert(result.msg);
 	        },
-	        error: function(xhr,textStatus) {
-	            console.log('错误'+" "+xhr+" "+textStatus);
+	        error: function(info) {
+	        	if (info.status == 404) {
+					alert("没有权限");
+				}else{
+					alert("error");
+				}
 	        }
 	    });
     }

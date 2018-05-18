@@ -6,8 +6,12 @@ $.ajax({
 	data: {},
 	type: 'get',
 	success: function(data) {
-		if (data.success==true || data.success=="true") {
-			//$(".apply_student").attr('disabled',true);
+		if (data.msg != null) {
+			if (data.msg.statusCode == 1) {
+				$(".apply_student").attr('disabled',true);
+			}else{
+				$(".update_student").attr('disabled',true);
+			}
 			$("#stu_status").val(data.msg.status);
 			$("#stu_name").val(data.msg.stuName);
 			$("#stu_academy").val(data.msg.stuAcademy);
@@ -20,8 +24,6 @@ $.ajax({
 			$("#stu_idcard").val(data.msg.idCard);
 			$("#stu_class").val(data.msg.stuClass);
 			$("#register_year").val(data.msg.stuEntranceTime);
-		}else{
-			$(".update_student").attr('disabled',true);
 		}
 	},
 	error: function() {
@@ -38,8 +40,12 @@ $.ajax({
 	type: 'get',
 	success: function(data) {
 		//alert(JSON.stringify(data));
-		if (data.success == true || data.success=="true") {
-			//$(".apply_teacher").attr('disabled',true);
+		if (data.msg != null) {
+			if (data.msg.statusCode == 1) {
+				$(".apply_teacher").attr('disabled',true);
+			}else{
+				$(".update_teacher").attr('disabled',true);
+			}
 			$("#teacher_status").val(data.msg.status);
 			$("#teacher_phone").val(data.msg.phone);
 			$("#teacher_idCard").val(data.msg.idCard);
@@ -51,8 +57,6 @@ $.ajax({
 			}
 			$("#teacher_id").text(data.msg.tid);
 			$("#teacher_name").val(data.msg.name);
-		}else{
-			$(".update_teacher").attr('disabled',true);
 		}
 	},
 	error: function() {
@@ -106,8 +110,12 @@ function update_user() {
 		success: function(result) {
 			alert(result.msg);
 		},
-		error: function() {
-			alert("error");
+		error: function(info) {
+			if (info.status == 404) {
+				alert("没有权限");
+			}else{
+				alert("error");
+			}
 		}
 	});
 }
@@ -138,8 +146,12 @@ function changePwd() {
 		success: function(result) {
 			alert(result.msg);
 		},
-		error: function() {
-			alert("error");
+		error: function(info) {
+			if (info.status == 404) {
+				alert("没有权限");
+			}else{
+				alert("error");
+			}
 		}
 	});
 }
@@ -284,8 +296,12 @@ function addTeacher() {
 			$("#addTeacher_result").html(result.msg);
 			$("#addTeacher_result").show("fast");
 		},
-		error: function() {
-			alert("error");
+		error: function(info) {
+			if (info.status == 404) {
+				alert("没有权限");
+			}else{
+				alert("error");
+			}
 		}
 	});
 }
@@ -344,8 +360,12 @@ function updateStudent() {
 			success: function(result) {
 				alert(result.msg);
 			},
-			error: function() {
-				alert("error");
+			error: function(info) {
+				if (info.status == 404) {
+					alert("没有权限");
+				}else{
+					alert("error");
+				}
 			}
 		});
 	}
@@ -394,10 +414,18 @@ function updateTeacher() {
 				"phone": phone
 			},
 			success: function(result) {
-				alert(result.msg);
+				if (result.status == 404) {
+					alert("没有权限");
+				}else{
+					alert(result.msg);
+				}
 			},
-			error: function() {
-				alert("error");
+			error: function(info) {
+				if (info.status == 404) {
+					alert("没有权限");
+				}else{
+					alert("error");
+				}
 			}
 		});
 	}

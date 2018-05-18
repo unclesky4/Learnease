@@ -2,10 +2,14 @@ package org.jyu.web.controller.authority;
 
 import java.util.Map;
 
+import javax.validation.constraints.NotBlank;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.hibernate.validator.constraints.Length;
 import org.jyu.web.dto.Result;
+import org.jyu.web.dto.authority.StudentJson;
 import org.jyu.web.dto.authority.TeacherJson;
 import org.jyu.web.dto.authority.UserJson;
 import org.jyu.web.entity.authority.User;
@@ -34,19 +38,38 @@ public class UserController {
 
 	/**
 	 * 注册用户
+	 * @param name   昵称
+	 * @param email  邮箱
+	 * @param pwd    密码
+	 * @param pwd_repeat  确认密码
 	 * @return
 	 */
 	@RequestMapping(value="/user/register", method=RequestMethod.POST)
-	public Result register(String name,String email,String pwd, String pwd_repeat) {
+	public Result register(@Length(min=1, max=20, message="昵称长度为1-20位")String name,
+			@Length(min=1, max=20, message="邮箱长度为1-50位")String email,
+			@NotBlank(message="密码不能为空")String pwd,
+			@NotBlank(message="确认密码不能为空")String pwd_repeat) {
+		
 		if (!pwd.equals(pwd_repeat)) {
 			return new Result(false, "两次密码不匹配");
 		}
-		return userService.save(name, email, pwd);
+		Result result = userService.save(name, email, pwd);
+		if (result.getSuccess()) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					MailUtil.sendMail(email, result.toString());
+				}
+			}).start();
+		}else{
+			return new Result(true, "注册失败");
+		}
+		return new Result(true, "注册成功，请验证邮箱");
 	}
 	
 	/**
 	 * 删除用户
-	 * @param uid
+	 * @param uid  用户主键
 	 * @return
 	 */
 	@RequestMapping(value="/user/delete", method=RequestMethod.POST)
@@ -55,11 +78,12 @@ public class UserController {
 	}
 	
 	/**
-	 * 修改昵称
+	 * 登陆用户修改昵称
+	 * @param userName  昵称
 	 * @return
 	 */
 	@RequestMapping(value="/user/updateUserName", method=RequestMethod.POST)
-	public Result updateUserName(String userName) {
+	public Result updateUserName(@Length(min=1, max=20, message="昵称长度为1-20位")String userName) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
 		if (userId == null) {
 			return new Result(false, "请登陆");
@@ -69,13 +93,15 @@ public class UserController {
 	
 	/**
 	 * 修改用户密码
-	 * @param old_pwd
-	 * @param new_pwd1
-	 * @param new_pwd2
+	 * @param old_pwd  旧密码
+	 * @param new_pwd1  新密码
+	 * @param new_pwd2  确认密码
 	 * @return
 	 */
 	@RequestMapping(value="/user/updatePwd", method=RequestMethod.POST)
-	public Result updatePwd(String old_pwd, String new_pwd1, String new_pwd2) {
+	public Result updatePwd(@NotBlank(message="请输入旧密码")String old_pwd, 
+			@NotBlank(message="请输入新密码")String new_pwd1, 
+			@NotBlank(message="请输入确认密码")String new_pwd2) {
 		String userId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
 		if (userId == null) {
 			return new Result(false, "请登陆");
@@ -91,7 +117,7 @@ public class UserController {
 	
 	/**
 	 * 通过主键查找用户
-	 * @param uid
+	 * @param uid   主键
 	 * @return
 	 */
 	@RequestMapping(value="/user/findUserById", method=RequestMethod.GET)
@@ -192,7 +218,11 @@ public class UserController {
 		if (user.getStudent() == null) {
 			return new Result(false, "角色不存在");
 		}
-		return new Result(true, studentService.findById(user.getStudent().getStuId()));
+		StudentJson json = studentService.findById(user.getStudent().getStuId());
+		if (user.getStudent().getStatus() != null) {
+			return new Result(false, json);
+		}
+		return new Result(true, json);
 	}
 	
 	/**
@@ -213,6 +243,9 @@ public class UserController {
 			return new Result(false, "角色不存在");
 		}
 		TeacherJson json = teacherService.findById(user.getTeacher().getTid());
+		if (user.getTeacher().getStatus() != null) {
+			return new Result(false, json);
+		}
 		return new Result(true, json);
 	}
 	
@@ -258,7 +291,12 @@ public class UserController {
 		if (user == null) {
 			return new Result(false, "邮箱不存在");
 		}
-		MailUtil.sendResetPwdEmail(userEmail, user.getCode());
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				MailUtil.sendResetPwdEmail(userEmail, user.getCode());
+			}
+		}).start();
 		return new Result(true, "重置密码邮箱已发送");
 	}
 	
