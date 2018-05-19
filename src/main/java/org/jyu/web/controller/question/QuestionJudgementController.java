@@ -29,9 +29,9 @@ public class QuestionJudgementController {
 	@Autowired
 	private QuestionJudgementService service;
 	
-	@RequestMapping(value="judgement_list_student", method=RequestMethod.GET)
+	@RequestMapping(value="/judgement_list_student", method=RequestMethod.GET)
 	public ModelAndView judgement_list_student(ModelAndView mv) {
-		mv.setViewName("/question/student/judgement_list.html");
+		mv.setViewName("question/student/judgement_list.html");
 		return mv;
 	}
 	
@@ -42,9 +42,9 @@ public class QuestionJudgementController {
 	 * @return
 	 */
 	@RequiresAuthentication
-	@RequestMapping(value="judgement_up_html", method=RequestMethod.GET)
+	@RequestMapping(value="/judgement_up_html", method=RequestMethod.GET)
 	public ModelAndView judgement_up_html(ModelAndView mv, String id) {
-		mv.setViewName("/question/teacher/judgement_up.html");
+		mv.setViewName("question/teacher/judgement_up.html");
 		return mv;
 	}
 

@@ -1,8 +1,6 @@
 package org.jyu.web.controller.common;
 
 import org.apache.shiro.SecurityUtils;
-import org.jyu.web.dto.manage.AdministratorJson;
-import org.jyu.web.entity.manage.Administrator;
 import org.jyu.web.service.manage.AdministratorService;
 import org.jyu.web.service.manage.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +31,7 @@ public class ManageViewController {
 	 */
 	@GetMapping(value="/admin")
 	public ModelAndView login_html(ModelAndView mv) {
-		mv.setViewName("/manage/login.html");
+		mv.setViewName("manage/login.html");
 		return mv;
 	}
 	
@@ -44,7 +42,7 @@ public class ManageViewController {
 	 */
 	@GetMapping(value="/admin_profile")
 	public ModelAndView profile_html(ModelAndView mv) {
-		mv.setViewName("/manage/profile.html");
+		mv.setViewName("manage/profile.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		//System.out.println(JsonUtil.toJson(permissionService.findForSideBar()));
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
@@ -61,7 +59,7 @@ public class ManageViewController {
 	 */
 	@RequestMapping(value="/permission_html", method=RequestMethod.GET)
 	public ModelAndView permission_html(ModelAndView mv) {
-		mv.setViewName("/manage/permission.html");
+		mv.setViewName("manage/permission.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
@@ -74,7 +72,7 @@ public class ManageViewController {
 	 */
 	@GetMapping(value="/role_html")
 	public ModelAndView role_html(ModelAndView mv) {
-		mv.setViewName("/manage/role_manage.html");
+		mv.setViewName("manage/role_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
@@ -87,7 +85,7 @@ public class ManageViewController {
 	 */
 	@GetMapping(value="/admin_html")
 	public ModelAndView admin_manage(ModelAndView mv) {
-		mv.setViewName("/manage/admin_manage.html");
+		mv.setViewName("manage/admin_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
@@ -100,7 +98,7 @@ public class ManageViewController {
 	 */
 	@GetMapping(value="/teacher_application")
 	public ModelAndView teacher_apply_html(ModelAndView mv) {
-		mv.setViewName("/manage/teacher_apply_manage.html");
+		mv.setViewName("manage/teacher_apply_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
@@ -113,7 +111,7 @@ public class ManageViewController {
 	 */
 	@GetMapping(value="/student_application")
 	public ModelAndView student_apply_html(ModelAndView mv) {
-		mv.setViewName("/manage/student_apply_manage.html");
+		mv.setViewName("manage/student_apply_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
@@ -127,7 +125,7 @@ public class ManageViewController {
 	 */
 	@GetMapping(value="/user_all")
 	public ModelAndView user_all(ModelAndView mv) {
-		mv.setViewName("/manage/user_all.html");
+		mv.setViewName("manage/user_all.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
@@ -140,7 +138,7 @@ public class ManageViewController {
 	 */
 	@GetMapping(value="/questionlabel_html")
 	public ModelAndView qustionlabel_html(ModelAndView mv) {
-		mv.setViewName("/manage/questionlabel_manage.html");
+		mv.setViewName("manage/questionlabel_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
@@ -153,7 +151,7 @@ public class ManageViewController {
 	 */
 	@GetMapping(value="/paperlabel_html")
 	public ModelAndView paperlabel_html(ModelAndView mv) {
-		mv.setViewName("/manage/paperlabel_manage.html");
+		mv.setViewName("manage/paperlabel_manage.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
@@ -167,7 +165,7 @@ public class ManageViewController {
 	 */
 	@GetMapping(value="/teacher_all")
 	public ModelAndView teacher_all(ModelAndView mv) {
-		mv.setViewName("/manage/teacher_all.html");
+		mv.setViewName("manage/teacher_all.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;
@@ -180,7 +178,7 @@ public class ManageViewController {
 	 */
 	@GetMapping(value="/student_all")
 	public ModelAndView student_all(ModelAndView mv) {
-		mv.setViewName("/manage/student_all.html");
+		mv.setViewName("manage/student_all.html");
 		mv.addObject("permissions", permissionService.findForSideBar());
 		mv.addObject("adminName", SecurityUtils.getSubject().getSession().getAttribute("adminName"));
 		return mv;

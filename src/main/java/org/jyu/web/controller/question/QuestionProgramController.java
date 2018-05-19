@@ -33,9 +33,9 @@ public class QuestionProgramController {
 	 * @param mv
 	 * @return
 	 */
-	@RequestMapping(value="program_list_student", method=RequestMethod.GET)
+	@RequestMapping(value="/program_list_student", method=RequestMethod.GET)
 	public ModelAndView program_list_student(ModelAndView mv) {
-		mv.setViewName("/question/student/program_list.html");
+		mv.setViewName("question/student/program_list.html");
 		return mv;
 	}
 	
@@ -44,9 +44,9 @@ public class QuestionProgramController {
 	 * @param mv
 	 * @return
 	 */
-	@RequestMapping(value="program_info_html", method=RequestMethod.GET)
+	@RequestMapping(value="/program_info_html", method=RequestMethod.GET)
 	public ModelAndView program_info_html(ModelAndView mv) {
-		mv.setViewName("/question/student/program_info.html");
+		mv.setViewName("question/student/program_info.html");
 		return mv;
 	}
 	
@@ -56,9 +56,9 @@ public class QuestionProgramController {
 	 * @param id   判断题主键
 	 * @return
 	 */
-	@RequestMapping(value="program_up_html", method=RequestMethod.GET)
+	@RequestMapping(value="/program_up_html", method=RequestMethod.GET)
 	public ModelAndView program_up_html(ModelAndView mv, String id) {
-		mv.setViewName("/question/teacher/program_up.html");
+		mv.setViewName("question/teacher/program_up.html");
 		return mv;
 	}
 	

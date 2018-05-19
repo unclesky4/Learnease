@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableCaching
 @SpringBootApplication
 @EnableTransactionManagement
-@ServletComponentScan(basePackages={"org.jyu.web.conf"})
+@ServletComponentScan
 public class SpringBootStart {
 
 	public static void main(String[] args) {

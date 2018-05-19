@@ -26,7 +26,7 @@ public class PaperController {
 	 */
 	@GetMapping(value="/paper_add_html")
 	public ModelAndView paper_add_html(ModelAndView mv) {
-		mv.setViewName("/paper/teacher/paper_add.html");
+		mv.setViewName("paper/teacher/paper_add.html");
 		return mv;
 	}
 	

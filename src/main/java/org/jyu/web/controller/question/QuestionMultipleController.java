@@ -24,15 +24,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.druid.sql.visitor.functions.Trim;
-
 @RestController
 public class QuestionMultipleController {
 	
 	@Autowired
 	private QuestionMultipleService multipleService;
 	
-	@RequestMapping(value="multiple_list_student", method=RequestMethod.GET)
+	@RequestMapping(value="/multiple_list_student", method=RequestMethod.GET)
 	public ModelAndView multiple_list_student(ModelAndView mv) {
 		mv.setViewName("/question/student/multiple_list.html");
 		return mv;
@@ -44,9 +42,9 @@ public class QuestionMultipleController {
 	 * @param id   单选题主键
 	 * @return
 	 */
-	@RequestMapping(value="multiple_up_html", method=RequestMethod.GET)
+	@RequestMapping(value="/multiple_up_html", method=RequestMethod.GET)
 	public ModelAndView multiple_up_html(ModelAndView mv, String id) {
-		mv.setViewName("/question/teacher/multiple_up.html");
+		mv.setViewName("question/teacher/multiple_up.html");
 		return mv;
 	}
 	
@@ -56,9 +54,9 @@ public class QuestionMultipleController {
 	 * @param id   多选题主键
 	 * @return
 	 */
-	@RequestMapping(value="multiple_info_html", method=RequestMethod.GET)
+	@RequestMapping(value="/multiple_info_html", method=RequestMethod.GET)
 	public ModelAndView multiple_info_html(ModelAndView mv, String id) {
-		mv.setViewName("/question/student/multiple_info.html");
+		mv.setViewName("question/student/multiple_info.html");
 		return mv;
 	}
 

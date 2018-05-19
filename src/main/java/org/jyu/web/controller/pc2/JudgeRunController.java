@@ -2,24 +2,17 @@ package org.jyu.web.controller.pc2;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.jyu.web.conf.InitPC2;
 import org.jyu.web.dto.pc2.JsonJudgeResult;
 import org.jyu.web.dto.pc2.JudgeResult;
 import org.jyu.web.enums.pc2.JudgeResultType;
-import org.jyu.web.utils.DateUtil;
 import org.jyu.web.utils.FileUtil;
 import org.jyu.web.utils.UUIDUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +26,6 @@ import edu.csus.ecs.pc2.core.model.Problem;
 import edu.csus.ecs.pc2.core.model.ProblemDataFiles;
 import edu.csus.ecs.pc2.core.model.Run;
 import edu.csus.ecs.pc2.core.model.SerializedFile;
-import net.bytebuddy.asm.Advice.This;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 

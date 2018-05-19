@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebListener;
 
 import org.jyu.web.pc2.AutoJudge;
 import org.jyu.web.pc2.ServerConnection;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import edu.csus.ecs.pc2.api.exceptions.LoginFailureException;
 import edu.csus.ecs.pc2.api.exceptions.NotLoggedInException;
@@ -59,7 +60,10 @@ public class InitPC2 implements ServletContextListener {
 	}
 
 	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
+	public void contextInitialized(ServletContextEvent event) {
+		WebApplicationContextUtils.getRequiredWebApplicationContext(event.getServletContext())
+        .getAutowireCapableBeanFactory().autowireBean(this);
+		
 		admin_serverConnection = new ServerConnection();
 		try {
 			admin_serverConnection.login("administrator1", "administrator1");

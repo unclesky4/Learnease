@@ -157,9 +157,9 @@ public class UserController {
 	 * @param mv
 	 * @return
 	 */
-	@RequestMapping(value="/login_html", method=RequestMethod.GET)
+	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView login_html(ModelAndView mv) {
-		mv.setViewName("/authority/login.html");
+		mv.setViewName("authority/login.html");
 		return mv;
 	}
 	
@@ -256,7 +256,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/validate_html",method=RequestMethod.GET)
 	public ModelAndView validate_html(ModelAndView mv) {
-		mv.setViewName("/authority/validate.html");
+		mv.setViewName("authority/validate.html");
 		return mv;
 	}
 	
@@ -267,7 +267,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/reset_pwd_html",method=RequestMethod.GET)
 	public ModelAndView resetPwd_html(ModelAndView mv) {
-		mv.setViewName("/authority/resetPwd.html");
+		mv.setViewName("authority/resetPwd.html");
 		return mv;
 	}
 	

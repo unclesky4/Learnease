@@ -34,9 +34,9 @@ public class QuestionSimpleController {
 	 * @param mv
 	 * @return
 	 */
-	@RequestMapping(value="simple_list_student", method=RequestMethod.GET)
+	@RequestMapping(value="/simple_list_student", method=RequestMethod.GET)
 	public ModelAndView simple_list_student(ModelAndView mv) {
-		mv.setViewName("/question/student/simple_list.html");
+		mv.setViewName("question/student/simple_list.html");
 		return mv;
 	}
 	
@@ -46,9 +46,9 @@ public class QuestionSimpleController {
 	 * @param id   单选题主键
 	 * @return
 	 */
-	@RequestMapping(value="simple_up_html", method=RequestMethod.GET)
+	@RequestMapping(value="/simple_up_html", method=RequestMethod.GET)
 	public ModelAndView simple_up_html(ModelAndView mv, String id) {
-		mv.setViewName("/question/teacher/simple_up.html");
+		mv.setViewName("question/teacher/simple_up.html");
 		mv.addObject("simple", questionSimpleService.findById(id));
 		return mv;
 	}
@@ -59,7 +59,7 @@ public class QuestionSimpleController {
 	 * @param id  单选题主键
 	 * @return
 	 */
-	@RequestMapping(value="simple_info_html", method=RequestMethod.GET)
+	@RequestMapping(value="/simple_info_html", method=RequestMethod.GET)
 	public ModelAndView simple_info_student(ModelAndView mv) {
 		mv.setViewName("/question/student/simple_info.html");
 		return mv;

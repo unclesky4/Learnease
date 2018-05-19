@@ -83,7 +83,7 @@ public class PaperLabelController {
 	 * @return
 	 */
 	@RequiresPermissions(value={"paperlabel:query"})
-	@GetMapping(value="paperLabel/page_json")
+	@GetMapping(value="/paperLabel/page_json")
 	public Map<String, Object> pageJson(Integer pageNumber, Integer pageSize, String sortOrder) {
 		return  service.pageJson(pageNumber, pageSize, sortOrder);
 	}

@@ -127,6 +127,7 @@ public class TeacherController {
 	 * @param id 主键
 	 * @return
 	 */
+	@PostMapping(value="/teacher/delete")
 	public Result deleteById(String id) {
 		return service.deleteById(id);
 	}

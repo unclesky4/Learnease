@@ -26,7 +26,7 @@ public class QuestionBlankController {
 	@Autowired
 	private QuestionBlankService questionBlankService;
 	
-	@RequestMapping(value="blank_list_student", method=RequestMethod.GET)
+	@RequestMapping(value="/blank_list_student", method=RequestMethod.GET)
 	public ModelAndView blank_list_student(ModelAndView mv) {
 		mv.setViewName("/question/student/blank_list.html");
 		return mv;
@@ -38,7 +38,7 @@ public class QuestionBlankController {
 	 * @param id   判断题主键
 	 * @return
 	 */
-	@RequestMapping(value="blank_up_html", method=RequestMethod.GET)
+	@RequestMapping(value="/blank_up_html", method=RequestMethod.GET)
 	public ModelAndView blank_up_html(ModelAndView mv, String id) {
 		mv.setViewName("/question/teacher/blank_up.html");
 		return mv;

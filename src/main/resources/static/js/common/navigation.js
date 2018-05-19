@@ -9,7 +9,7 @@ $.ajax({
 	success: function(data) {
 		if (data.success == true || data.success == "true") {
 			$("#show_username").html(data.msg.name);
-			var li_content = "<li><a href='user_center'>用户主页</a></li>";
+			var li_content = "<li><a href='/user_center'>用户主页</a></li>";
 			$("#navbar-nav").prepend(li_content);
 			isStudent = false;
 		}
@@ -27,7 +27,7 @@ $.ajax({
 	type: 'get',
 	success: function(data) {
 		if (data.msg.statusCode == 1) {
-			var content = "<li><a href='teacher_center'>教师中心</a></li>"
+			var content = "<li><a href='/teacher_center'>教师中心</a></li>"
 			$("#navbar-nav").append(content);
 			isTeacher = false;
 		}
@@ -39,7 +39,7 @@ $.ajax({
 
 if (isStudent && isTeacher) {
 	var content = new Array();
-	content.push("<a href='login_html' style='font-size: 14px;'><span id='user_login'>登陆</span>");
+	content.push("<a href='/login' style='font-size: 14px;'><span id='user_login'>登陆</span>");
 	content.push("/");
 	content.push("<span>注册</span></a>");
 	$(".user").html(content.join(""));
