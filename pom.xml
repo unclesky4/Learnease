@@ -45,7 +45,7 @@
 	    <artifactId>spring-boot-devtools</artifactId>
 	</dependency>
 	
-	<!-- 日志依赖 -->
+	<!-- Setter  Getter依赖 -->
 	<dependency>
 	    <groupId>org.projectlombok</groupId>
 	    <artifactId>lombok</artifactId>

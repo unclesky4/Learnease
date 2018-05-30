@@ -4,7 +4,7 @@ JDK版本： jdk1.8.0_141   openjdk1.8.0.151
 服务器系统：CentOS 7
 数据库： Mysql 5.7
 ```
-### 项目运行前的准备：(导入eclipse后将项目名改为learnease)
+### 项目运行前的准备：
 
 * #### 安装/配置
 ```
@@ -56,7 +56,7 @@ python-ply  python-perf python-brlapi python-backports-ssl_match_hostname python
 
 ```
 用户名： uncle  密码： uncle
-数据库的字符集统一设置成utf8,本项目使用的数据库名为learnease
+数据库的字符集统一设置成utf8,本项目使用的数据库名为Learnease
 ```
 
 ### 其他说明
