@@ -31,8 +31,8 @@ public class QuestionSimpleController {
 	
 	/**
 	 * 单选题列表  -- study
-	 * @param mv
-	 * @return
+	 * @param mv   ModelAndView
+	 * @return   ModelAndView
 	 */
 	@RequestMapping(value="/simple_list_student", method=RequestMethod.GET)
 	public ModelAndView simple_list_student(ModelAndView mv) {
@@ -42,9 +42,9 @@ public class QuestionSimpleController {
 	
 	/**
 	 * 修改单选题界面
-	 * @param mv
+	 * @param mv   ModelAndView
 	 * @param id   单选题主键
-	 * @return
+	 * @return   ModelAndView
 	 */
 	@RequestMapping(value="/simple_up_html", method=RequestMethod.GET)
 	public ModelAndView simple_up_html(ModelAndView mv, String id) {
@@ -55,9 +55,8 @@ public class QuestionSimpleController {
 	
 	/**
 	 * 单选题信息界面
-	 * @param mv
-	 * @param id  单选题主键
-	 * @return
+	 * @param mv   ModelAndView
+	 * @return   ModelAndView
 	 */
 	@RequestMapping(value="/simple_info_html", method=RequestMethod.GET)
 	public ModelAndView simple_info_student(ModelAndView mv) {
@@ -67,14 +66,14 @@ public class QuestionSimpleController {
 	
 	/**
 	 * 保存单选题
-	 * @param shortName
-	 * @param content
-	 * @param difficulty
-	 * @param options
-	 * @param labelIds
-	 * @param answerContent
-	 * @param analyse
-	 * @return
+	 * @param shortName    简述
+	 * @param content     题目
+	 * @param difficulty    难度
+	 * @param options     选项（逗号分割）
+	 * @param labelIds    问题标签主键（逗号分割）
+	 * @param answerContent   参考答案
+	 * @param analyse     参考答案分析
+	 * @return    Result对象
 	 */
 	@RequiresPermissions(value={"question:add"})
 	@RequestMapping(value="/simple/save", method=RequestMethod.POST)
@@ -105,15 +104,15 @@ public class QuestionSimpleController {
 	
 	/**
 	 * 更新单选题信息
-	 * @param id
-	 * @param shortName
-	 * @param content
-	 * @param difficulty
-	 * @param options
-	 * @param labelId
-	 * @param answerContent
-	 * @param analyse
-	 * @return
+	 * @param id     主键
+	 * @param shortName    简述
+	 * @param content     题目
+	 * @param difficulty    难度
+	 * @param options     选项（逗号分割）
+	 * @param labelIds    问题标签主键（逗号分割）
+	 * @param answerContent   参考答案
+	 * @param analyse     参考答案分析
+	 * @return   Result对象
 	 */
 	@RequiresPermissions(value={"question:update"})
 	@RequestMapping(value="/simple/update", method=RequestMethod.POST)
@@ -145,7 +144,7 @@ public class QuestionSimpleController {
 	/**
 	 * 删除
 	 * @param id  主键
-	 * @return
+	 * @return    Result对象
 	 */
 	@RequiresPermissions(value={"question:delete"})
 	@RequestMapping(value="/simple/delete", method=RequestMethod.POST)
@@ -155,8 +154,8 @@ public class QuestionSimpleController {
 	
 	/**
 	 * 通过主键查询
-	 * @param id
-	 * @return
+	 * @param id    主键
+	 * @return   QuestionSimpleJson对象
 	 */
 	//@RequiresAuthentication
 	@RequestMapping(value="/simple/findById", method=RequestMethod.GET)
@@ -166,10 +165,10 @@ public class QuestionSimpleController {
 	
 	/**
 	 * 分页
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @return
+	 * @param pageNumber    页码
+	 * @param pageSize      分页大小
+	 * @param sortOrder     排序
+	 * @return   Map集合
 	 */
 	@RequiresPermissions(value={"question:query"})
 	@RequestMapping(value="/simple/all", method=RequestMethod.GET)
@@ -179,8 +178,8 @@ public class QuestionSimpleController {
 	
 	/**
 	 * 判断用户提交的答案
-	 * @param qid
-	 * @param answercontent
+	 * @param qid    主键
+	 * @param answercontent   答案
 	 * @return   返回判断结果及参考答案分析
 	 */
 	@RequiresAuthentication
@@ -201,10 +200,10 @@ public class QuestionSimpleController {
 	
 	/**
 	 * 分页查询登陆用户提交的单选题
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @return
+	 * @param pageNumber     页码
+	 * @param pageSize      分页大小
+	 * @param sortOrder      排序
+	 * @return     Map集合
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/simple/own", method=RequestMethod.GET)
@@ -220,8 +219,8 @@ public class QuestionSimpleController {
 	
 	/**
 	 * 获取某个单选题的参考答案
-	 * @param id
-	 * @return
+	 * @param id   主键
+	 * @return    AnswerJson对象
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/simple/answer", method=RequestMethod.GET)

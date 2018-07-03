@@ -32,7 +32,7 @@ public class TeacherController {
 	 * @param idCard   职工号
 	 * @param subject  学科
 	 * @param phone  手机电话
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/teacher/save", method=RequestMethod.POST)
 	public Result saveTeacher(@Length(min=1, max=20, message="姓名长度为1-20位")String name, 
@@ -49,8 +49,8 @@ public class TeacherController {
 
 	/**
 	 * 删除教师
-	 * @param tid
-	 * @return
+	 * @param tid  教师主键
+	 * @return  Result对象
 	 */
 	@RequestMapping(value="/teacher/remove", method=RequestMethod.POST)
 	public Result removeTeacher(String tid) {
@@ -62,7 +62,7 @@ public class TeacherController {
 	/**
 	 * 通过主键查询教师信息
 	 * @param tid    主键
-	 * @return
+	 * @return   TeacherJson对象
 	 */
 	@RequestMapping(value="/teacher/findTeacherById", method=RequestMethod.GET)
 	public TeacherJson findTeacherById(String tid) {
@@ -71,8 +71,8 @@ public class TeacherController {
 	
 	/**
 	 * 通过职工号查询教师
-	 * @param idCard
-	 * @return
+	 * @param idCard  职工号
+	 * @return  TeacherJson对象
 	 */
 	@RequestMapping(value="/teacher/findTeacherByIdCard", method=RequestMethod.GET)
 	public TeacherJson findTeacherByIdCard(String idCard) {
@@ -81,11 +81,11 @@ public class TeacherController {
 	
 	/**
 	 * 分页查询
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @param search
-	 * @return
+	 * @param pageNumber   页码
+	 * @param pageSize     分页大小
+	 * @param sortOrder    排序
+	 * @param search    查询字段
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/teacher/page_json", method=RequestMethod.GET)
 	public Map<String, Object> getAllTeacher(int pageNumber, int pageSize, String sortOrder, String search) {
@@ -100,7 +100,7 @@ public class TeacherController {
 	 * @param idCard   职工号
 	 * @param subject  学科
 	 * @param phone  手机电话
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/teacher/update", method=RequestMethod.POST)
 	public Result updateTeacher(String tid, @Length(min=1, max=20, message="姓名长度为1-20位")String name, 
@@ -115,7 +115,7 @@ public class TeacherController {
 	 * 修改教师审核状态
 	 * @param id   主键
 	 * @param status   审核状态
-	 * @return
+	 * @return   Result对象
 	 */
 	@PostMapping(value="/teacher/status/update")
 	public Result updateStatus(String id, Integer status) {
@@ -125,7 +125,7 @@ public class TeacherController {
 	/**
 	 * 删除教师
 	 * @param id 主键
-	 * @return
+	 * @return  Result对象
 	 */
 	@PostMapping(value="/teacher/delete")
 	public Result deleteById(String id) {
@@ -134,7 +134,9 @@ public class TeacherController {
 	
 	/**
 	 * 查询待审核的教师
-	 * @return
+	 * @param pageNumber  页码
+	 * @param pageSize    分页大小
+	 * @return   Map集合
 	 */
 	@GetMapping(value="/teacher/verification")
 	public Map<String, Object> geTeacherByVerification(Integer pageNumber, Integer pageSize) {

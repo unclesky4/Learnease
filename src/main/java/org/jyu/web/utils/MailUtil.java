@@ -63,8 +63,8 @@ public class MailUtil {
 	
 	/**
 	 * 发送重置密码邮箱
-	 * @param email
-	 * @param code
+	 * @param email  邮箱
+	 * @param code   唯一验证码
 	 */
 	public static void sendResetPwdEmail(String email, String code){
 		//1.创建连接对象，连接到邮箱服务器

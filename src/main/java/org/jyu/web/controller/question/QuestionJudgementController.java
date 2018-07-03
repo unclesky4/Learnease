@@ -29,6 +29,11 @@ public class QuestionJudgementController {
 	@Autowired
 	private QuestionJudgementService service;
 	
+	/**
+	 * 记载判断题列表页面
+	 * @param mv     ModelAndView
+	 * @return   ModelAndView
+	 */
 	@RequestMapping(value="/judgement_list_student", method=RequestMethod.GET)
 	public ModelAndView judgement_list_student(ModelAndView mv) {
 		mv.setViewName("question/student/judgement_list.html");
@@ -37,9 +42,9 @@ public class QuestionJudgementController {
 	
 	/**
 	 * 修改判断题界面
-	 * @param mv
+	 * @param mv   ModelAndView
 	 * @param id   判断题主键
-	 * @return
+	 * @return   ModelAndView
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/judgement_up_html", method=RequestMethod.GET)
@@ -51,12 +56,12 @@ public class QuestionJudgementController {
 	/**
 	 * 保存判断题
 	 * @param shortName 问题简述
-	 * @param content
-	 * @param difficulty
-	 * @param labelIds
+	 * @param content   题目
+	 * @param difficulty   难度
+	 * @param labelIds   标签主键（逗号分割）
 	 * @param answerContent  参考答案(对/错)
-	 * @param analyse
-	 * @return
+	 * @param analyse   参考答案分析
+	 * @return  Result对象
 	 */
 	@RequiresPermissions(value={"question:add"})
 	@RequestMapping(value="/judgement/save", method=RequestMethod.POST)
@@ -75,8 +80,8 @@ public class QuestionJudgementController {
 	
 	/**
 	 * 删除判断题
-	 * @param id
-	 * @return
+	 * @param id   主键
+	 * @return    Result对象
 	 */
 	@RequiresPermissions(value={"question:delete"})
 	@RequestMapping(value="/judgement/delete", method=RequestMethod.POST)
@@ -86,15 +91,15 @@ public class QuestionJudgementController {
 	
 	/**
 	 * 更新判断题
-	 * @param id
-	 * @param shortName 问题简述
-	 * @param content
-	 * @param difficulty
-	 * @param labelIds
-	 * @param options
-	 * @param answerContent
-	 * @param analyse
-	 * @return
+	 * @param id     主键
+	 * @param shortName  问题简述
+	 * @param content   题目
+	 * @param difficulty  难度
+	 * @param labelIds   问题标签主键（逗号分割）
+	 * @param options    选项（对+错）
+	 * @param answerContent   参考答案
+	 * @param analyse   参考答案解析
+	 * @return   Result对象
 	 */
 	@RequiresPermissions(value={"question:update"})
 	@RequestMapping(value="/judgement/update", method=RequestMethod.POST)
@@ -113,7 +118,8 @@ public class QuestionJudgementController {
 	
 	/**
 	 * 通过主键查找判断题
-	 * @param id
+	 * @param id   主键
+	 * @return   QuestionJudgementJson对象
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/judgement/getById", method=RequestMethod.GET)
@@ -123,10 +129,10 @@ public class QuestionJudgementController {
 	
 	/**
 	 * 分页
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @return
+	 * @param pageNumber  页码
+	 * @param pageSize     分页大小
+	 * @param sortOrder   排序
+	 * @return  Map集合
 	 */
 	@RequiresPermissions(value={"question:query"})
 	@RequestMapping(value="/judgement/all", method=RequestMethod.GET)
@@ -136,9 +142,9 @@ public class QuestionJudgementController {
 	
 	/**
 	 * 判断用户提交的答案是否正确
-	 * @param qid
-	 * @param answercontent
-	 * @return
+	 * @param qid        判断题主键
+	 * @param answercontent   答案
+	 * @return   Result对象
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/judgement/judge",method=RequestMethod.POST)
@@ -148,10 +154,10 @@ public class QuestionJudgementController {
 	
 	/**
 	 * 分页查询登陆用户提交的编程题
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @return
+	 * @param pageNumber     页码
+	 * @param pageSize      分页大小
+	 * @param sortOrder    排序
+	 * @return   Map集合
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/judgement/own", method=RequestMethod.GET)
@@ -167,8 +173,8 @@ public class QuestionJudgementController {
 	
 	/**
 	 * 获取某个判断题的参考答案
-	 * @param id
-	 * @return
+	 * @param id    判断题主键
+	 * @return      AnswerJson对象
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/judgement/answer", method=RequestMethod.GET)

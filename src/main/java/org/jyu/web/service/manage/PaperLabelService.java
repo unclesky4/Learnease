@@ -19,9 +19,13 @@ public interface PaperLabelService {
 	 * @param pageNumber  页码
 	 * @param pageSize    显示条数
 	 * @param sortOrder   排序（desc/asc）
-	 * @return
+	 * @return  Map集合
 	 */
 	Map<String, Object> pageJson(Integer pageNumber, Integer pageSize, String sortOrder);
 	
+	/**
+	 * 获取所有试卷标签
+	 * @return   List集合
+	 */
 	List<PaperLabel> list();
 }

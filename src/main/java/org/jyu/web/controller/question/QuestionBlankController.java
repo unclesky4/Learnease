@@ -26,6 +26,11 @@ public class QuestionBlankController {
 	@Autowired
 	private QuestionBlankService questionBlankService;
 	
+	/**
+	 * 获取填空题列表页面
+	 * @param mv  ModelAndView
+	 * @return    ModelAndView
+	 */
 	@RequestMapping(value="/blank_list_student", method=RequestMethod.GET)
 	public ModelAndView blank_list_student(ModelAndView mv) {
 		mv.setViewName("/question/student/blank_list.html");
@@ -34,9 +39,9 @@ public class QuestionBlankController {
 	
 	/**
 	 * 修改填空题界面
-	 * @param mv
+	 * @param mv   ModelAndView
 	 * @param id   判断题主键
-	 * @return
+	 * @return  ModelAndView
 	 */
 	@RequestMapping(value="/blank_up_html", method=RequestMethod.GET)
 	public ModelAndView blank_up_html(ModelAndView mv, String id) {
@@ -52,6 +57,7 @@ public class QuestionBlankController {
 	 * @param labelIds  标签（用逗号隔开）
 	 * @param answerContent  参考答案内容
 	 * @param analyse  参考答案分析
+	 * @return Result对象
 	 */
 	@RequestMapping(value="/blank/save",method=RequestMethod.POST)
 	public Result save(String shortName, String content, Integer difficulty, String labelIds, String answerContent, 
@@ -71,6 +77,7 @@ public class QuestionBlankController {
 	/**
 	 * 删除填空题
 	 * @param id  主键
+	 * @return  Result对象
 	 */
 	@RequestMapping(value="/blank/delete",method=RequestMethod.POST)
 	public Result deleteById(String id) {
@@ -79,13 +86,14 @@ public class QuestionBlankController {
 	
 	/**
 	 * 修改填空题
-	 * @param id
+	 * @param id       主键
 	 * @param shortName 问题简述
 	 * @param content   问题主干
 	 * @param difficulty  难度
 	 * @param labelIds  标签（用逗号隔开）
 	 * @param answerContent  参考答案内容
 	 * @param analyse  参考答案分析
+	 * @return  Result对象
 	 */
 	@RequestMapping(value="/blank/update",method=RequestMethod.POST)
 	public Result update(String id, String shortName, String content, Integer difficulty, String labelIds, String answerContent, 
@@ -103,7 +111,8 @@ public class QuestionBlankController {
 	
 	/**
 	 * 通过主键查询填空题
-	 * @param id
+	 * @param id    主键
+	 * @return    QuestionBlankJson对象
 	 */
 	@RequestMapping(value="/blank/getById",method=RequestMethod.GET)
 	public QuestionBlankJson getById(String id) {
@@ -112,10 +121,10 @@ public class QuestionBlankController {
 	
 	/**
 	 * 分页查询
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @return
+	 * @param pageNumber   页码
+	 * @param pageSize      分页大小
+	 * @param sortOrder     排序
+	 * @return   Map集合
 	 */
 	@RequestMapping(value="/blank/all",method=RequestMethod.GET)
 	public Map<String, Object> getPageJson(int pageNumber, int pageSize, String sortOrder) {
@@ -129,10 +138,10 @@ public class QuestionBlankController {
 	
 	/**
 	 * 分页查询登陆用户提交的编程题
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @return
+	 * @param pageNumber   页码
+	 * @param pageSize     分页大小
+	 * @param sortOrder    排序
+	 * @return  Map集合
 	 */
 	@RequestMapping(value="/blank/own", method=RequestMethod.GET)
 	public Map<String, Object> getOwnQuestionProgram(int pageNumber, int pageSize, String sortOrder) {
@@ -147,8 +156,8 @@ public class QuestionBlankController {
 	
 	/**
 	 * 获取某个填空题的参考答案
-	 * @param id
-	 * @return
+	 * @param id  主键 
+	 * @return  AnswerJson对象
 	 */
 	@RequestMapping(value="/blank/answer", method=RequestMethod.GET)
 	public AnswerJson getAnswer(String id) {

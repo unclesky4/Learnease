@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @ClassName: StudentController 
+ * @Description: 学生管理
+ * @author: unclesky4
+ * @date: Jul 3, 2018 6:46:57 PM
+ */
 @RestController
 public class StudentController {
 	
@@ -31,7 +37,7 @@ public class StudentController {
 	 * @param stuAcademy   学院
 	 * @param stuClass   班级
 	 * @param stuEntranceTime   入学年份
-	 * @return
+	 * @return    Result对象
 	 */
 	@RequestMapping(value="/student/save", method=RequestMethod.POST)
 	public Result saveStudent(@Length(min=1, max=10, message="学号长度为1-10位")String idCard, 
@@ -50,7 +56,7 @@ public class StudentController {
 	/**
 	 * 通过学号查询学生信息
 	 * @param idCard   学号
-	 * @return
+	 * @return  StudentJson对象
 	 */
 	@RequestMapping(value="/student/findStudentByIdCard", method=RequestMethod.GET)
 	public StudentJson findStudentByIdCard(String idCard) {
@@ -60,7 +66,7 @@ public class StudentController {
 	/**
 	 * 通过主键查找学生信息
 	 * @param stuId   主键
-	 * @return
+	 * @return   StudentJson对象
 	 */
 	@RequestMapping(value="/student/findStudentById", method=RequestMethod.GET)
 	public StudentJson findStudentById(String stuId) {
@@ -73,7 +79,7 @@ public class StudentController {
 	 * @param pageSize   每页显示条数
 	 * @param sortOrder   排序
 	 * @param search   查询字段
-	 * @return
+	 * @return   Map集合
 	 */
 	@RequestMapping(value="/student/page_json", method=RequestMethod.GET)
 	public Map<String, Object> getAllStudent(Integer pageNumber, Integer pageSize, String sortOrder, String search) {
@@ -89,7 +95,7 @@ public class StudentController {
 	 * @param academy   学院
 	 * @param stuClass   班级
 	 * @param stuEntranceTime   入学年份
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/student/updateStudent", method=RequestMethod.POST)
 	public Result updateStudent(String stuId, String idCard,String stuName,String stuSex,String academy,String stuClass,
@@ -99,9 +105,9 @@ public class StudentController {
 	
 	/**
 	 * 修改学生角色状态
-	 * @param stuId
-	 * @param status
-	 * @return
+	 * @param stuId   学生角色主键
+	 * @param status    状态
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/student/status/update", method=RequestMethod.POST)
 	public Result updateStudentStatus(String stuId, Integer status) {
@@ -115,16 +121,18 @@ public class StudentController {
 	/**
 	 * 删除学生
 	 * @param id   主键
-	 * @return
+	 * @return   Result对象
 	 */
 	@PostMapping(value="/student/delete")
 	public Result delete(String id) {
 		return service.delete(id);
 	}
-	
+
 	/**
 	 * 获取待审核的学生信息
-	 * @return
+	 * @param pageNumber    页码
+	 * @param pageSize      分页大小
+	 * @return   Map集合
 	 */
 	@GetMapping(value="/student/verification")
 	public Map<String, Object> geStudentByVerification(Integer pageNumber, Integer pageSize) {

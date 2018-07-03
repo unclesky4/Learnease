@@ -36,9 +36,10 @@ public class AdministratorController {
 	
 	/**
 	 * 管理员登陆
-	 * @param name
-	 * @param password
-	 * @return
+	 * @param name      姓名
+	 * @param password   密码
+	 * @param rememberMe   记住我（true/false）
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/admin/login",method=RequestMethod.POST)
 	public Result login(String name, String password, @RequestParam(required=false, defaultValue="false")Boolean rememberMe) {
@@ -62,7 +63,7 @@ public class AdministratorController {
 	 * @param sex  性别
 	 * @param email  邮箱
 	 * @param roldIds  角色主键（逗号分割）
-	 * @return  Result
+	 * @return  Result对象
 	 */
 	@RequiresPermissions(value={"admin:update"})
 	@RequestMapping(value="/admin/update",method=RequestMethod.POST)
@@ -81,7 +82,7 @@ public class AdministratorController {
 	 * @param oldPwd  旧密码
 	 * @param newPwd  新密码
 	 * @param newPwd_repeat  确认新密码
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequiresAuthentication
 	@PostMapping(value="/admin/pwd/update")
@@ -98,7 +99,7 @@ public class AdministratorController {
 	/**
 	 * 通过主键查询管理员
 	 * @param id   管理员主键
-	 * @return AdministratorJson
+	 * @return AdministratorJson对象
 	 */
 	@RequiresPermissions(value={"admin:query"})
 	@GetMapping(value="/admin/findById")
@@ -130,7 +131,7 @@ public class AdministratorController {
 	 * @param email   邮箱
 	 * @param pwd     密码
 	 * @param repeatPwd   确认密码
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequiresPermissions(value={"admin:add"})
 	@PostMapping(value="/admin/add")
@@ -149,7 +150,7 @@ public class AdministratorController {
 	 * 指派角色
 	 * @param id     管理员主键
 	 * @param roleIds   角色主键（逗号分割）
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequiresPermissions(value={"admin:update"})
 	@PostMapping(value="/admin/role/update")
@@ -170,7 +171,7 @@ public class AdministratorController {
 	 * 分页查询
 	 * @param pageNumber   页码
 	 * @param pageSize   每页显示条数
-	 * @return
+	 * @return  Map集合
 	 */
 	@RequiresPermissions(value={"admin:query"})
 	@GetMapping(value="/admin/page_json")
@@ -183,7 +184,7 @@ public class AdministratorController {
 	 * @param id  主键
 	 * @param newPwd   新密码
 	 * @param repeatPwd   确认密码
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequiresPermissions(value={"admin:update"})
 	@PostMapping(value="/admin/password/update")
@@ -199,7 +200,7 @@ public class AdministratorController {
 	/**
 	 * 删除管理员
 	 * @param id    主键
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequiresPermissions(value={"admin:delete"})
 	@PostMapping(value="/admin/delete")
@@ -210,7 +211,7 @@ public class AdministratorController {
 	/**
 	 * 获取某个管理员关联的角色
 	 * @param id   管理员主键
-	 * @return
+	 * @return   List集合
 	 */
 	@RequiresPermissions(value={"admin:query"})
 	@GetMapping(value="/admin/roles")

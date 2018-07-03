@@ -30,8 +30,8 @@ public class QuestionProgramController {
 	
 	/**
 	 * 编程题列表  -- study
-	 * @param mv
-	 * @return
+	 * @param mv    ModelAndView
+	 * @return    ModelAndView
 	 */
 	@RequestMapping(value="/program_list_student", method=RequestMethod.GET)
 	public ModelAndView program_list_student(ModelAndView mv) {
@@ -41,8 +41,8 @@ public class QuestionProgramController {
 	
 	/**
 	 * 编程题信息
-	 * @param mv
-	 * @return
+	 * @param mv   ModelAndView
+	 * @return   ModelAndView
 	 */
 	@RequestMapping(value="/program_info_html", method=RequestMethod.GET)
 	public ModelAndView program_info_html(ModelAndView mv) {
@@ -52,9 +52,9 @@ public class QuestionProgramController {
 	
 	/**
 	 * 修改编程题界面
-	 * @param mv
+	 * @param mv   ModelAndView
 	 * @param id   判断题主键
-	 * @return
+	 * @return   ModelAndView
 	 */
 	@RequestMapping(value="/program_up_html", method=RequestMethod.GET)
 	public ModelAndView program_up_html(ModelAndView mv, String id) {
@@ -76,7 +76,7 @@ public class QuestionProgramController {
 	 * @param answerContent  参考答案内容
 	 * @param analyse  分析
 	 * @param labelIds  标签（逗号分割）
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequiresPermissions(value={"question:add"})
 	@RequestMapping(value="/program/save", method=RequestMethod.POST)
@@ -97,7 +97,8 @@ public class QuestionProgramController {
 	
 	/**
 	 * 删除编程题
-	 * @return
+	 * @param id  主键
+	 * @return   Result对象
 	 */
 	@RequiresPermissions(value={"question:delete"})
 	@RequestMapping(value="/program/delete", method=RequestMethod.POST)
@@ -106,8 +107,8 @@ public class QuestionProgramController {
 	}
 	
 	/**
-	 * 修改编程题
-	 * @param id
+	 * 修改编程题 
+	 * @param id   主键
 	 * @param shortName  题目简述
 	 * @param content  题目主干
 	 * @param difficulty  难度
@@ -120,7 +121,7 @@ public class QuestionProgramController {
 	 * @param answerContent  参考答案内容
 	 * @param analyse  分析
 	 * @param labelIds  标签（逗号分割）
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequiresPermissions(value={"question:update"})
 	@RequestMapping(value="/program/update", method=RequestMethod.POST)
@@ -140,8 +141,8 @@ public class QuestionProgramController {
 	
 	/**
 	 * 通过主键查询编程题
-	 * @param id
-	 * @return
+	 * @param id  主键
+	 * @return    QuestionProgramJson对象
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/program/getById", method=RequestMethod.GET)
@@ -154,7 +155,7 @@ public class QuestionProgramController {
 	 * @param pageNumber  页码
 	 * @param pageSize  每页显示条数
 	 * @param sortOrder  排序
-	 * @return
+	 * @return  Map集合
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/program/all", method=RequestMethod.GET)
@@ -164,10 +165,10 @@ public class QuestionProgramController {
 	
 	/**
 	 * 分页查询登陆用户提交的编程题
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @return
+	 * @param pageNumber   页码
+	 * @param pageSize     分页大小
+	 * @param sortOrder    排序
+	 * @return    Map集合
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/program/own", method=RequestMethod.GET)
@@ -183,8 +184,8 @@ public class QuestionProgramController {
 	
 	/**
 	 * 获取某个填编程题的参考答案
-	 * @param id
-	 * @return
+	 * @param id    主键
+	 * @return   AnswerJson对象
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/program/answer", method=RequestMethod.GET)

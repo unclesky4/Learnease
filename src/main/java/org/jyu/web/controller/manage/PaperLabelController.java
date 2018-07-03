@@ -24,7 +24,7 @@ public class PaperLabelController {
 	
 	/**
 	 * 获取符合select2格式的所有试卷标签
-	 * @return
+	 * @return  List集合
 	 */
 	@RequiresAuthentication
 	@GetMapping(value="/paperLabel/label_select2")
@@ -44,7 +44,7 @@ public class PaperLabelController {
 	/**
 	 * 保存试卷标签
 	 * @param name  标签名
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequiresPermissions(value={"paperlabel:add"})
 	@PostMapping(value="/paperLabel/add")
@@ -56,7 +56,7 @@ public class PaperLabelController {
 	 * 更新试卷标签
 	 * @param id   主键
 	 * @param name  标签名
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequiresPermissions(value={"paperlabel:update"})
 	@PostMapping(value="/paperLabel/update")
@@ -66,8 +66,8 @@ public class PaperLabelController {
 	
 	/**
 	 * 删除试卷标签
-	 * @param id   主键
-	 * @return
+	 * @param id   主键 
+	 * @return   Result对象
 	 */
 	@RequiresPermissions(value={"paperlabel:delete"})
 	@PostMapping(value="/paperLabel/delete")
@@ -80,7 +80,7 @@ public class PaperLabelController {
 	 * @param pageNumber   页码
 	 * @param pageSize    每页显示条数
 	 * @param sortOrder   排序
-	 * @return
+	 * @return  Map集合
 	 */
 	@RequiresPermissions(value={"paperlabel:query"})
 	@GetMapping(value="/paperLabel/page_json")

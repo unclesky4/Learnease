@@ -30,7 +30,8 @@ public class PC2ProblemController {
 
 	/**
 	 * 获取PC2所有的Problem
-	 * @param response
+	 * @param response    HttpServletResponse
+	 * @return   JSONArray对象
 	 */
 	@GetMapping(value="/pc2problem/list")
 	public JSONArray getAllProblem(HttpServletResponse response) {
@@ -73,8 +74,8 @@ public class PC2ProblemController {
 	
 	/**
 	 * 对象转为JSON格式数据
-	 * @param object
-	 * @return
+	 * @param object   Object
+	 * @return   SON格式数据(String)
 	 */
 	public String getJson(Object object) {
 		JsonConfig jsonConfig = new JsonConfig();

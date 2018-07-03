@@ -21,8 +21,8 @@ public class PaperController {
 	
 	/**
 	 * 添加试卷页面
-	 * @param mv
-	 * @return
+	 * @param mv   ModelAndView
+	 * @return   ModelAndView
 	 */
 	@GetMapping(value="/paper_add_html")
 	public ModelAndView paper_add_html(ModelAndView mv) {
@@ -37,7 +37,7 @@ public class PaperController {
 	 * @param status    公开状态（0：私有，1：公开 ）
 	 * @param scores    问题主键对应的分值（逗号分割）
 	 * @param labels   试卷标签主键（逗号分割）
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequiresPermissions({"paper:add"})
 	@PostMapping(value="/paper/add")
@@ -69,7 +69,7 @@ public class PaperController {
 	 * @param status   状态
 	 * @param scores   题目分值
 	 * @param labels  试卷标签
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequiresPermissions({"paper:update"})
 	@PostMapping(value="/paper/update")

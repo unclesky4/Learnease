@@ -42,7 +42,7 @@ public class UserController {
 	 * @param email  邮箱
 	 * @param pwd    密码
 	 * @param pwd_repeat  确认密码
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequestMapping(value="/user/register", method=RequestMethod.POST)
 	public Result register(@Length(min=1, max=20, message="昵称长度为1-20位")String name,
@@ -70,7 +70,7 @@ public class UserController {
 	/**
 	 * 删除用户
 	 * @param uid  用户主键
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequestMapping(value="/user/delete", method=RequestMethod.POST)
 	public Result deleteById(String uid) {
@@ -80,7 +80,7 @@ public class UserController {
 	/**
 	 * 登陆用户修改昵称
 	 * @param userName  昵称
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequestMapping(value="/user/updateUserName", method=RequestMethod.POST)
 	public Result updateUserName(@Length(min=1, max=20, message="昵称长度为1-20位")String userName) {
@@ -96,7 +96,7 @@ public class UserController {
 	 * @param old_pwd  旧密码
 	 * @param new_pwd1  新密码
 	 * @param new_pwd2  确认密码
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/user/updatePwd", method=RequestMethod.POST)
 	public Result updatePwd(@NotBlank(message="请输入旧密码")String old_pwd, 
@@ -118,7 +118,7 @@ public class UserController {
 	/**
 	 * 通过主键查找用户
 	 * @param uid   主键
-	 * @return
+	 * @return  UserJson对象
 	 */
 	@RequestMapping(value="/user/findUserById", method=RequestMethod.GET)
 	public UserJson findUserbyId(String uid) {
@@ -129,8 +129,8 @@ public class UserController {
 	
 	/**
 	 * 通过邮箱帐号查找用户
-	 * @param userEmail
-	 * @return
+	 * @param userEmail   邮箱
+	 * @return   Userson对象
 	 */
 	@RequestMapping(value="/user/findUserByEmail", method=RequestMethod.GET)
 	public UserJson findUserByEmail(String userEmail) {
@@ -141,11 +141,11 @@ public class UserController {
 	
 	/**
 	 * 分页查询
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @param searchText
-	 * @return
+	 * @param pageNumber   页码
+	 * @param pageSize     分页大小
+	 * @param sortOrder    排序
+	 * @param searchText   查询字段
+	 * @return  Map集合
 	 */
 	@RequestMapping(value="/user/page_json", method=RequestMethod.GET)
 	public Map<String,Object> getAllUser(int pageNumber, int pageSize, String sortOrder, String searchText) {
@@ -154,8 +154,8 @@ public class UserController {
 	
 	/**
 	 * 跳转到登陆界面
-	 * @param mv
-	 * @return
+	 * @param mv   ModelAndView
+	 * @return  ModelAndView
 	 */
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView login_html(ModelAndView mv) {
@@ -165,10 +165,10 @@ public class UserController {
 	
 	/**
 	 * 登陆  - shiro
-	 * @param email
-	 * @param pwd
-	 * @param rememberMe
-	 * @return
+	 * @param email  邮箱
+	 * @param pwd    密码
+	 * @param rememberMe  记住我（true/false）
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/user/login", method=RequestMethod.POST)
 	public Result user_login(String email, String pwd, @RequestParam(value="rememberMe", defaultValue="false")Boolean rememberMe) {
@@ -186,7 +186,7 @@ public class UserController {
 	
 	/**
 	 * 判断是否有用户登陆
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/user/checkLogin",method=RequestMethod.GET)
 	public Result checkLogin() {
@@ -203,7 +203,7 @@ public class UserController {
 	
 	/**
 	 * 判断是否有学生角色
-	 * @return
+	 * @return    Result对象
 	 */
 	@RequestMapping(value="/user/isStudent",method=RequestMethod.GET)
 	public Result isStudent() {
@@ -227,7 +227,7 @@ public class UserController {
 	
 	/**
 	 * 判断是否有教师角色
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/user/isTeacher",method=RequestMethod.GET)
 	public Result isTeacher() {
@@ -251,8 +251,8 @@ public class UserController {
 	
 	/**
 	 * 邮箱激活页面
-	 * @param mv
-	 * @return
+	 * @param mv  ModelAndView
+	 * @return   ModelAndView
 	 */
 	@RequestMapping(value="/validate_html",method=RequestMethod.GET)
 	public ModelAndView validate_html(ModelAndView mv) {
@@ -262,8 +262,8 @@ public class UserController {
 	
 	/**
 	 * 重置密码页面
-	 * @param mv
-	 * @return
+	 * @param mv   ModelAndView
+	 * @return    ModelAndView
 	 */
 	@RequestMapping(value="/reset_pwd_html",method=RequestMethod.GET)
 	public ModelAndView resetPwd_html(ModelAndView mv) {
@@ -273,7 +273,8 @@ public class UserController {
 	
 	/**
 	 * 用户激活
-	 * @return
+	 * @param code   唯一验证码
+	 * @return  Result对象
 	 */
 	@RequestMapping(value="/user/validate",method=RequestMethod.POST)
 	public Result validate(String code) {
@@ -282,8 +283,8 @@ public class UserController {
 	
 	/**
 	 * 发送重置密码邮件
-	 * @param userEmail
-	 * @return
+	 * @param userEmail  邮箱
+	 * @return  Result对象
 	 */
 	@RequestMapping(value="/user/resetPwdEmail",method=RequestMethod.POST)
 	public Result resetPwdEmail(String userEmail) {
@@ -302,7 +303,10 @@ public class UserController {
 	
 	/**
 	 * 重置密码
-	 * @return
+	 * @param code    唯一验证码
+	 * @param pwd_1   新密码
+	 * @param pwd_2   确认密码
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/user/resetPwd",method=RequestMethod.POST)
 	public Result resetPassword(String code, String pwd_1, String pwd_2) {
@@ -312,7 +316,11 @@ public class UserController {
 		return userService.resetPassword(code, pwd_1);
 	}
 	
-	
+	/**
+	 * User转成UserJson对象
+	 * @param user    User对象
+	 * @return   UserJson对象
+	 */
 	UserJson transfer(User user) {
 		UserJson json = new UserJson();
 		json.setEmail(user.getEmail());

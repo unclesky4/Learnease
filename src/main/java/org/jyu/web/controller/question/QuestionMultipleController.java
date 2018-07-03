@@ -30,6 +30,11 @@ public class QuestionMultipleController {
 	@Autowired
 	private QuestionMultipleService multipleService;
 	
+	/**
+	 * 跳转多选题页面
+	 * @param mv    ModelAndView
+	 * @return   ModelAndView
+	 */
 	@RequestMapping(value="/multiple_list_student", method=RequestMethod.GET)
 	public ModelAndView multiple_list_student(ModelAndView mv) {
 		mv.setViewName("/question/student/multiple_list.html");
@@ -38,9 +43,9 @@ public class QuestionMultipleController {
 	
 	/**
 	 * 修改多选题界面
-	 * @param mv
+	 * @param mv    ModelAndView
 	 * @param id   单选题主键
-	 * @return
+	 * @return   ModelAndView
 	 */
 	@RequestMapping(value="/multiple_up_html", method=RequestMethod.GET)
 	public ModelAndView multiple_up_html(ModelAndView mv, String id) {
@@ -52,7 +57,7 @@ public class QuestionMultipleController {
 	 * 多选题详情页
 	 * @param mv   ModelAndView
 	 * @param id   多选题主键
-	 * @return
+	 * @return   ModelAndView
 	 */
 	@RequestMapping(value="/multiple_info_html", method=RequestMethod.GET)
 	public ModelAndView multiple_info_html(ModelAndView mv, String id) {
@@ -69,7 +74,7 @@ public class QuestionMultipleController {
 	 * @param options   选项（逗号分割）
 	 * @param answerContent  参考答案（逗号分割）
 	 * @param analyse   答案分析
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequiresPermissions(value={"question:add"})
 	@RequestMapping(value="/multiple/save", method=RequestMethod.POST)
@@ -91,8 +96,8 @@ public class QuestionMultipleController {
 	
 	/**
 	 * 删除多选题
-	 * @param id
-	 * @return
+	 * @param id  主键
+	 * @return  Result对象
 	 */
 	@RequiresPermissions(value={"question:delete"})
 	@RequestMapping(value="/multiple/delete", method=RequestMethod.POST)
@@ -102,15 +107,15 @@ public class QuestionMultipleController {
 	
 	/**
 	 * 更新多选题
-	 * @param id
-	 * @param shortName
-	 * @param content
-	 * @param difficulty
-	 * @param labelIds
-	 * @param options
-	 * @param answerContent
-	 * @param analyse
-	 * @return
+	 * @param id    主键
+	 * @param shortName   简述
+	 * @param content     题目
+	 * @param difficulty  难度
+	 * @param labelIds     问题标签（逗号分割）
+	 * @param options      选项（逗号分割）
+	 * @param answerContent  参考答案
+	 * @param analyse     参考答案分析
+	 * @return  Result对象
 	 */
 	@RequiresPermissions(value={"question:add"})
 	@RequestMapping(value="/multiple/update",  method=RequestMethod.POST)
@@ -128,8 +133,8 @@ public class QuestionMultipleController {
 	
 	/**
 	 * 通过主键查找多选题
-	 * @param id
-	 * @return
+	 * @param id  主键
+	 * @return  QuestionMultipleJson对象
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/multiple/findById",  method=RequestMethod.GET)
@@ -139,10 +144,10 @@ public class QuestionMultipleController {
 	
 	/**
 	 * 分页
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @return
+	 * @param pageNumber  页码
+	 * @param pageSize   分页大小
+	 * @param sortOrder   排序
+	 * @return  Map集合
 	 */
 	@RequiresPermissions(value={"question:query"})
 	@RequestMapping(value="/multiple/all",  method=RequestMethod.GET)
@@ -152,10 +157,10 @@ public class QuestionMultipleController {
 	
 	/**
 	 * 分页查询登陆用户提交的多选题
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @return
+	 * @param pageNumber   页码
+	 * @param pageSize     分页大小
+	 * @param sortOrder    排序
+	 * @return   Map集合
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/multiple/own", method=RequestMethod.GET)
@@ -171,8 +176,8 @@ public class QuestionMultipleController {
 	
 	/**
 	 * 获取某个多选题的参考答案
-	 * @param id
-	 * @return
+	 * @param id  主键
+	 * @return    AnswerJson对象
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/multiple/answer", method=RequestMethod.GET)
@@ -189,7 +194,7 @@ public class QuestionMultipleController {
 	 * 判断用户提交的答案
 	 * @param qid    多选题主键
 	 * @param answer   答案
-	 * @return
+	 * @return   Result对象
 	 */
 	@GetMapping(value="/multiple/judge")
 	public Result judge(String qid, String answer) {

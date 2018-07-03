@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 
 import org.jyu.web.pc2.AutoJudge;
 import org.jyu.web.pc2.ServerConnection;
@@ -20,7 +19,7 @@ import edu.csus.ecs.pc2.core.model.Account;
  * @author unclesky4 28/09/2017
  *
  */
-@WebListener
+//@WebListener
 public class InitPC2 implements ServletContextListener {
 	
 	static ServerConnection admin_serverConnection = null;

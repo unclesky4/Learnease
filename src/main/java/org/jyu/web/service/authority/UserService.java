@@ -23,40 +23,50 @@ public interface UserService {
 	
 	/**
 	 * 
-	 * @Description: 模糊查询邮箱
-	 * @param: @param email
-	 * @return: List<User>
-	 * @throws
+	 * 通过邮箱模糊查询
+	 * @param email   邮箱
+	 * @return: List集合
 	 *
 	 */
 	List<UserJson> findByEmailLike(String email);
 	
+	/**
+	 * 通过邮箱查询
+	 * @param email    邮箱
+	 * @return    User对象
+	 */
 	User findByEmail(String email);
 	
+	/**
+	 * 通过邮箱和密码登陆
+	 * @param email   邮箱
+	 * @param pwd    密码
+	 * @return  User对象
+	 */
 	User findByEmailAndPwd(String email, String pwd);
 	
 	/**
 	 * 分页查询
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @param searchText
-	 * @return
+	 * @param pageNumber   页码
+	 * @param pageSize    分页大小
+	 * @param sortOrder   排序
+	 * @param searchText  查询字段
+	 * @return  Map集合
 	 */
 	Map<String, Object> findUserByPage(Integer pageNumber, Integer pageSize, String sortOrder, String searchText);
 	
 	/**
 	 * 用户验证邮箱
-	 * @param code
-	 * @return
+	 * @param code    唯一验证码
+	 * @return  Result对象
 	 */
 	Result validate(String code);
 	
 	/**
 	 * 重置密码
-	 * @param code
-	 * @param pwd
-	 * @return
+	 * @param code   唯一验证码
+	 * @param pwd   新密码
+	 * @return   Result对象
 	 */
 	Result resetPassword(String code, String pwd);
 

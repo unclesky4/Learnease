@@ -33,7 +33,7 @@ public class PC2LanguageController {
 
 	/**
 	 * 获取PC2的所有编程语言
-	 * @param response
+	 * @param response   HttpServletResponse
 	 */
 	@GetMapping(value="/language/list")
 	public void getAllLanguage(HttpServletResponse response) {

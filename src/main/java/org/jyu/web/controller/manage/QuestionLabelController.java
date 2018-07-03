@@ -26,7 +26,7 @@ public class QuestionLabelController {
 	
 	/**
 	 * 获取符合select2的所有问题标签
-	 * @return
+	 * @return  List集合
 	 */
 	@RequiresAuthentication
 	@RequestMapping(value="/questionLabel/label_select2", method=RequestMethod.GET)
@@ -46,7 +46,7 @@ public class QuestionLabelController {
 	/**
 	 * 保存问题标签
 	 * @param name   标签名
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequiresPermissions({"questionlabel:add"})
 	@PostMapping(value="/questionLabel/add")
@@ -58,7 +58,7 @@ public class QuestionLabelController {
 	 * 更新问题标签
 	 * @param id     主键
 	 * @param name   标签名
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequiresPermissions({"questionlabel:update"})
 	@PostMapping(value="/questionLabel/update")
@@ -69,7 +69,7 @@ public class QuestionLabelController {
 	/**
 	 * 删除问题标签
 	 * @param id   主键
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequiresPermissions({"questionlabel:delete"})
 	@PostMapping(value="/questionLabel/delete")
@@ -81,7 +81,7 @@ public class QuestionLabelController {
 	 * 分页查询
 	 * @param pageNumber   页码
 	 * @param pageSize     每页显示条数
-	 * @return
+	 * @return   Map集合
 	 */
 	@RequiresPermissions({"questionlabel:query"})
 	@GetMapping(value="/questionLabel/page_json")

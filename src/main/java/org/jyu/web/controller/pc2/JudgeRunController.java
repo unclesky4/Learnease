@@ -39,8 +39,8 @@ public class JudgeRunController {
 	
 	/**
 	 * 在线编译页面
-	 * @param mv
-	 * @return
+	 * @param mv   ModelAndView
+	 * @return   ModelAndView
 	 */
 	@GetMapping(value="/execute_html")
 	public ModelAndView execute_html(ModelAndView mv) {
@@ -50,13 +50,11 @@ public class JudgeRunController {
 	
 	/**
 	 * 编译运行用户提交的程序
-	 * @param session
-	 * @param response
 	 * @param problemTopic - 问题的主题
 	 * @param languageDisplayName - 编程语言的名称  Java , GNU C++ (Unix / Windows) , GNU C (Unix / Windows) , Python , PHP 
 	 * @param inputParam - 程序输入(String-参数)
 	 * @param solutionContent - 程序代码
-         * return 传输JsonJudgeResult对象的JSON数据
+     * @return 传输JsonJudgeResult对象的JSON数据
 	 */
 	@RequiresRoles(value={"student","teacher"}, logical=Logical.OR)
 	@PostMapping(value="/judge/execute")
@@ -303,8 +301,8 @@ public class JudgeRunController {
 	
 	/**
 	 * 截取代码中的类名--针对java程序
-	 * @param data - 程序代码
-	 * @return
+	 * @param data    程序代码
+	 * @return     类名
 	 */
 	public String getClassName(String data) {
 		int start = data.indexOf("class")+5;
@@ -321,6 +319,11 @@ public class JudgeRunController {
 		}
 	}
 	
+	/**
+	 * Object转Json数据
+	 * @param object   Object对象
+	 * @return  Json格式数据
+	 */
 	public String getJson(Object object) {
 		JsonConfig jsonConfig = new JsonConfig();
 		JSONArray jsonArray = JSONArray.fromObject(object, jsonConfig);

@@ -31,7 +31,7 @@ public class PermissionController {
 	 * @param code   权限代码
 	 * @param isCatalog   类型 true:目录  false:权限
 	 * @param pid    父权限
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequiresPermissions({"permission:add"})
 	@RequestMapping(value="/permission/add", method=RequestMethod.POST)
@@ -44,8 +44,7 @@ public class PermissionController {
 	
 	/**
 	 * zTree插件获取所有权限数据
-	 * @param id  权限主键（null表示根节点）
-	 * @return
+	 * @return  List集合
 	 */
 	@RequiresPermissions({"permission:query"})
 	@RequestMapping(value="/permission/all", method=RequestMethod.GET)
@@ -56,7 +55,7 @@ public class PermissionController {
 	
 	/**
 	 * 获取已启用的权限
-	 * @return
+	 * @return  List集合
 	 */
 	@RequiresPermissions({"permission:query"})
 	@GetMapping(value="/permission/valid")
@@ -71,7 +70,7 @@ public class PermissionController {
 	 * @param code   权限代码
 	 * @param isCatalog   是否为目录
 	 * @param status   启用状态
-	 * @return Result
+	 * @return   Result对象
 	 */
 	@RequiresPermissions({"permission:update"})
 	@RequestMapping(value="/permission/update", method=RequestMethod.POST)
@@ -83,7 +82,7 @@ public class PermissionController {
 	 * 修改某个权限的父权限
 	 * @param id   权限主键
 	 * @param targetId   父权限主键
-	 * @return Result
+	 * @return    Result对象
 	 */
 	@RequiresPermissions({"permission:update"})
 	@PostMapping(value="/permission/updatePid")
@@ -93,8 +92,9 @@ public class PermissionController {
 	
 	/**
 	 * 批量更新启用状态
-	 * @param ids   权限主键（逗号分割）
-	 * @return Result
+	 * @param upIds  须启用的权限主键（逗号分割）
+	 * @param downIds   须禁用的权限主键（逗号分割）
+	 * @return   Result对象
 	 */
 	@RequiresPermissions({"permission:update"})
 	@RequestMapping(value="/permission/status/update", method=RequestMethod.POST)
@@ -105,7 +105,7 @@ public class PermissionController {
 	/**
 	 * 删除权限
 	 * @param id  主键
-	 * @return Result
+	 * @return   Result对象
 	 */
 	@RequiresPermissions({"permission:delete"})
 	@RequestMapping(value="/permission/del", method=RequestMethod.POST)
@@ -117,7 +117,7 @@ public class PermissionController {
 	
 	/**
 	 * 获取用于侧边栏的权限
-	 * @return
+	 * @return  Map集合
 	 */
 	@RequiresAuthentication
 	@GetMapping(value="/permission/sidebar")

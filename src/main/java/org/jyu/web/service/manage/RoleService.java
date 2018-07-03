@@ -13,7 +13,7 @@ public interface RoleService {
 	/**
 	 * 通过主键查询角色
 	 * @param id   角色主键
-	 * @return
+	 * @return   Role对象
 	 */
 	Role findById(String id);
 	
@@ -21,13 +21,13 @@ public interface RoleService {
 	 * 分页查询角色
 	 * @param pageNumber    页码
 	 * @param pageSize    显示条数
-	 * @return
+	 * @return  Map集合
 	 */
 	Map<String, Object> findAll(Integer pageNumber, Integer pageSize);
 	
 	/**
 	 * 查询所有角色
-	 * @return
+	 * @return  List集合
 	 */
 	List<RoleJson> list();
 	
@@ -36,7 +36,7 @@ public interface RoleService {
 	 * @param name   角色名
 	 * @param code   代码
 	 * @param description   描述
-	 * @return
+	 * @return  Result对象
 	 */
 	Result save(String name, String code, String description);
 	
@@ -47,35 +47,35 @@ public interface RoleService {
 	 * @param code   代码
 	 * @param description   描述
 	 * @param permissionIds  权限主键（逗号分割）
-	 * @return
+	 * @return   Result对象
 	 */
 	Result update(String id, String name, String code, String description, List<String> permissionIds);
 	
 	/**
 	 * 通过主键删除角色
 	 * @param id   角色主键
-	 * @return
+	 * @return   Result对象
 	 */
 	Result deleteById(String id);
 	
 	/**
 	 * 批量删除角色
 	 * @param ids   主键（逗号分割）
-	 * @return
+	 * @return   Result对象
 	 */
 	Result delete(List<String> ids);
 	
 	/**
 	 * 获取某个角色有效的权限
 	 * @param id   角色主键
-	 * @return
+	 * @return   List集合
 	 */
 	List<ZtreePermission> findRolePermissions(String id);
 	
 	/**
 	 * 通过角色代码查询
 	 * @param code   角色代码
-	 * @return
+	 * @return   Role对象
 	 */
 	Role findByCode(String code);
 }

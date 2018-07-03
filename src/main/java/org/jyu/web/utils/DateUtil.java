@@ -12,6 +12,9 @@ public class DateUtil {
     
 	/**
 	 * 将时间转换为2015-06-19 11:38:13格式
+	 * @param ft  DateUtile.YMDHMS
+	 * @param date  Date日期对象
+	 * @return   yyyy-MM-dd HH:mm:ss格式时间
 	 */
 	public static String DateToString(Format ft,Date date) {
 		if(date == null) return null;
@@ -20,14 +23,19 @@ public class DateUtil {
 	
 	/**
 	 * 将时间戳转换为2015-06-19 11:38:13格式
+	 * @param ft     DateUtile.YMDHMS
+	 * @param date    Date日期对象
+	 * @return    yyyy-MM-dd HH:mm:ss格式时间
 	 */
 	public static String DateToString(Format ft,long date) {
 		return ft.format(date);
 	}
-	
+
 	/**
-	 * 将long型或者2015-06-19 11:38:13格式字符串转换为时间
-	 * @return 失败返回null
+	 * 将2015-06-19 11:38:13格式字符串转换为时间
+	 * @param ft   DateUtile.YMDHMS
+	 * @param str    2015-06-19 11:38:13格式的字符串
+	 * @return   Date
 	 */
 	public static Date stringToDate(Format ft,String str) {
 		try {
@@ -43,6 +51,8 @@ public class DateUtil {
 	
 	/**
 	 * 将long型时间差转换为中文具体时间
+	 * @param diff     long型时间差
+	 * @return   String类型的时间
 	 */
 	public static String LongToDuration(long diff){
 		long days = diff / (1000 * 60 * 60 * 24);
@@ -54,6 +64,9 @@ public class DateUtil {
 	
 	/**
 	 * 时间前推或后推分钟,其中minute表示分钟.
+	 * @param startTime   yyyy-MM-dd HH:mm:ss格式时间
+	 * @param minute    时间前推或后推（分钟）
+	 * @return   yyyy-MM-dd HH:mm:ss格式时间
 	 */
 	public static String deadLine(String startTime, int minute) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -72,7 +85,7 @@ public class DateUtil {
 	 * 两个时间之间的天数
 	 * @param nowTime      yyyy-MM-dd HH:mm:ss
 	 * @param lastTime     yyyy-MM-dd HH:mm:ss
-	 * @return
+	 * @return    long类型的天数
 	 */
 	public static long getHours(String nowTime, String lastTime) {
 	    if (nowTime == null || nowTime.equals(""))
@@ -94,8 +107,8 @@ public class DateUtil {
 	
 	/**
 	 * 某个时间距离现在时间的秒数
-	 * @param time
-	 * @return
+	 * @param time     yyyy-MM-dd HH:mm:ss格式时间
+	 * @return   long类型的天数
 	 */
 	public static long getSeconds(String time) {
 		SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

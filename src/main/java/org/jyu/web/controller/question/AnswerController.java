@@ -18,7 +18,7 @@ public class AnswerController {
 	 * @param id    主键
 	 * @param answerContent    答案
 	 * @param analyse  分析
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequestMapping(value="/answer/update", method=RequestMethod.POST)
 	public Result update(String id, String answerContent, String analyse) {

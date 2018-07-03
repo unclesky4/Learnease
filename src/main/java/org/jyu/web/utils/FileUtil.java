@@ -22,7 +22,7 @@ public class FileUtil {
 	
 	/**
 	 * 创建目录
-	 * @param destDirName
+	 * @param destDirName   目录路径
 	 * @return 成功返回true，失败返回false
 	 */
 	public static boolean createDir(String destDirName) {  
@@ -86,8 +86,8 @@ public class FileUtil {
 	
 	/**
 	 * 递归删除目录下的所有文件及子目录下所有文件
-	 * @param directoryName
-	 * @return
+	 * @param dir   目录路径文件
+	 * @return  boolean
 	 */
 	public static boolean deleteDir(File dir) {
 		if(!dir.exists()) {
@@ -109,8 +109,8 @@ public class FileUtil {
 	
 	/**
 	 * 删除一个文件
-	 * @param file
-	 * @return
+	 * @param file   文件File
+	 * @return  boolean
 	 */
 	public static boolean deleteFile(File file) {
 		if(file.isFile()) {
@@ -121,9 +121,9 @@ public class FileUtil {
 	
 	/**
 	 * 写文件
-	 * @param file
-	 * @param data
-	 * @return
+	 * @param file   文件File
+	 * @param data   数据
+	 * @return  boolean
 	 */
 	public static boolean writeFile(File file, String data) {
 		FileWriter fileWriter = null;
@@ -145,8 +145,8 @@ public class FileUtil {
 	
 	/**
 	 * 读文件
-	 * @param file
-	 * @return
+	 * @param file  文件File
+	 * @return  String
 	 */
 	public static String readFile(File file) {
 		BufferedReader reader = null;
@@ -172,10 +172,6 @@ public class FileUtil {
 		return info.toString();
 	}
 	
-	/**
-	 * 测试
-	 * @param args
-	 */
 /*	public static void main(String[] args) {
 		boolean b = FIleUtil.deleteDir(new File("/home/uncle/workspace-neon/pc2/executesite1judge12b96063115ed4722a2bf753c6a6bdf0f"));
 		System.out.println(b);

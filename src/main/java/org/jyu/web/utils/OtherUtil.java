@@ -7,8 +7,8 @@ public class OtherUtil {
 
 	/**
 	 * 使用正则表达式删除HTML标签
-	 * @param htmlStr
-	 * @return
+	 * @param htmlStr   字符串
+	 * @return   删除HTML标签的字符串
 	 */
 	public static String delHTMLTag(String htmlStr){ 
         String regEx_script="<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式 

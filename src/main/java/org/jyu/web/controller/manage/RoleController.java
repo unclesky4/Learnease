@@ -26,7 +26,7 @@ public class RoleController {
 	 * @param name   角色名
 	 * @param code   角色代码
 	 * @param description 描述
-	 * @return  Result
+	 * @return  Result对象
 	 */
 	@RequiresPermissions({"role:add"})
 	@PostMapping(value="/role/add")
@@ -41,7 +41,7 @@ public class RoleController {
 	 * @param name  角色名
 	 * @param code   代码
 	 * @param description 描述
-	 * @return
+	 * @return   Result对象
 	 */
 	@RequiresPermissions({"role:update"})
 	@PostMapping(value="/role/update")
@@ -53,7 +53,7 @@ public class RoleController {
 	 * 更新角色权限
 	 * @param id     角色主键
 	 * @param permissionIds   权限主键（逗号分割）
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequiresPermissions({"role:update"})
 	@PostMapping(value="/role/update/permission")
@@ -73,7 +73,7 @@ public class RoleController {
 	/**
 	 * 删除角色
 	 * @param id   主键
-	 * @return
+	 * @return  Result对象
 	 */
 	@RequiresPermissions({"role:delete"})
 	@PostMapping(value="/role/delete")
@@ -85,7 +85,7 @@ public class RoleController {
 	 * 分页查询
 	 * @param pageNumber  页码
 	 * @param pageSize    显示条数
-	 * @return
+	 * @return  Map集合
 	 */
 	@RequiresPermissions({"role:query"})
 	@GetMapping(value="/role/page_json")
@@ -96,7 +96,7 @@ public class RoleController {
 	/**
 	 * 获取某个角色的所有权限
 	 * @param id   角色主键
-	 * @return
+	 * @return  List集合
 	 */
 	@RequiresPermissions({"role:query"})
 	@GetMapping(value="/role/permissions")
@@ -106,7 +106,7 @@ public class RoleController {
 	
 	/**
 	 * 获取所有角色信息
-	 * @return
+	 * @return    List集合
 	 */
 	@RequiresPermissions({"role:query"})
 	@GetMapping(value="/role/all")

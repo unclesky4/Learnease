@@ -22,11 +22,11 @@ public interface QuestionMultipleService {
 	
 	/**
 	 * 分页查询某个用户提交的多选题
-	 * @param pageNumber
-	 * @param pageSize
-	 * @param sortOrder
-	 * @param userId
-	 * @return
+	 * @param pageNumber   页码
+	 * @param pageSize     分页大小
+	 * @param sortOrder    排序
+	 * @param userId       用户主键
+	 * @return   Map集合
 	 */
 	Map<String, Object> getPageByUser(int pageNumber, int pageSize, String sortOrder, String userId);
 
